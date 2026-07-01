@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -i \"tailwind\" \"/Users/yoyo/Library/Application Support/Code/logs/20260701T082519/window1/exthost/exthost.log\" | tail -50)",
+      "Read(//Users/yoyo/Library/Application Support/Code/logs/20260701T082519/window1/exthost/**)"
+    ],
+    "additionalDirectories": [
+      "/Users/yoyo/Library/Application Support/Code/Workspaces/1782893641933"
+    ]
+  }
+}

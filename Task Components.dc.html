@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="./task-components.css">
+</helmet>
+
+<div class="page">
+
+  <!-- App bar -->
+  <div class="app-bar">
+    <div class="app-bar__logo">PM<span class="app-bar__logo-accent">ZONE</span></div>
+    <div class="app-bar__controls">
+      <div class="control-btn control-btn--ghost">■</div>
+      <div class="control-btn control-btn--play">▶</div>
+      <div class="app-bar__timer">01:23:22</div>
+    </div>
+    <div class="app-bar__user">
+      <span class="app-bar__user-name">Maya Avarhrm</span>
+      <span class="avatar">MA</span>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- Project header -->
+    <div class="project-header">
+      <div class="project-header__text">
+        <h1 class="project-header__title">Web Development Project</h1>
+        <p class="project-header__desc">Complete the project with a budget under $12,000 and before step 40 on the board.</p>
+      </div>
+      <button class="btn-execute">Execute Task</button>
+      <div class="stats">
+        <div>
+          <div class="stats__label">Budget</div>
+          <div class="stats__value">$3400</div>
+        </div>
+        <div>
+          <div class="stats__label">Value</div>
+          <div class="stats__value">0<span class="stats__value-icon">◆</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TaskGrid -->
+    <section class="section section--first">
+      <div class="section__eyebrow">Component</div>
+      <h2 class="section__title">TaskGrid</h2>
+      <p class="section__desc">A responsive 4-column grid of task cards.</p>
+      <dc-import name="TaskGrid" hint-size="100%,640px"></dc-import>
+    </section>
+
+  </div>
+</div>
+</x-dc>
+</body>
+</html>
