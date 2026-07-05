@@ -1,5 +1,5 @@
 import { TaskGrid } from "../task/TaskGrid";
-import { Task } from "@/types";
+import { useTask } from "@/store/UseTasks";
 import { ProjectInfo } from "./ProjectInfo";
 
 function ProjectTitle({
@@ -17,32 +17,32 @@ function ProjectTitle({
   );
 }
 
-export function TaskBoard({
-  tasks,
-  budget,
-  value,
-}: {
-  tasks: Task[];
-  budget: number;
-  value: number;
-}) {
-  const ButtonText = "Execute Task";
+function ExecuteButton() {
+  const isSelected = useTask((state) => state.selectedTaskId !== "");
+  const BgColor = isSelected ? "bg-emerald-800" : "bg-[#79a6a4]";
+  return (
+    <button className={`h-16 w-52 rounded-md ${BgColor} px-5 text-white`}>
+      Execute Task
+    </button>
+  );
+}
+
+export function TaskBoard() {
   const projectTitle = "Web Development Project";
   const projectDescription =
     "Complete the project with a budget under $12,000 and before step 40 on the board.";
+  const { budget, value } = useTask();
   return (
-    <div className="bg-sky-50 p-5">
+    <div className="bg-[#f5f5f5] p-5">
       <div className="flex flex-row items-center justify-around p-5">
         <ProjectTitle
           title={projectTitle}
           description={projectDescription}
         ></ProjectTitle>
-        <button className="h-16 w-52 rounded-md bg-teal-800 px-5 text-white">
-          {ButtonText}
-        </button>
+        <ExecuteButton />
         <ProjectInfo budget={budget} value={value}></ProjectInfo>
       </div>
-      <TaskGrid tasks={tasks} />
+      <TaskGrid />
     </div>
   );
 }

@@ -2,8 +2,9 @@ import { Task } from "@/types";
 import { TaskCard } from "./TaskCard";
 import { useTask } from "@/store/UseTasks";
 
-export function TaskGrid({ tasks }: { tasks: Task[] }) {
+export function TaskGrid() {
   const selectedTaskId = useTask((state) => state.selectedTaskId);
+  const tasks = useTask((state) => state.tasks);
   const setSelectedTaskId = useTask((state) => state.setSelectedTaskId);
   return (
     <ul className="grid grid-cols-1 border-l border-t border-gray-300 bg-white sm:grid-cols-2 lg:grid-cols-4">

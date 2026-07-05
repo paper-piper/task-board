@@ -5,4 +5,5 @@ export type Task = {
   cost: number;
   value: number;
   steps: number;
+  predecessorId?: string[];
 };

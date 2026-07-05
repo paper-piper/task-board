@@ -19,7 +19,7 @@ function UnselectedIcon() {
 function SelectedIcon() {
   return (
     <span className="flex h-5 w-5 items-center justify-center rounded-full border border-gray-800">
-      <span className="block h-4 w-4 rounded-full bg-gray-800" />
+      <span className="block h-3.5 w-3.5 rounded-full bg-gray-800" />
     </span>
   );
 }
