@@ -4,14 +4,19 @@ import { DiamondIcon } from "../ui/DiamondIcon";
 function Content({
   title,
   value,
+  icon,
 }: {
-  title: string | number;
+  title: string;
   value: string | number;
+  icon?: React.ReactElement<React.SVGProps<SVGSVGElement>>;
 }) {
   return (
     <div className="mx-5 flex flex-col">
       <span className="text-sm font-light text-gray-500">{title}</span>
-      <span className="text-lg font-medium">{value}</span>
+      <span className="text-lg font-medium">
+        {value}
+        {icon}
+      </span>
     </div>
   );
 }
@@ -40,8 +45,7 @@ export function TaskCard({ task }: { task: Task }) {
         <Content title="Cost" value={`$${task.cost}`} />
       </CardSection>
       <CardSection>
-        <Content title="Value" value={task.value} />
-        <DiamondIcon />
+        <Content title="Value" value={task.value} icon={<DiamondIcon />} />
         <Content title="Steps" value={task.steps} />
       </CardSection>
     </div>

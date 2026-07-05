@@ -1,10 +1,22 @@
 import network_diagram from "@/assets/landscape_network_diagram.png";
+import { DiamondIcon } from "../ui/DiamondIcon";
 
-function ContentDetails({ title, value }: { title: string; value: number }) {
+function ContentDetails({
+  title,
+  value,
+  icon,
+}: {
+  title: string;
+  value: string;
+  icon?: React.ReactElement<React.SVGProps<SVGSVGElement>>;
+}) {
   return (
     <div className="mx-5 flex flex-col">
-      <span className="text-sm font-light text-gray-500">{title}</span>
-      <span className="big-value | text-lg font-medium">{value}</span>
+      <span className="text-sm font-normal text-gray-500">{title}</span>
+      <span className="big-value | flex items-center gap-1 text-lg font-bold">
+        {value}
+        {icon}
+      </span>
     </div>
   );
 }
@@ -17,11 +29,15 @@ export function ProjectInfo({
   value: number;
 }) {
   return (
-    <div className="ml-5 flex h-44 w-96 items-center bg-white">
-      <ContentDetails title="Budget" value={budget}></ContentDetails>
-      <ContentDetails title="Value" value={value}></ContentDetails>
+    <div className="ml-5 flex items-center bg-white">
+      <ContentDetails title="Budget" value={`$${budget}`}></ContentDetails>
+      <ContentDetails
+        title="Value"
+        value={value.toString()}
+        icon={<DiamondIcon />}
+      ></ContentDetails>
       <img
-        className="w-20"
+        className="m-5 h-40 object-cover"
         src={network_diagram}
         alt="Project network diagram"
       />
