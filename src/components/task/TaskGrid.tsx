@@ -1,7 +1,10 @@
 import { Task } from "@/types";
 import { TaskCard } from "./TaskCard";
+import { useTask } from "@/store/UseTasks";
 
 export function TaskGrid({ tasks }: { tasks: Task[] }) {
+  const selectedTaskId = useTask((state) => state.selectedTaskId);
+  const setSelectedTaskId = useTask((state) => state.setSelectedTaskId);
   return (
     <ul className="grid grid-cols-1 border-l border-t border-gray-300 bg-white sm:grid-cols-2 lg:grid-cols-4">
       {tasks.map((task, index) => (
@@ -9,8 +12,12 @@ export function TaskGrid({ tasks }: { tasks: Task[] }) {
           <span className="font-medium text-gray-400">
             {index < 10 ? `0${index}` : index}
           </span>
-          <div className="pb-8 pt-5">
-            <TaskCard task={task} />
+          <div className="pb-6 pt-5">
+            <TaskCard
+              task={task}
+              isSelected={task.id === selectedTaskId}
+              onPress={() => setSelectedTaskId(task.id)}
+            />
           </div>
         </li>
       ))}

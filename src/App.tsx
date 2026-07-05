@@ -55,10 +55,10 @@ const sampleTasks: Task[] = [
 
 function App() {
   return (
-    <>
+    <div className="h-screen">
       <Header></Header>
       <TaskBoard tasks={sampleTasks} budget={300} value={0}></TaskBoard>
-    </>
+    </div>
   );
 }
 

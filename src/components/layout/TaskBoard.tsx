@@ -31,7 +31,7 @@ export function TaskBoard({
   const projectDescription =
     "Complete the project with a budget under $12,000 and before step 40 on the board.";
   return (
-    <div className="bg-gray-100 p-5">
+    <div className="bg-sky-50 p-5">
       <div className="flex flex-row items-center justify-around p-5">
         <ProjectTitle
           title={projectTitle}

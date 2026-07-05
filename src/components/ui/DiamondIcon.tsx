@@ -1,5 +1,5 @@
 export function DiamondIcon({
-  size = 26,
+  size = 28,
   className,
 }: {
   size?: number;
@@ -26,32 +26,32 @@ export function DiamondIcon({
       >
         <path
           d="M13.7751 5H10.0401H9.91966H6.18472L3.33331 8.53414L9.99998 15.7631L16.6666 8.53414L13.7751 5Z"
-          stroke="#2B2B32"
+          stroke="currentColor"
           stroke-miterlimit="10"
         />
         <path
           d="M6.18475 5L10 15.6827"
-          stroke="#2B2B32"
+          stroke="currentColor"
           stroke-miterlimit="10"
         />
         <path
           d="M13.7751 5L10.1205 15.4819"
-          stroke="#2B2B32"
+          stroke="currentColor"
           stroke-miterlimit="10"
         />
         <path
           d="M3.37347 8.49396H16.5863"
-          stroke="#2B2B32"
+          stroke="currentColor"
           stroke-miterlimit="10"
         />
         <path
           d="M10 5.04016L12.49 8.37349"
-          stroke="#2B2B32"
+          stroke="currentColor"
           stroke-miterlimit="10"
         />
         <path
           d="M9.91965 5.12048L7.55017 8.33333"
-          stroke="#2B2B32"
+          stroke="currentColor"
           stroke-miterlimit="10"
         />
       </svg>

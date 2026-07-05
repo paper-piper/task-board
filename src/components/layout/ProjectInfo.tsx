@@ -12,8 +12,8 @@ function ContentDetails({
 }) {
   return (
     <div className="mx-5 flex flex-col">
-      <span className="text-sm font-normal text-gray-500">{title}</span>
-      <span className="big-value | flex items-center gap-1 text-lg font-bold">
+      <span className="text-md | font-normal text-gray-500">{title}</span>
+      <span className="flex items-center gap-1 text-xl font-bold">
         {value}
         {icon}
       </span>
@@ -37,7 +37,7 @@ export function ProjectInfo({
         icon={<DiamondIcon />}
       ></ContentDetails>
       <img
-        className="m-5 h-40 object-cover"
+        className="m-2 h-40 object-cover"
         src={network_diagram}
         alt="Project network diagram"
       />
