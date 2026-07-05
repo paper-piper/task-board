@@ -1,17 +1,19 @@
 import { Task } from "@/types";
 import { TaskCard } from "./TaskCard";
 
-export function TaskGrid({tasks}: {tasks: Task[]}) {
-    return (
-        <ul className="bg-white grid grid-cols-[repeat(auto-fill,minmax(360px,1fr))] border-l border-t border-gray-300">
-            {tasks.map((task, index) => (
-                <li key={task.id} className="p-5 border-r border-b border-gray-300">
-                    <span className="text-gray-400 font-medium">{index < 10 ? `0${index}` : index}</span>
-                    <div className="pb-8 pt-5">
-                        <TaskCard task={task} />
-                    </div>
-                </li>
-            ))}
-        </ul>
-    )
+export function TaskGrid({ tasks }: { tasks: Task[] }) {
+  return (
+    <ul className="grid grid-cols-1 border-l border-t border-gray-300 bg-white sm:grid-cols-2 lg:grid-cols-4">
+      {tasks.map((task, index) => (
+        <li key={task.id} className="border-b border-r border-gray-300 p-5">
+          <span className="font-medium text-gray-400">
+            {index < 10 ? `0${index}` : index}
+          </span>
+          <div className="pb-8 pt-5">
+            <TaskCard task={task} />
+          </div>
+        </li>
+      ))}
+    </ul>
+  );
 }

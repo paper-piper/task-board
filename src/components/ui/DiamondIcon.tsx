@@ -1,21 +1,60 @@
-export function DiamondIcon({ size = 26, className }: { size?: number; className?: string }) {
-    return (
-        <svg
-            className={className}
-            viewBox="0 0 24 24"
-            width={size}
-            height={size}
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.6"
-            strokeLinejoin="round"
-            strokeLinecap="round"
-        >
-            <path d="M6 4H18L22 9L12 21L2 9L6 4Z" />
-            <path d="M2 9H22" />
-            <path d="M6 4L9 9L12 21" />
-            <path d="M18 4L15 9L12 21" />
-            <path d="M9 9L12 4L15 9" />
-        </svg>
-    );
+export function DiamondIcon({
+  size = 26,
+  className,
+}: {
+  size?: number;
+  className?: string;
+}) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1"
+      strokeLinejoin="round"
+      strokeLinecap="round"
+    >
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M13.7751 5H10.0401H9.91966H6.18472L3.33331 8.53414L9.99998 15.7631L16.6666 8.53414L13.7751 5Z"
+          stroke="#2B2B32"
+          stroke-miterlimit="10"
+        />
+        <path
+          d="M6.18475 5L10 15.6827"
+          stroke="#2B2B32"
+          stroke-miterlimit="10"
+        />
+        <path
+          d="M13.7751 5L10.1205 15.4819"
+          stroke="#2B2B32"
+          stroke-miterlimit="10"
+        />
+        <path
+          d="M3.37347 8.49396H16.5863"
+          stroke="#2B2B32"
+          stroke-miterlimit="10"
+        />
+        <path
+          d="M10 5.04016L12.49 8.37349"
+          stroke="#2B2B32"
+          stroke-miterlimit="10"
+        />
+        <path
+          d="M9.91965 5.12048L7.55017 8.33333"
+          stroke="#2B2B32"
+          stroke-miterlimit="10"
+        />
+      </svg>
+    </svg>
+  );
 }
