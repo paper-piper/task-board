@@ -62,6 +62,7 @@ type Board = {
   budget: number;
   value: number;
   error: string;
+  ResetError: () => void;
   execute: () => void;
 };
 
@@ -75,6 +76,7 @@ export const useBoardStore = create<Board>()((set, get) => ({
   value: 0,
   error: ErrorStatuses.NoError,
 
+  ResetError: () => set({ error: ErrorStatuses.NoError }),
   execute: () => {
     console.log("Executed!");
     const { tasks, budget, selectedTaskId } = get();
@@ -84,8 +86,8 @@ export const useBoardStore = create<Board>()((set, get) => ({
     }
 
     if (!ValidateExecution(task, budget, tasks)) {
-      /* TODO: raise error modal*/
-      console.log("faild...");
+      set({ error: ErrorStatuses.ExecutionError });
+      console.log("Invalid execution!");
       return;
     }
     console.log("Horray!");
