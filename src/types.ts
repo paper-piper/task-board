@@ -5,5 +5,20 @@ export type Task = {
   cost: number;
   value: number;
   steps: number;
-  predecessorId?: string[];
+  predecessors_ids?: string[];
+  completed?: boolean;
+};
+
+export type SelectionStatus = "unselected" | "selected" | "completed";
+export const SelectionStatuses = {
+  Unselected: "unselected",
+  Selected: "selected",
+  Completed: "completed",
+} as const;
+
+export type ErrorStatus = "no error" | "order error" | "execution error";
+export const ErrorStatuses = {
+  NoError: "no error",
+  OrderError: "order error",
+  ExecutionError: "execution error",
 };

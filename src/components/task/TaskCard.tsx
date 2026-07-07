@@ -1,7 +1,9 @@
-import type { ReactNode } from "react";
-import { Task } from "@/types";
-import { DiamondIcon } from "../ui/DiamondIcon";
+import { useEffect, type ReactNode } from "react";
+import { Task, SelectionStatus, SelectionStatuses } from "@/types";
+import { DiamondIcon } from "../ui/Icons";
 import { CardSelector } from "./TaskCardSelector";
+import { useBoardStore } from "@/store/UseBoardStore";
+import { getPredecessorsLabel } from "@/lib/predecessors";
 
 function Content({
   title,
@@ -30,12 +32,12 @@ function CardSection({ children }: { children: ReactNode }) {
 function CardHeader({
   code,
   title,
-  isSelected,
+  status,
   onPress,
 }: {
   code: string;
   title: string;
-  isSelected: boolean;
+  status: SelectionStatus;
   onPress: () => void;
 }) {
   return (
@@ -44,7 +46,7 @@ function CardHeader({
         {code}
       </span>
       <span className="ml-2 flex items-center font-medium">{title}</span>
-      <CardSelector isSelected={isSelected} onPress={onPress} />
+      <CardSelector status={status} onPress={onPress} />
     </div>
   );
 }
@@ -58,12 +60,26 @@ export function TaskCard({
   isSelected: boolean;
   onPress: () => void;
 }) {
+  useEffect(() => {
+    if (task.completed) {
+    }
+    /* completed animation*/
+  }, [task.completed]);
+
+  const tasks = useBoardStore((state) => state.tasks);
+
+  const status: SelectionStatus = task.completed
+    ? SelectionStatuses.Completed
+    : isSelected
+      ? SelectionStatuses.Selected
+      : SelectionStatuses.Unselected;
+
   return (
     <div className="aspect-[5/3] max-w-96 rounded-lg border border-gray-300 pb-5 shadow-[0_0_7px_rgba(10,10,10,0.3)]">
       <CardHeader
         code={task.code}
         title={task.title}
-        isSelected={isSelected}
+        status={status}
         onPress={onPress}
       />
       <CardSection>
@@ -73,6 +89,9 @@ export function TaskCard({
         <Content title="Value" value={task.value} icon={<DiamondIcon />} />
         <Content title="Steps" value={task.steps} />
       </CardSection>
+      <div className="ml-5 font-light">
+        {getPredecessorsLabel(task.predecessors_ids, tasks)}
+      </div>
     </div>
   );
 }

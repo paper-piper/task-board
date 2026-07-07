@@ -1,6 +1,6 @@
 import { create } from "zustand";
-import { Task } from "@/types";
-
+import { Task, ErrorStatus, ErrorStatuses } from "@/types";
+import { ValidateExecution } from "@/lib/validation";
 export const sampleTasks: Task[] = [
   {
     code: "T1",
@@ -25,7 +25,7 @@ export const sampleTasks: Task[] = [
     cost: 400,
     value: 1200,
     steps: 5,
-    predecessorId: ["1241341"],
+    predecessors_ids: ["1241341"],
   },
   {
     code: "T4",
@@ -34,7 +34,7 @@ export const sampleTasks: Task[] = [
     cost: 600,
     value: 2000,
     steps: 8,
-    predecessorId: ["1241340"],
+    predecessors_ids: ["1241340"],
   },
   {
     code: "T5",
@@ -51,27 +51,50 @@ export const sampleTasks: Task[] = [
     cost: 250,
     value: 500,
     steps: 4,
-    predecessorId: ["1241342"],
+    predecessors_ids: ["1241342"],
   },
 ];
 
-type TaskState = {
+type Board = {
   selectedTaskId: string;
   setSelectedTaskId: (id: string) => void;
   tasks: Task[];
   budget: number;
   value: number;
-  error: string | null;
-  executingTaskId: string | null;
+  error: string;
+  execute: () => void;
 };
 
-export const useTask = create<TaskState>()((set) => ({
+export const useBoardStore = create<Board>()((set, get) => ({
   selectedTaskId: "",
   setSelectedTaskId: (id: string) =>
     set((state) => ({ selectedTaskId: id === state.selectedTaskId ? "" : id })),
+
   tasks: sampleTasks,
-  budget: 300,
+  budget: 12000,
   value: 0,
-  error: null,
-  executingTaskId: null,
+  error: ErrorStatuses.NoError,
+
+  execute: () => {
+    console.log("Executed!");
+    const { tasks, budget, selectedTaskId } = get();
+    const task = tasks.find((t) => t.id === selectedTaskId);
+    if (!task) {
+      return;
+    }
+
+    if (!ValidateExecution(task, budget, tasks)) {
+      /* TODO: raise error modal*/
+      console.log("faild...");
+      return;
+    }
+    console.log("Horray!");
+    set((state) => ({
+      tasks: tasks.map((t) =>
+        t.id === task.id ? { ...t, completed: true } : t,
+      ),
+      budget: state.budget - task.cost,
+      value: state.value + task.value,
+    }));
+  },
 }));
