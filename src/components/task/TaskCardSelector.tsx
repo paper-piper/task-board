@@ -1,4 +1,4 @@
-import { completedIcon } from "../ui/Icons";
+import { completedIcon } from "../../assets/Icons";
 import { SelectionStatus, SelectionStatuses } from "@/types";
 
 export function CardSelector({

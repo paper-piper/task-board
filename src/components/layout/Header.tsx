@@ -1,4 +1,4 @@
-import { ArrowIcon } from "@/components/ui/Icons";
+import { ArrowIcon } from "@/assets/Icons";
 
 export function Header() {
   return (

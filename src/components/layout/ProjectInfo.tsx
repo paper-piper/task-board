@@ -1,5 +1,5 @@
 import network_diagram from "@/assets/landscape_network_diagram.png";
-import { DiamondIcon } from "../ui/Icons";
+import { DiamondIcon } from "../../assets/Icons";
 
 function ContentDetails({
   title,

@@ -1,6 +1,6 @@
 import { useEffect, type ReactNode } from "react";
 import { Task, SelectionStatus, SelectionStatuses } from "@/types";
-import { DiamondIcon } from "../ui/Icons";
+import { DiamondIcon } from "../../assets/Icons";
 import { CardSelector } from "./TaskCardSelector";
 import { useBoardStore } from "@/store/UseBoardStore";
 import { getPredecessorsLabel } from "@/lib/predecessors";
