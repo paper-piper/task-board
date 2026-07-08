@@ -1,4 +1,5 @@
-import { ArrowIcon } from "@/assets/Icons";
+import { useEffect, useState } from "react";
+import { ArrowIcon } from "@/components/ui/Icons";
 
 export function Header() {
   return (
@@ -10,10 +11,17 @@ export function Header() {
 }
 
 function LeftSection() {
+  const [time, setTime] = useState(() => new Date());
+
+  useEffect(() => {
+    const interval = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
       <span className="text-2xl font-bold">PMZone</span>
-      <span className="ml-5">01:23:22</span>
+      <span className="ml-5">{time.toLocaleTimeString("en-GB")}</span>
     </>
   );
 }

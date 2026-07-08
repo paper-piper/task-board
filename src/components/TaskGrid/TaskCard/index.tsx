@@ -1,8 +1,8 @@
-import { useEffect, type ReactNode } from "react";
+import { type ReactNode, type ReactElement, type SVGProps } from "react";
 import { Task, SelectionStatus, SelectionStatuses } from "@/types";
-import { DiamondIcon } from "../../assets/Icons";
-import { CardSelector } from "./TaskCardSelector";
-import { useBoardStore } from "@/store/UseBoardStore";
+import { DiamondIcon } from "../../ui/Icons";
+import { CardSelector } from "./CardSelector";
+import { useBoardStore } from "@/store/boardStore";
 import { getPredecessorsLabel } from "@/lib/predecessors";
 import { useDraggable } from "@dnd-kit/core";
 
@@ -13,7 +13,7 @@ function Content({
 }: {
   title: string;
   value: string | number;
-  icon?: React.ReactElement<React.SVGProps<SVGSVGElement>>;
+  icon?: ReactElement<SVGProps<SVGSVGElement>>;
 }) {
   return (
     <div className="mx-5 flex flex-col">
@@ -61,12 +61,6 @@ export function TaskCard({
   isSelected: boolean;
   onPress: () => void;
 }) {
-  useEffect(() => {
-    if (task.completed) {
-    }
-    /* completed animation*/
-  }, [task.completed]);
-
   const tasks = useBoardStore((state) => state.tasks);
 
   const status: SelectionStatus = task.completed

@@ -1,29 +1,15 @@
 import { Task } from "@/types";
 import { TaskCard } from "./TaskCard";
-import { useBoardStore } from "@/store/UseBoardStore";
-import { DndContext, DragEndEvent, useDroppable } from "@dnd-kit/core";
-import { ValidateOrder } from "@/lib/validation";
-
-function HandleDragEnd(event: DragEndEvent) {
-  const { active, over } = event;
-
-  if (!over) return;
-
-  const taskId = active.id as string;
-  const newPos = over.id as number;
-  const tasks = useBoardStore.getState().tasks;
-
-  if (!ValidateOrder(active.id as string, tasks)) {
-    useBoardStore.getState().RaiseOrderError();
-  }
-
-  useBoardStore.getState().ReorderTasks(taskId, newPos);
-}
+import { useBoardStore } from "@/store/boardStore";
+import { DndContext, useDroppable } from "@dnd-kit/core";
+import { useTaskDragAndDrop } from "@/hooks/useTaskDragAndDrop";
+import { useIsTaskSelected } from "@/hooks/useBoard";
 
 export function TaskGrid() {
   const tasks = useBoardStore((state) => state.tasks);
+  const { handleDragEnd } = useTaskDragAndDrop();
   return (
-    <DndContext onDragEnd={HandleDragEnd}>
+    <DndContext onDragEnd={handleDragEnd}>
       <ul className="grid grid-cols-1 border-l border-t border-gray-300 bg-white sm:grid-cols-2 lg:grid-cols-4">
         {tasks.map((task, index) => (
           <CardCell key={task.id} task={task} index={index + 1} />
@@ -34,7 +20,7 @@ export function TaskGrid() {
 }
 
 function CardCell({ task, index }: { task: Task; index: number }) {
-  const isSelected = useBoardStore((state) => state.selectedTaskId === task.id);
+  const isSelected = useIsTaskSelected(task.id);
   const setSelectedTaskId = useBoardStore((state) => state.setSelectedTaskId);
   const { setNodeRef, isOver } = useDroppable({
     id: index - 1,
@@ -46,7 +32,9 @@ function CardCell({ task, index }: { task: Task; index: number }) {
         isOver ? "bg-teal-100" : ""
       }`}
     >
-      {task.completed && <div className="absolute inset-0 bg-white/70" />}
+      {task.completed && (
+        <div className="pointer-events-none absolute inset-0 bg-white/70" />
+      )}
       <span className="font-medium text-gray-400">
         {index < 10 ? `0${index}` : index}
       </span>

@@ -1,6 +1,7 @@
-import { TaskGrid } from "../task/TaskGrid";
-import { useBoardStore } from "@/store/UseBoardStore";
-import { ProjectInfo } from "./ProjectInfo";
+import { TaskGrid } from "../../TaskGrid";
+import { useBoardStore } from "@/store/boardStore";
+import { ProjectDetails } from "./ProjectDetails";
+import { motion } from "framer-motion";
 
 function ProjectTitle({
   title,
@@ -22,13 +23,15 @@ function ExecuteButton() {
   const executeFn = useBoardStore((state) => state.execute);
   const BgColor = isSelected ? "bg-emerald-800" : "bg-[#79a6a4]";
   return (
-    <button
+    <motion.button
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
       className={`h-16 w-52 rounded-md ${BgColor} px-5 text-white`}
       onClick={executeFn}
       disabled={!isSelected}
     >
       Execute Task
-    </button>
+    </motion.button>
   );
 }
 
@@ -45,7 +48,7 @@ export function TaskBoard() {
           description={projectDescription}
         ></ProjectTitle>
         <ExecuteButton />
-        <ProjectInfo budget={budget} value={value}></ProjectInfo>
+        <ProjectDetails budget={budget} value={value}></ProjectDetails>
       </div>
       <TaskGrid />
     </div>

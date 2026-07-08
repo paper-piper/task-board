@@ -15,6 +15,6 @@ export function ValidateExecution(task: Task, budget: number, tasks: Task[]) {
   return true;
 }
 
-export function ValidateOrder(task: Task, tasks: Task[]): boolean {
+export function ValidateOrder(task: string, tasks: Task[]): boolean {
   return true;
 }
