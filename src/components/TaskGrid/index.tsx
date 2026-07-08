@@ -4,6 +4,7 @@ import { useBoardStore } from "@/store/boardStore";
 import { DndContext, useDroppable } from "@dnd-kit/core";
 import { useTaskDragAndDrop } from "@/hooks/useTaskDragAndDrop";
 import { useIsTaskSelected } from "@/hooks/useBoard";
+import { getPredecessorsLabel } from "@/lib/predecessors";
 
 export function TaskGrid() {
   const tasks = useBoardStore((state) => state.tasks);
@@ -12,14 +13,29 @@ export function TaskGrid() {
     <DndContext onDragEnd={handleDragEnd}>
       <ul className="grid grid-cols-1 border-l border-t border-gray-300 bg-white sm:grid-cols-2 lg:grid-cols-4">
         {tasks.map((task, index) => (
-          <CardCell key={task.id} task={task} index={index + 1} />
+          <CardCell
+            key={task.id}
+            task={task}
+            index={index + 1}
+            predecessorsLabel={
+              getPredecessorsLabel(task.predecessors_ids, tasks) || ""
+            }
+          />
         ))}
       </ul>
     </DndContext>
   );
 }
 
-function CardCell({ task, index }: { task: Task; index: number }) {
+function CardCell({
+  task,
+  predecessorsLabel,
+  index,
+}: {
+  task: Task;
+  predecessorsLabel: string;
+  index: number;
+}) {
   const isSelected = useIsTaskSelected(task.id);
   const setSelectedTaskId = useBoardStore((state) => state.setSelectedTaskId);
   const { setNodeRef, isOver } = useDroppable({
@@ -41,6 +57,7 @@ function CardCell({ task, index }: { task: Task; index: number }) {
       <div className="pb-6 pt-5">
         <TaskCard
           task={task}
+          predecessorsLabel={predecessorsLabel}
           isSelected={isSelected}
           onPress={() => setSelectedTaskId(task.id)}
         />

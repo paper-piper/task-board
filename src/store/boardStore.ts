@@ -20,7 +20,7 @@ type Board = {
 export const useBoardStore = create<Board>()((set, get) => ({
   selectedTaskId: "",
   setSelectedTaskId: (id: string) =>
-    set((state) => ({selectedTaskId: id === state.selectedTaskId ? "" : id })),
+    set((state) => ({ selectedTaskId: id === state.selectedTaskId ? "" : id })),
 
   tasks: sampleTasks,
   budget: 12000,
@@ -43,10 +43,8 @@ export const useBoardStore = create<Board>()((set, get) => ({
 
     if (!ValidateExecution(task, budget, tasks)) {
       set({ error: ErrorStatuses.ExecutionError });
-      console.log("Invalid execution!");
       return;
     }
-    console.log("Horray!");
     set((state) => ({
       tasks: tasks.map((t) =>
         t.id === task.id ? { ...t, completed: true } : t,

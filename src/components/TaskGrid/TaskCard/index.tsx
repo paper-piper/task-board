@@ -1,10 +1,15 @@
-import { type ReactNode, type ReactElement, type SVGProps } from "react";
+import {
+  type ReactNode,
+  type ReactElement,
+  type SVGProps,
+  useRef,
+  useEffect,
+} from "react";
 import { Task, SelectionStatus, SelectionStatuses } from "@/types";
 import { DiamondIcon } from "../../ui/Icons";
 import { CardSelector } from "./CardSelector";
-import { useBoardStore } from "@/store/boardStore";
-import { getPredecessorsLabel } from "@/lib/predecessors";
 import { useDraggable } from "@dnd-kit/core";
+import { CardHeader } from "./CardHeader";
 
 function Content({
   title,
@@ -30,44 +35,36 @@ function CardSection({ children }: { children: ReactNode }) {
   return <div className="flex border-t border-t-gray-400 py-1">{children}</div>;
 }
 
-function CardHeader({
-  code,
-  title,
-  status,
-  onPress,
-}: {
-  code: string;
-  title: string;
-  status: SelectionStatus;
-  onPress: () => void;
-}) {
-  return (
-    <div className="mb-8 flex items-start">
-      <span className="ml-1 mt-1 flex aspect-square w-8 items-center justify-center rounded-md border border-gray-300 font-medium text-teal-800">
-        {code}
-      </span>
-      <span className="ml-2 flex items-center font-medium">{title}</span>
-      <CardSelector status={status} onPress={onPress} />
-    </div>
-  );
+function MapStatus(isCompleted: boolean, isSelected: boolean): SelectionStatus {
+  if (isCompleted) {
+    return SelectionStatuses.Completed;
+  }
+  if (isSelected) {
+    return SelectionStatuses.Selected;
+  }
+  return SelectionStatuses.Unselected;
 }
-
 export function TaskCard({
   task,
+  predecessorsLabel,
   isSelected,
   onPress,
 }: {
   task: Task;
+  predecessorsLabel: string;
   isSelected: boolean;
   onPress: () => void;
 }) {
-  const tasks = useBoardStore((state) => state.tasks);
+  const status = MapStatus(task.completed || false, isSelected);
 
-  const status: SelectionStatus = task.completed
-    ? SelectionStatuses.Completed
-    : isSelected
-      ? SelectionStatuses.Selected
-      : SelectionStatuses.Unselected;
+  const prevCompleted = useRef(task.completed);
+  useEffect(() => {
+    if (task.completed && !prevCompleted.current) {
+      // play the transition — set local animating state, or let CSS handle it
+    }
+    prevCompleted.current = task.completed;
+  }, [task.completed]);
+
   const { attributes, listeners, setNodeRef, transform, isDragging } =
     useDraggable({
       id: task.id,
@@ -102,9 +99,7 @@ export function TaskCard({
         <Content title="Value" value={task.value} icon={<DiamondIcon />} />
         <Content title="Steps" value={task.steps} />
       </CardSection>
-      <div className="ml-5 font-light">
-        {getPredecessorsLabel(task.predecessors_ids, tasks)}
-      </div>
+      <div className="ml-5 font-light">{predecessorsLabel}</div>
     </div>
   );
 }
