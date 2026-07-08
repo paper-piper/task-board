@@ -4,6 +4,7 @@ import { DiamondIcon } from "../ui/Icons";
 import { CardSelector } from "./TaskCardSelector";
 import { useBoardStore } from "@/store/UseBoardStore";
 import { getPredecessorsLabel } from "@/lib/predecessors";
+import { useDraggable } from "@dnd-kit/core";
 
 function Content({
   title,
@@ -73,9 +74,27 @@ export function TaskCard({
     : isSelected
       ? SelectionStatuses.Selected
       : SelectionStatuses.Unselected;
+  const { attributes, listeners, setNodeRef, transform, isDragging } =
+    useDraggable({
+      id: task.id,
+    });
+
+  const style = transform
+    ? {
+        transform: `translate(${transform.x}px, ${transform.y}px) rotate(${isDragging ? 5 : 0}deg)`,
+      }
+    : undefined;
 
   return (
-    <div className="aspect-[5/3] max-w-96 rounded-lg border border-gray-300 pb-5 shadow-[0_0_7px_rgba(10,10,10,0.3)]">
+    <div
+      ref={setNodeRef}
+      {...attributes}
+      {...listeners}
+      style={style}
+      className={`aspect-[5/3] max-w-96 rounded-lg border border-gray-300 bg-white pb-5 shadow-[0_0_7px_rgba(10,10,10,0.3)] ${
+        isDragging ? "relative z-50" : "transition-transform"
+      }`}
+    >
       <CardHeader
         code={task.code}
         title={task.title}

@@ -9,7 +9,11 @@ export function CardSelector({
   onPress: () => void;
 }) {
   return (
-    <button onClick={onPress} className="ml-auto pr-2 pt-2">
+    <button
+      onClick={onPress}
+      onPointerDown={(e) => e.stopPropagation()}
+      className="ml-auto pr-2 pt-2"
+    >
       {status === SelectionStatuses.Completed ? (
         <CompletedIcon />
       ) : status === SelectionStatuses.Selected ? (

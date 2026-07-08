@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import { Task, ErrorStatus, ErrorStatuses } from "@/types";
 import { ValidateExecution } from "@/lib/validation";
+import { ReorderTask } from "@/lib/reorder";
+
 export const sampleTasks: Task[] = [
   {
     code: "T1",
@@ -63,6 +65,8 @@ type Board = {
   value: number;
   error: string;
   ResetError: () => void;
+  RaiseOrderError: () => void;
+  ReorderTasks: (taskId: string, index: number) => void;
   execute: () => void;
 };
 
@@ -77,8 +81,13 @@ export const useBoardStore = create<Board>()((set, get) => ({
   error: ErrorStatuses.NoError,
 
   ResetError: () => set({ error: ErrorStatuses.NoError }),
+
+  RaiseOrderError: () => set({ error: ErrorStatuses.OrderError }),
+
+  ReorderTasks: (taskId: string, index: number) =>
+    set((state) => ({ tasks: ReorderTask(state.tasks, taskId, index) })),
+
   execute: () => {
-    console.log("Executed!");
     const { tasks, budget, selectedTaskId } = get();
     const task = tasks.find((t) => t.id === selectedTaskId);
     if (!task) {
@@ -98,5 +107,6 @@ export const useBoardStore = create<Board>()((set, get) => ({
       budget: state.budget - task.cost,
       value: state.value + task.value,
     }));
+    set({ selectedTaskId: "" });
   },
 }));
