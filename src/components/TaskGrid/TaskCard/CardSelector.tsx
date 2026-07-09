@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { CompletedIcon } from "../../ui/Icons";
 import { SelectionStatuses, type SelectionStatus } from "@/types/section";
 
@@ -39,15 +39,21 @@ function SelectedButton() {
     </span>
   );
 }
-const appearIn = {
+
+const appearIn: Variants = {
   start: { scale: 0.2, rotate: -180 },
   middle: {
-    scale: 2,
+    scale: 1,
     rotate: -45,
   },
   end: {
     scale: 1,
     rotate: 0,
+    transition: {
+      type: "spring" as const,
+      stiffness: 300,
+      damping: 8,
+    },
   },
 };
 
