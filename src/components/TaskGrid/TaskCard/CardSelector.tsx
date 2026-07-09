@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { CompletedIcon } from "../../ui/Icons";
-import { SelectionStatuses, type SelectionStatus } from "@/types";
+import { SelectionStatuses, type SelectionStatus } from "@/types/section";
 
 export function CardSelector({
   status,

@@ -3,7 +3,9 @@
     "allow": [
       "Bash(grep -i \"tailwind\" \"/Users/yoyo/Library/Application Support/Code/logs/20260701T082519/window1/exthost/exthost.log\" | tail -50)",
       "Read(//Users/yoyo/Library/Application Support/Code/logs/20260701T082519/window1/exthost/**)",
-      "Bash(xargs ls)"
+      "Bash(xargs ls)",
+      "Bash(npx vite *)",
+      "Bash(git -C /Users/yoyo/Documents/task-board mv src/dragging/handleDragEnd.ts src/components/TaskGrid/handleDragEnd.ts)"
     ],
     "additionalDirectories": [
       "/Users/yoyo/Library/Application Support/Code/Workspaces/1782893641933"

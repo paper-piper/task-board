@@ -1,4 +1,4 @@
-import type { Task } from "@/types";
+import type { Task } from "@/types/Task";
 
 export function getPredecessorsLabel(
   predecessors_ids: string[] | undefined,

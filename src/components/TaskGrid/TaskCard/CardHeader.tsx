@@ -1,4 +1,4 @@
-import { SelectionStatus } from "@/types";
+import { SelectionStatus } from "@/types/section";
 import { CardSelector } from "./CardSelector";
 
 export function CardHeader({

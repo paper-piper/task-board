@@ -1,8 +1,9 @@
 import { create } from "zustand";
-import { Task, ErrorStatuses } from "@/types";
-import { ValidateExecution } from "@/lib/validation";
-import { ReorderTask } from "@/lib/reorder";
-import { sampleTasks } from "@/data/sampleTasks";
+import { ErrorStatuses } from "@/types/error";
+import { Task } from "@/types/Task";
+import { ValidateExecution } from "@/validation/execution";
+import { ReorderTask } from "./sortOrder";
+import { sampleTasks } from "@/mock_data/sampleTasks";
 
 type Board = {
   selectedTaskId: string;
@@ -41,8 +42,13 @@ export const useBoardStore = create<Board>()((set, get) => ({
       return;
     }
 
-    if (!ValidateExecution(task, budget, tasks)) {
+    if (!ValidateExecution(task, tasks)) {
       set({ error: ErrorStatuses.ExecutionError });
+      return;
+    }
+
+    if (task.cost > budget) {
+      set({ error: ErrorStatuses.PriceError });
       return;
     }
     set((state) => ({
@@ -55,3 +61,11 @@ export const useBoardStore = create<Board>()((set, get) => ({
     set({ selectedTaskId: "" });
   },
 }));
+
+export function useSelectedTaskId() {
+  return useBoardStore((state) => state.selectedTaskId);
+}
+
+export function useIsTaskSelected(taskId: string) {
+  return useBoardStore((state) => state.selectedTaskId === taskId);
+}

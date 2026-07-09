@@ -1,6 +1,6 @@
 import { useBoardStore } from "@/store/boardStore";
-import { ErrorStatuses } from "@/types";
-import { ERROR_MESSAGES } from "@/constants/messages";
+import { ErrorStatuses } from "@/types/error";
+import { ERROR_MESSAGES } from "./constants";
 
 export function ErrorModal() {
   const resetError = useBoardStore((state) => state.resetError);
@@ -10,7 +10,9 @@ export function ErrorModal() {
   const { header, details } =
     error === ErrorStatuses.ExecutionError
       ? ERROR_MESSAGES.executionError
-      : ERROR_MESSAGES.orderError;
+      : error === ErrorStatuses.PriceError
+        ? ERROR_MESSAGES.priceError
+        : ERROR_MESSAGES.orderError;
 
   return (
     <div

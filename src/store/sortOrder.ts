@@ -1,6 +1,10 @@
-import { Task } from "@/types";
+import { Task } from "@/types/Task";
 
-export function ReorderTask(list: Task[], taskId: string, toIndex: number): Task[] {
+export function ReorderTask(
+  list: Task[],
+  taskId: string,
+  toIndex: number,
+): Task[] {
   const result = [...list];
   const fromIndex = result.findIndex((t) => t.id === taskId);
   const [moved] = result.splice(fromIndex, 1);
