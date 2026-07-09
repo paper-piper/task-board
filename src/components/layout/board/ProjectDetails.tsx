@@ -1,5 +1,6 @@
 import network_diagram from "@/assets/landscape_network_diagram.png";
 import { DiamondIcon } from "../../ui/Icons";
+import { useEffect, useRef } from "react";
 
 export function ProjectDetails({
   budget,

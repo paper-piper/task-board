@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { CompletedIcon } from "../../ui/Icons";
 import { SelectionStatuses, type SelectionStatus } from "@/types";
 
@@ -38,13 +39,29 @@ function SelectedButton() {
     </span>
   );
 }
+const appearIn = {
+  start: { scale: 0.2, rotate: -180 },
+  middle: {
+    scale: 2,
+    rotate: -45,
+  },
+  end: {
+    scale: 1,
+    rotate: 0,
+  },
+};
 
 function CompletedButton() {
   return (
-    <span className="ml-auto pr-2 pt-2">
+    <motion.span
+      className="ml-auto pr-2 pt-2"
+      variants={appearIn}
+      initial="start"
+      animate={["middle", "end"]}
+    >
       <span className="flex h-5 w-5 items-center justify-center rounded-full">
         <CompletedIcon />
       </span>
-    </span>
+    </motion.span>
   );
 }

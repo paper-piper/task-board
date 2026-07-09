@@ -52,4 +52,22 @@ export const sampleTasks: Task[] = [
     steps: 4,
     predecessors_ids: ["1241342"],
   },
+  {
+    code: "T7",
+    id: "1241346",
+    title: "Integration testing",
+    cost: 350,
+    value: 900,
+    steps: 6,
+    predecessors_ids: ["1241342", "1241343", "1241345"],
+  },
+  {
+    code: "T8",
+    id: "1241347",
+    title: "Production launch",
+    cost: 500,
+    value: 2500,
+    steps: 3,
+    predecessors_ids: ["1241344", "1241346"],
+  },
 ];

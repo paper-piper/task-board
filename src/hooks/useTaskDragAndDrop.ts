@@ -12,8 +12,9 @@ export function useTaskDragAndDrop() {
     const newPos = over.id as number;
     const tasks = useBoardStore.getState().tasks;
 
-    if (!ValidateOrder(active.id as string, tasks)) {
+    if (!ValidateOrder(active.id as string, newPos, tasks)) {
       useBoardStore.getState().raiseOrderError();
+      return;
     }
 
     useBoardStore.getState().reorderTasks(taskId, newPos);

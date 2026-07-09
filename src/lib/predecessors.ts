@@ -12,5 +12,6 @@ export function getPredecessorsLabel(
 
   if (codes.length === 0) return null;
 
-  return `Predecessor Tasks: ${codes.join()}`;
+  if (codes.length === 1) return `Predecessor Task: ${codes}`;
+  return `Predecessor Tasks: ${codes.join(", ")}`;
 }

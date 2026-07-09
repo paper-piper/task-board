@@ -11,7 +11,7 @@ export function TaskGrid() {
   const { handleDragEnd } = useTaskDragAndDrop();
   return (
     <DndContext onDragEnd={handleDragEnd}>
-      <ul className="grid grid-cols-1 border-l border-t border-gray-300 bg-white sm:grid-cols-2 lg:grid-cols-4">
+      <ul className="grid grid-cols-1 gap-px border border-gray-300 bg-gray-300 sm:grid-cols-2 lg:grid-cols-4">
         {tasks.map((task, index) => (
           <CardCell
             key={task.id}
@@ -44,10 +44,15 @@ function CardCell({
   return (
     <li
       ref={setNodeRef}
-      className={`relative border-b border-r border-gray-300 p-5 transition-colors ${
-        isOver ? "bg-teal-100" : ""
+      className={`group relative p-5 transition-colors ${
+        isOver ? "bg-[#E0F7F7]" : "bg-white"
       }`}
     >
+      <div
+        className={`pointer-events-none absolute -inset-px border transition-colors ${
+          isOver ? "border-teal-500" : "border-transparent"
+        }`}
+      />
       {task.completed && (
         <div className="pointer-events-none absolute inset-0 bg-white/70" />
       )}
