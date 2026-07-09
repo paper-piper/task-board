@@ -1,6 +1,5 @@
-import { motion, type Variants } from "framer-motion";
-import { CompletedIcon } from "../../ui/Icons";
 import { SelectionStatuses, type SelectionStatus } from "@/types/section";
+import { CompletedButton } from "./CompletedButton";
 
 export function CardSelector({
   status,
@@ -37,37 +36,5 @@ function SelectedButton() {
     <span className="flex h-5 w-5 items-center justify-center rounded-full border border-gray-800">
       <span className="block h-3.5 w-3.5 rounded-full bg-gray-800" />
     </span>
-  );
-}
-
-const appearIn: Variants = {
-  start: { scale: 0.2, rotate: -180 },
-  middle: {
-    scale: 1,
-    rotate: -45,
-  },
-  end: {
-    scale: 1,
-    rotate: 0,
-    transition: {
-      type: "spring",
-      stiffness: 300,
-      damping: 8,
-    },
-  },
-};
-
-function CompletedButton() {
-  return (
-    <motion.span
-      className="ml-auto pr-2 pt-2"
-      variants={appearIn}
-      initial="start"
-      animate={["middle", "end"]}
-    >
-      <span className="flex h-5 w-5 items-center justify-center rounded-full">
-        <CompletedIcon />
-      </span>
-    </motion.span>
   );
 }
