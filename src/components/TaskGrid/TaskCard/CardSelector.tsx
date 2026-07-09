@@ -50,7 +50,7 @@ const appearIn: Variants = {
     scale: 1,
     rotate: 0,
     transition: {
-      type: "spring" as const,
+      type: "spring",
       stiffness: 300,
       damping: 8,
     },
