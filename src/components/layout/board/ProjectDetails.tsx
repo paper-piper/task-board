@@ -1,6 +1,5 @@
 import network_diagram from "@/assets/landscape_network_diagram.png";
 import { DiamondIcon } from "../../ui/Icons";
-import { useEffect, useRef } from "react";
 
 export function ProjectDetails({
   budget,
@@ -10,7 +9,7 @@ export function ProjectDetails({
   value: number;
 }) {
   return (
-    <div className="ml-5 flex items-center bg-white">
+    <div className="flex items-center bg-white">
       <FieldDetails title="Budget" value={`$${budget}`}></FieldDetails>
       <FieldDetails
         title="Value"
@@ -18,7 +17,7 @@ export function ProjectDetails({
         icon={<DiamondIcon />}
       ></FieldDetails>
       <img
-        className="m-2 h-40 object-cover"
+        className="m-2 h-40 min-w-36 max-w-full object-contain"
         src={network_diagram}
         alt="Project network diagram"
       />

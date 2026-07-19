@@ -26,7 +26,7 @@ function ExecuteButton() {
     <motion.button
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
-      className={`h-16 w-52 rounded-md ${BgColor} px-5 text-white`}
+      className={`h-16 w-52 rounded-md ${BgColor} text-white`}
       onClick={executeFn}
       disabled={!isSelected}
     >
@@ -42,7 +42,7 @@ export function TaskBoard() {
   const { budget, value } = useBoardStore();
   return (
     <div className="bg-[#f5f5f5] p-5">
-      <div className="flex flex-row items-center justify-around p-5">
+      <div className="flex flex-row items-center justify-between gap-5 p-5">
         <ProjectTitle
           title={projectTitle}
           description={projectDescription}

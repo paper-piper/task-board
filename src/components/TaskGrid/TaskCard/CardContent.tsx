@@ -1,5 +1,5 @@
 import { Task } from "@/types/Task";
-import { type ReactElement, type SVGProps } from "react";
+import { ReactNode, type ReactElement, type SVGProps } from "react";
 import { DiamondIcon } from "../../ui/Icons";
 
 function SectionDetails({
@@ -21,8 +21,13 @@ function SectionDetails({
     </div>
   );
 }
+function CardSection({ children }: { children: ReactNode }) {
+  return (
+    <div className="-mx-2 border-t border-t-gray-400 px-5 py-2">{children}</div>
+  );
+}
 
-function CardContent({
+export function CardContent({
   task,
   predecessorsLabel,
 }: {
