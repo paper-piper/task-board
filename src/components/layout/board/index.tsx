@@ -11,7 +11,7 @@ function ProjectTitle({
   description: string;
 }) {
   return (
-    <div className="mr-5 flex flex-col">
+    <div className="flex flex-col">
       <span className="text-3xl font-bold">{title}</span>
       <span className="text-gray-500">{description}</span>
     </div>

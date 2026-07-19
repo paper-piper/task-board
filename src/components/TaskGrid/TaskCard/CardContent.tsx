@@ -5,7 +5,6 @@ import { DiamondIcon } from "../../ui/Icons";
 function SectionDetails({
   title,
   value,
-  icon,
 }: {
   title: string;
   value: string | number;
@@ -14,10 +13,12 @@ function SectionDetails({
   return (
     <div className="flex flex-col">
       <span className="text-sm font-light text-gray-500">{title}</span>
-      <span className="flex text-lg font-medium">
-        {value}
-        {icon}
-      </span>
+      <div className="flex align-middle text-lg font-medium">
+        <span>{value}</span>
+        <span className="flex items-center">
+          <DiamondIcon />
+        </span>
+      </div>
     </div>
   );
 }
