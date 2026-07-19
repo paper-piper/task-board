@@ -1,4 +1,4 @@
-import { Task } from "@/types/Task";
+import { Task } from "@/shared/types/Task";
 import { TaskCard } from "./TaskCard";
 import { useBoardStore, useIsTaskSelected } from "@/store/boardStore";
 import { useDroppable } from "@dnd-kit/core";

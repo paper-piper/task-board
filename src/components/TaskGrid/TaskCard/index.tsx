@@ -1,5 +1,5 @@
 import { CardContent } from "./CardContent";
-import { Task } from "@/types/Task";
+import { Task } from "@/shared/types/Task";
 import { useDraggable } from "@dnd-kit/core";
 import { CardHeader } from "./CardHeader";
 import { MapStatus } from "./map_status";

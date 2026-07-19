@@ -1,6 +1,6 @@
-import { Task } from "@/types/Task";
+import { Task } from "@/shared/types/Task";
 import { ReactNode, type ReactElement, type SVGProps } from "react";
-import { DiamondIcon } from "../../ui/Icons";
+import { DiamondIcon } from "@/assets/icons/DiamondIcon";
 
 function SectionDetails({
   title,

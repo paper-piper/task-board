@@ -1,7 +1,7 @@
 import { create } from "zustand";
-import { ErrorStatuses } from "@/types/error";
-import { Task } from "@/types/Task";
-import { ValidateExecution } from "@/validation/execution";
+import { ErrorStatuses } from "@/shared/types/error";
+import { Task } from "@/shared/types/Task";
+import { ValidateExecution } from "@/shared/validation/execution";
 import { ReorderTask } from "./sortOrder";
 import { sampleTasks } from "@/mock_data/sampleTasks";
 

@@ -1,4 +1,4 @@
-import type { Task } from "@/types/Task";
+import type { Task } from "@/shared/types/Task";
 
 export function ValidateExecution(task: Task, tasks: Task[]) {
   if (!task.predecessors_ids) return true;

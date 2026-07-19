@@ -1,4 +1,4 @@
-import { Task } from "@/types/Task";
+import { Task } from "@/shared/types/Task";
 
 export function ReorderTask(
   list: Task[],

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowIcon } from "@/components/ui/Icons";
+import { ArrowIcon } from "@/assets/icons/ArrowIcon";
 
 export function Header() {
   return (

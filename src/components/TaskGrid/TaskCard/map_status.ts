@@ -1,4 +1,4 @@
-import { SelectionStatus, SelectionStatuses } from "@/types/section";
+import { SelectionStatus, SelectionStatuses } from "@/shared/types/section";
 
 export function MapStatus(
   isCompleted: boolean,

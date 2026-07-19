@@ -1,6 +1,6 @@
 import { DragEndEvent } from "@dnd-kit/core";
 import { useBoardStore } from "@/store/boardStore";
-import { ValidateOrder } from "@/validation/order";
+import { ValidateOrder } from "@/shared/validation/order";
 
 export function handleDragEnd(event: DragEndEvent) {
   const { active, over } = event;

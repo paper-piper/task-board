@@ -1,4 +1,7 @@
-import { SelectionStatuses, type SelectionStatus } from "@/types/section";
+import {
+  SelectionStatuses,
+  type SelectionStatus,
+} from "@/shared/types/section";
 import { CompletedButton } from "./CompletedButton";
 
 export function CardSelector({

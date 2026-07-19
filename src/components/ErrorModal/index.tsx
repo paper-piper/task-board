@@ -1,5 +1,5 @@
 import { useBoardStore } from "@/store/boardStore";
-import { ErrorStatuses } from "@/types/error";
+import { ErrorStatuses } from "@/shared/types/error";
 import { ERROR_MESSAGES } from "./constants";
 
 export function ErrorModal() {

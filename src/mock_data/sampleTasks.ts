@@ -1,4 +1,4 @@
-import { Task } from "@/types/Task";
+import { Task } from "@/shared/types/Task";
 
 export const sampleTasks: Task[] = [
   {

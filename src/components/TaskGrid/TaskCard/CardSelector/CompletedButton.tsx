@@ -1,5 +1,5 @@
 import { motion, type Variants } from "framer-motion";
-import { CompletedIcon } from "@/components/ui/Icons";
+import { CompletedIcon } from "@/assets/icons/CompletedIcon";
 
 const appearIn: Variants = {
   start: { scale: 0.2, rotate: -180 },
