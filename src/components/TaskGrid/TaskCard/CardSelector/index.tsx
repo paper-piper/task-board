@@ -16,7 +16,7 @@ export function CardSelector({
     <button
       onClick={onPress}
       onPointerDown={(e) => e.stopPropagation()}
-      className="ml-auto pr-2 pt-2"
+      className="pr-2 pt-2"
     >
       {status === SelectionStatuses.Selected ? (
         <SelectedButton />

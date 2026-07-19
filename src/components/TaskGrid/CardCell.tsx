@@ -20,7 +20,7 @@ export function CardCell({
   return (
     <li
       ref={setNodeRef}
-      className={`group relative p-5 transition-colors ${
+      className={`group relative flex flex-col p-5 transition-colors ${
         isOver ? "bg-[#E0F7F7]" : "bg-white"
       }`}
     >
@@ -35,7 +35,7 @@ export function CardCell({
       <span className="font-medium text-gray-400">
         {index < 10 ? `0${index}` : index}
       </span>
-      <div className="pb-6 pt-5">
+      <div className="self-center pb-6 pt-5">
         <TaskCard
           task={task}
           predecessorsLabel={predecessorsLabel}
