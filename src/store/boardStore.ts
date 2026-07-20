@@ -3,7 +3,7 @@ import { ErrorStatuses } from "@/shared/types/error";
 import { Task } from "@/shared/types/Task";
 import { ValidateExecution } from "@/shared/validation/execution";
 import { ReorderTask } from "./sortOrder";
-import { sampleTasks } from "@/mock_data/sampleTasks";
+import { sampleTasks } from "../mock_data/sampleTasks";
 
 type Board = {
   selectedTaskId: string;

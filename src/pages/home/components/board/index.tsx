@@ -1,4 +1,4 @@
-import { TaskGrid } from "../../TaskGrid";
+import { TaskGrid } from "@/pages/home/components/TaskGrid";
 import { useBoardStore } from "@/store/boardStore";
 import { ProjectDetails } from "./ProjectDetails";
 import { motion } from "framer-motion";
@@ -41,7 +41,7 @@ export function TaskBoard() {
     "Complete the project with a budget under $12,000 and before step 40 on the board.";
   const { budget, value } = useBoardStore();
   return (
-    <div className="bg-[#f5f5f5] p-5">
+    <div className="min-w-0 flex-1 bg-[#f5f5f5] p-5">
       <div className="flex flex-row items-center justify-between gap-5 p-5">
         <ProjectTitle
           title={projectTitle}

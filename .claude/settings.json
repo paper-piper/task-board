@@ -6,7 +6,8 @@
       "Bash(xargs ls)",
       "Bash(npx vite *)",
       "Bash(git -C /Users/yoyo/Documents/task-board mv src/dragging/handleDragEnd.ts src/components/TaskGrid/handleDragEnd.ts)",
-      "Bash(git -C /Users/yoyo/Documents/task-board ls-files)"
+      "Bash(git -C /Users/yoyo/Documents/task-board ls-files)",
+      "Bash(xargs -I{} echo {})"
     ],
     "additionalDirectories": [
       "/Users/yoyo/Library/Application Support/Code/Workspaces/1782893641933"
