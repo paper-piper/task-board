@@ -1,7 +1,7 @@
 import { DragEndEvent } from "@dnd-kit/core";
 import { useBoardStore } from "@/store/boardStore";
 import { ValidateOrder } from "@/shared/validation/order";
-
+import { ErrorStatuses } from "@/shared/types/error";
 export function handleDragEnd(event: DragEndEvent) {
   const { active, over } = event;
 
@@ -12,7 +12,7 @@ export function handleDragEnd(event: DragEndEvent) {
   const tasks = useBoardStore.getState().tasks;
 
   if (!ValidateOrder(active.id as string, newPos, tasks)) {
-    useBoardStore.getState().raiseOrderError();
+    useBoardStore.getState().setError(ErrorStatuses.OrderError);
     return;
   }
 

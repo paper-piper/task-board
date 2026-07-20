@@ -5,4 +5,4 @@ export const ErrorStatuses = {
   OrderError: "order error",
   ExecutionError: "execution error",
   PriceError: "price error",
-};
+} as const;

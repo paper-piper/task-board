@@ -1,6 +1,6 @@
 import { Task } from "@/shared/types/Task";
 import { TaskCard } from "./TaskCard";
-import { useBoardStore, useIsTaskSelected } from "@/store/boardStore";
+import { useBoardStore } from "@/store/boardStore";
 import { useDroppable } from "@dnd-kit/core";
 
 export function CardCell({
@@ -12,8 +12,8 @@ export function CardCell({
   predecessorsLabel: string;
   index: number;
 }) {
-  const isSelected = useIsTaskSelected(task.id);
   const setSelectedTaskId = useBoardStore((state) => state.setSelectedTaskId);
+  const selectedTaskId = useBoardStore((state) => state.selectedTaskId);
   const { setNodeRef, isOver } = useDroppable({
     id: index - 1,
   });
@@ -39,7 +39,7 @@ export function CardCell({
         <TaskCard
           task={task}
           predecessorsLabel={predecessorsLabel}
-          isSelected={isSelected}
+          isSelected={selectedTaskId === task.id}
           onPress={() => setSelectedTaskId(task.id)}
         />
       </div>
