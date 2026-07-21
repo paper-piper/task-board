@@ -1,5 +1,5 @@
 import network_diagram from "@/assets/landscape_network_diagram.png";
-import { DiamondIcon } from "@/assets/icons/DiamondIcon";
+import { DiamondIcon } from "@/assets/icons/diamondIcon";
 
 export function ProjectDetails({
   budget,
@@ -21,15 +21,7 @@ export function ProjectDetails({
   );
 }
 
-function FieldDetails({
-  title,
-  value,
-  icon,
-}: {
-  title: string;
-  value: string;
-  icon?: React.ReactElement<React.SVGProps<SVGSVGElement>>;
-}) {
+function FieldDetails({ title, value }: { title: string; value: string }) {
   return (
     <div className="mx-5 flex flex-col">
       <span className="font-normal text-gray-500">{title}</span>

@@ -1,6 +1,6 @@
 import { Task } from "@/shared/types/Task";
-import { ReactNode, type ReactElement, type SVGProps } from "react";
-import { DiamondIcon } from "@/assets/icons/DiamondIcon";
+import { ReactNode } from "react";
+import { DiamondIcon } from "@/assets/icons/diamondIcon";
 
 function SectionDetails({
   title,
@@ -8,7 +8,6 @@ function SectionDetails({
 }: {
   title: string;
   value: string | number;
-  icon?: ReactElement<SVGProps<SVGSVGElement>>;
 }) {
   return (
     <div className="flex flex-col">
@@ -43,11 +42,7 @@ export function CardContent({
       <div className="flex flex-col">
         <CardSection>
           <div className="flex gap-16">
-            <SectionDetails
-              title="Value"
-              value={task.value}
-              icon={<DiamondIcon />}
-            />
+            <SectionDetails title="Value" value={task.value} />
             <SectionDetails title="Steps" value={task.steps} />
           </div>
           <div className="text-sm font-light">{predecessorsLabel}</div>

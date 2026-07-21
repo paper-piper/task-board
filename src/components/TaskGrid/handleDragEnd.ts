@@ -11,7 +11,7 @@ export function handleDragEnd(event: DragEndEvent) {
   const newPos = over.id as number;
   const tasks = useBoardStore.getState().tasks;
 
-  if (!ValidateOrder(active.id as string, newPos, tasks)) {
+  if (!ValidateOrder(taskId, newPos, tasks)) {
     useBoardStore.getState().setError(ErrorStatuses.OrderError);
     return;
   }

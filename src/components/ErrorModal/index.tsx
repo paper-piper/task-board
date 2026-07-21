@@ -5,6 +5,7 @@ import { ERROR_MESSAGES } from "./error_messages";
 export function ErrorModal() {
   const setError = useBoardStore((state) => state.setError);
   const error = useBoardStore((state) => state.error);
+
   if (error === ErrorStatuses.NoError) return <></>;
 
   const { header, details } = ERROR_MESSAGES[error];
