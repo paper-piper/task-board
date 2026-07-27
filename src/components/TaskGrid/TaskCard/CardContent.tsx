@@ -39,15 +39,15 @@ export function CardContent({
       <CardSection>
         <SectionDetails title="Cost" value={`$${task.cost}`} />
       </CardSection>
-      <div className="flex flex-col">
-        <CardSection>
+      <CardSection>
+        <div className="flex flex-col">
           <div className="flex gap-16">
             <SectionDetails title="Value" value={task.value} />
             <SectionDetails title="Steps" value={task.steps} />
           </div>
           <div className="text-sm font-light">{predecessorsLabel}</div>
-        </CardSection>
-      </div>
+        </div>
+      </CardSection>
     </div>
   );
 }

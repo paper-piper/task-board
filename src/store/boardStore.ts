@@ -15,7 +15,15 @@ type Board = {
   setError: (errorStatus: ErrorStatus) => void;
   reorderTasks: (taskId: string, index: number) => void;
   execute: () => void;
-};
+}; // Prisma
+//todo
+//next auth
+//`TRPC - GOOD
+// side uploadthing
+// shadcn
+//tsform
+//zod
+//hooks, state, effect, ref
 
 export const useBoardStore = create<Board>()((set, get) => ({
   selectedTaskId: "",
