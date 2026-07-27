@@ -1,12 +1,12 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import { HomePage } from "./home";
+import { TasksBoard } from "./home";
 import { CardPage } from "./card";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage />,
+    element: <TasksBoard />,
     children: [
       {
         path: "card/:cardId",
