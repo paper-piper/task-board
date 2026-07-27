@@ -1,23 +1,18 @@
 import { Context } from "koa";
-import { NodeRepository } from "@/db/repositories/NodeRepository";
-import { EdgeRepository } from "@/db/repositories/UserRepository";
-import { NotFoundError, ConflictError } from "@/http/shared/error/http_error";
+import { UserRepository } from "@/db/repositories/UserRepository";
+import { NotFoundError } from "@/http/shared/error/http_error";
 import { HTTP_STATUS } from "@/http/shared/status/httpStatus";
 
-export async function createEdgeController(ctx: Context) {
-  const { source_node_title, target_node_title } = ctx.state.validated.body;
+export async function loginController(ctx: Context) {
+  const { email, password } = ctx.state.validated.body;
 
-  const [source_node_id, target_node_id] = await NodeRepository.TitleToId(
-    source_node_title,
-    target_node_title,
-  );
-  if (source_node_id === null || target_node_id === null) {
-    throw new NotFoundError("One or more nodes doesn't exist");
+  const hashed_password = //TODO: hashing password
+  const cookieOrId = await UserRepository.login(email, hashed_password)
+
+  if (cookieOrId === null) {
+    throw new NotFoundError("Password or email are inccorect");
   }
 
-  const success = await EdgeRepository.create(source_node_id, target_node_id);
-  if (!success) {
-    throw new ConflictError("Edge already exist");
-  }
-  ctx.status = HTTP_STATUS["INTERNAL_SERVER_ERROR"];
+  // TODO: RETURN cookie here, or maybe status should be NO_CONTENT
+  ctx.status = HTTP_STATUS.OK;
 }

@@ -1,11 +1,11 @@
 import { Context } from "koa";
-import { NodeRepository } from "@/db/repositories/NodeRepository";
+import { BoardRepository } from "@/db/repositories/BoardRepository";
 import { HTTP_STATUS } from "@/http/shared/status/httpStatus";
 
-export async function createNodeController(ctx: Context) {
-  const node_id = await NodeRepository.create();
-  const [node_title] = await NodeRepository.IdToTitle(node_id);
+export async function getBoardController(ctx: Context) {
+  // TODO fetch cookie somehow,
+  const board = await BoardRepository.getBoard(user_id);
 
-  ctx.status = HTTP_STATUS.CREATED;
-  ctx.body = { id: node_title };
+  ctx.status = HTTP_STATUS.OK;
+  ctx.body = { board: board };
 }

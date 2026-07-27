@@ -30,6 +30,7 @@ export const UserRepository = {
       .select("user_id")
       .executeTakeFirstOrThrow();
 
+      // TODO: RETURN cookie
     return user;
   },
 };

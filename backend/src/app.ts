@@ -14,6 +14,7 @@ export default function setupApp() {
 
   const app = new Koa();
   const root_router = new Router();
+  // TODO: ADD the new and extra middlewares
   app.use(bodyParser());
   app.use(handleErrors);
 
