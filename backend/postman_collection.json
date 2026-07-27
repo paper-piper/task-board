@@ -17,9 +17,7 @@
             "header": [],
             "url": {
               "raw": "{{BASE_URL}}{{NODES_PATH}}",
-              "host": [
-                "{{BASE_URL}}{{NODES_PATH}}"
-              ]
+              "host": ["{{BASE_URL}}{{NODES_PATH}}"]
             },
             "description": "Add a new node to the graph with a unique title identifier.\n\nthe node title is returned in the body."
           },
@@ -32,12 +30,8 @@
             "header": [],
             "url": {
               "raw": "{{BASE_URL}}{{NODES_PATH}}/:node_title",
-              "host": [
-                "{{BASE_URL}}{{NODES_PATH}}"
-              ],
-              "path": [
-                ":node_title"
-              ],
+              "host": ["{{BASE_URL}}{{NODES_PATH}}"],
+              "path": [":node_title"],
               "variable": [
                 {
                   "key": "node_title",
@@ -56,9 +50,7 @@
           "script": {
             "type": "text/javascript",
             "requests": {},
-            "exec": [
-              ""
-            ]
+            "exec": [""]
           }
         },
         {
@@ -67,9 +59,7 @@
             "type": "text/javascript",
             "packages": {},
             "requests": {},
-            "exec": [
-              ""
-            ]
+            "exec": [""]
           }
         }
       ]
@@ -93,9 +83,7 @@
             },
             "url": {
               "raw": "{{BASE_URL}}{{EDGES_PATH}}",
-              "host": [
-                "{{BASE_URL}}{{EDGES_PATH}}"
-              ]
+              "host": ["{{BASE_URL}}{{EDGES_PATH}}"]
             },
             "description": "Create an undirected connection between two nodes."
           },
@@ -108,13 +96,8 @@
             "header": [],
             "url": {
               "raw": "{{BASE_URL}}{{EDGES_PATH}}/:source_node_title/:target_node_title",
-              "host": [
-                "{{BASE_URL}}{{EDGES_PATH}}"
-              ],
-              "path": [
-                ":source_node_title",
-                ":target_node_title"
-              ],
+              "host": ["{{BASE_URL}}{{EDGES_PATH}}"],
+              "path": [":source_node_title", ":target_node_title"],
               "variable": [
                 {
                   "key": "source_node_title",
@@ -143,12 +126,8 @@
             "header": [],
             "url": {
               "raw": "{{BASE_URL}}{{QUERIES_PATH}}/cycles",
-              "host": [
-                "{{BASE_URL}}{{QUERIES_PATH}}"
-              ],
-              "path": [
-                "cycles"
-              ]
+              "host": ["{{BASE_URL}}{{QUERIES_PATH}}"],
+              "path": ["cycles"]
             },
             "description": "Detects whether the graph contains any cycles."
           },
@@ -161,12 +140,8 @@
             "header": [],
             "url": {
               "raw": "{{BASE_URL}}{{QUERIES_PATH}}/paths?source_node_title=1&target_node_title=2",
-              "host": [
-                "{{BASE_URL}}{{QUERIES_PATH}}"
-              ],
-              "path": [
-                "paths"
-              ],
+              "host": ["{{BASE_URL}}{{QUERIES_PATH}}"],
+              "path": ["paths"],
               "query": [
                 {
                   "key": "source_node_title",
@@ -189,12 +164,8 @@
             "header": [],
             "url": {
               "raw": "{{BASE_URL}}{{QUERIES_PATH}}/components",
-              "host": [
-                "{{BASE_URL}}{{QUERIES_PATH}}"
-              ],
-              "path": [
-                "components"
-              ]
+              "host": ["{{BASE_URL}}{{QUERIES_PATH}}"],
+              "path": ["components"]
             },
             "description": "Returns all connected subgraphs as separate components using DFS."
           },
@@ -207,13 +178,8 @@
             "header": [],
             "url": {
               "raw": "{{BASE_URL}}{{QUERIES_PATH}}/degrees/:node_title",
-              "host": [
-                "{{BASE_URL}}{{QUERIES_PATH}}"
-              ],
-              "path": [
-                "degrees",
-                ":node_title"
-              ],
+              "host": ["{{BASE_URL}}{{QUERIES_PATH}}"],
+              "path": ["degrees", ":node_title"],
               "variable": [
                 {
                   "key": "node_title",

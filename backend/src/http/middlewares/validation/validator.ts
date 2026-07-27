@@ -2,7 +2,7 @@ import { BadRequestError } from "../../shared/error/http_error";
 import { Context, Next } from "koa";
 import z from "zod";
 
-type Source = 'body' | 'query' | 'params';
+type Source = "body" | "query" | "params";
 
 export function validate(schema: z.ZodType, source: Source) {
   return async (ctx: Context, next: Next) => {

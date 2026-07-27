@@ -1,6 +1,8 @@
-import setupApp from './app';
+import setupApp from "./app";
 
 const app = setupApp();
-app.listen(Number(process.env.SERVER_PORT), () => console.log('listening on ', process.env.SERVER_PORT));
+app.listen(Number(process.env.SERVER_PORT), () =>
+  console.log("listening on ", process.env.SERVER_PORT),
+);
 // TODO: Whats process? whats env?
 // TODO: WHATS number?

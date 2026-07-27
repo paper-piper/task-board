@@ -15,5 +15,7 @@ export type Task = {
 };
 
 export type Board = {
-  tasks: Task[]
+  tasks: Task[];
+  value: number;
+  cost: number;
 };

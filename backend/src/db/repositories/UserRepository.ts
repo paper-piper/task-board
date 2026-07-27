@@ -1,17 +1,35 @@
 import { sql } from "kysely";
 import { db } from "@/db/buildDb";
-import { NodeId } from "@/shared/types";
+import { BoardRepository } from "@/db/repositories/BoardRepository";
 
 export const UserRepository = {
-    async create(){
+  async create(email: string, hashedPassword: string) {
+    const user = await db
+      .insertInto("users")
+      .values({
+        email,
+        hashed_password: hashedPassword,
+      })
+      .returning("user_id")
+      .executeTakeFirstOrThrow();
 
-    },
+    await BoardRepository.createBoard(user.user_id, 1000); // TODO global budget for new users
 
-    async delete(){
+    return user;
+  },
 
-    },
+  async delete(user_id: string) {
+    await db.deleteFrom("users").where("user_id", "=", user_id).execute();
+  },
 
-    async login(){
-        
-    }
+  async login(email: string, hashedPassword: string) {
+    const user = await db
+      .selectFrom("users")
+      .where("email", "=", email)
+      .where("hashed_password", "=", hashedPassword)
+      .select("user_id")
+      .executeTakeFirstOrThrow();
+
+    return user;
+  },
 };

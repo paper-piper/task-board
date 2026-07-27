@@ -50,28 +50,28 @@ npm test
 
 ### Nodes
 
-| Method | Path | Description |
-|--------|------|-------------|
-| `POST` | `/nodes` | Create a new node. Returns its auto-assigned `title` (integer). |
-| `DELETE` | `/nodes/:node_title` | Delete a node by title. Cascades to connected edges. |
+| Method   | Path                 | Description                                                     |
+| -------- | -------------------- | --------------------------------------------------------------- |
+| `POST`   | `/nodes`             | Create a new node. Returns its auto-assigned `title` (integer). |
+| `DELETE` | `/nodes/:node_title` | Delete a node by title. Cascades to connected edges.            |
 
 ### Edges
 
 Edges are undirected. The graph treats `(A→B)` and `(B→A)` as the same connection.
 
-| Method | Path | Description |
-|--------|------|-------------|
-| `POST` | `/edges` | Create an edge. Body: `{ source_node_title, target_node_title }` |
-| `DELETE` | `/edges/:source_node_title/:target_node_title` | Delete an edge by its two node titles. |
+| Method   | Path                                           | Description                                                      |
+| -------- | ---------------------------------------------- | ---------------------------------------------------------------- |
+| `POST`   | `/edges`                                       | Create an edge. Body: `{ source_node_title, target_node_title }` |
+| `DELETE` | `/edges/:source_node_title/:target_node_title` | Delete an edge by its two node titles.                           |
 
 ### Queries
 
-| Method | Path | Description |
-|--------|------|-------------|
-| `GET` | `/queries/cycles` | Returns `{ cycle_found: boolean }` |
-| `GET` | `/queries/paths?source_node_title=&target_node_title=` | Returns all simple paths between two nodes. |
-| `GET` | `/queries/components` | Returns all connected components as arrays of node titles. |
-| `GET` | `/queries/degrees/:node_title` | Returns the direct neighbors of a node. |
+| Method | Path                                                   | Description                                                |
+| ------ | ------------------------------------------------------ | ---------------------------------------------------------- |
+| `GET`  | `/queries/cycles`                                      | Returns `{ cycle_found: boolean }`                         |
+| `GET`  | `/queries/paths?source_node_title=&target_node_title=` | Returns all simple paths between two nodes.                |
+| `GET`  | `/queries/components`                                  | Returns all connected components as arrays of node titles. |
+| `GET`  | `/queries/degrees/:node_title`                         | Returns the direct neighbors of a node.                    |
 
 ## Project structure
 

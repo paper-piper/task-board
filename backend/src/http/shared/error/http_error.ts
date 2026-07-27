@@ -10,19 +10,19 @@ export class HttpError extends Error {
 }
 
 export class BadRequestError extends HttpError {
-  constructor(message = 'Bad Request') {
+  constructor(message = "Bad Request") {
     super(HTTP_STATUS.BAD_REQUEST, message);
   }
 }
 
 export class NotFoundError extends HttpError {
-  constructor(message = 'Not Found') {
+  constructor(message = "Not Found") {
     super(HTTP_STATUS.NOT_FOUND, message);
   }
 }
 
 export class ConflictError extends HttpError {
-  constructor(message = 'Conflict') {
+  constructor(message = "Conflict") {
     super(HTTP_STATUS.CONFLICT, message);
   }
 }
