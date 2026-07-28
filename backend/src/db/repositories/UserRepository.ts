@@ -1,10 +1,19 @@
-import { sql } from "kysely";
 import { db } from "@/db/buildDb";
 import { BoardRepository } from "@/db/repositories/BoardRepository";
 
 export const UserRepository = {
   async create(email: string, hashedPassword: string) {
-    const user = await db
+    const existing = await db
+      .selectFrom("users")
+      .where("email", "=", email)
+      .select("user_id")
+      .executeTakeFirst();
+
+    if (existing) {
+      return { user_id: null };
+    }
+
+    const user_id = await db
       .insertInto("users")
       .values({
         email,
@@ -13,24 +22,22 @@ export const UserRepository = {
       .returning("user_id")
       .executeTakeFirstOrThrow();
 
-    await BoardRepository.createBoard(user.user_id, 1000); // TODO global budget for new users
+    await BoardRepository.createBoard(user_id.user_id, 1000); // TODO global budget for new users
 
-    return user;
+    return user_id;
   },
 
   async delete(user_id: string) {
     await db.deleteFrom("users").where("user_id", "=", user_id).execute();
   },
 
-  async login(email: string, hashedPassword: string) {
+  async login(email: string) {
     const user = await db
       .selectFrom("users")
       .where("email", "=", email)
-      .where("hashed_password", "=", hashedPassword)
-      .select("user_id")
-      .executeTakeFirstOrThrow();
+      .select(["user_id", "hashed_password"])
+      .executeTakeFirst();
 
-      // TODO: RETURN cookie
-    return user;
+    return user ?? null;
   },
 };

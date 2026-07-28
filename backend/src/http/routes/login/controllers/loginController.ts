@@ -2,17 +2,20 @@ import { Context } from "koa";
 import { UserRepository } from "@/db/repositories/UserRepository";
 import { NotFoundError } from "@/http/shared/error/http_error";
 import { HTTP_STATUS } from "@/http/shared/status/httpStatus";
+import bcrypt from "bcrypt";
 
 export async function loginController(ctx: Context) {
   const { email, password } = ctx.state.validated.body;
 
-  const hashed_password = //TODO: hashing password
-  const cookieOrId = await UserRepository.login(email, hashed_password)
+  const user = await UserRepository.login(email);
 
-  if (cookieOrId === null) {
-    throw new NotFoundError("Password or email are inccorect");
+  if (user === null) {
+    throw new NotFoundError("User doesn't exist");
+  }
+  if (!(await bcrypt.compare(password, user.hashed_password))) {
+    throw new NotFoundError("Incorrect password");
   }
 
-  // TODO: RETURN cookie here, or maybe status should be NO_CONTENT
+  ctx.session.user_id = user.user_id;
   ctx.status = HTTP_STATUS.OK;
 }

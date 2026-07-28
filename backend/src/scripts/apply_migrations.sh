@@ -11,7 +11,8 @@ PORT="${PGPORT:-$DB_PORT}"
 DB="${PGDATABASE:-$DATABASE}"
 USER="${PGUSER:-$DB_USER}"
 export PGPASSWORD="${PGPASSWORD:-$DB_PASSWORD}"
-MIGRATIONS_DIR="$(cd "$(dirname "$0")" && pwd)/../src/db/migrations"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+MIGRATIONS_DIR="$SCRIPT_DIR/../db/migrations"
 
 
 echo "Connecting to $USER@$HOST:$PORT/$DB"
@@ -44,5 +45,5 @@ echo "Done."
 
 echo "Regenerating DB types..."
 DATABASE_URL="postgres://$DB_USER:$DB_PASSWORD@$DB_HOST:$DB_PORT/$DATABASE" \
-  npx kysely-codegen --dialect postgres --url "$DATABASE_URL" --out-file "$SCRIPT_DIR/../src/db/schema.ts"
+  npx kysely-codegen --dialect postgres --url "$DATABASE_URL" --out-file "$SCRIPT_DIR/../db/schema.ts"
 echo "Types updated."
