@@ -1,7 +1,7 @@
 import Koa from "koa";
 import Router from "@koa/router";
 import { createBoardRouter } from "./http/routes/board/boardRouter";
-import { createAuthRouter } from "./http/routes/login/authRouter";
+import { createAuthRouter } from "./http/routes/auth/authRouter";
 import { loadEnv } from "./env/load_env";
 import { buildDb } from "./db/buildDb";
 import { handleErrors } from "./http/middlewares/error/errorHandler";
