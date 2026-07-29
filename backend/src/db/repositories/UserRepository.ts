@@ -42,4 +42,14 @@ export const UserRepository = {
 
         return user ?? null;
     },
+
+    async exists(user_id: string) {
+        const user = await db
+            .selectFrom(TABLE_NAMES.users)
+            .where("user_id", "=", user_id)
+            .select("user_id")
+            .executeTakeFirst();
+
+        return user !== undefined;
+    },
 };

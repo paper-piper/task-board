@@ -10,7 +10,7 @@ export type Task = {
     cost: number;
     value: number;
     steps: number;
-    predecessors_ids?: string[];
+    predecessors_ids: string[];
     completed?: boolean;
 };
 

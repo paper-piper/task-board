@@ -7,7 +7,6 @@ import { DB } from "../schema";
 
 export const BoardRepository = {
     async getBoard(
-        // TODO: Precedor id doesn't exit if null, bad?
         user_id: string,
         executor: Kysely<DB> | Transaction<DB> = db,
         forUpdate = false,

@@ -6,8 +6,7 @@ import { user } from "@/http/middlewares/content_validation/schemas";
 
 export function createAuthRouter() {
     const router = new Router();
-    router.post("/login", validate(user, "body"), loginController); // TODO: post? or other method?
-    router.post("/register", validate(user, "body"), registerController); // TODO: NOT CREATE?
-    // TODO: ALL routers - correcy middleware build
+    router.post("/login", validate(user, "body"), loginController);
+    router.post("/register", validate(user, "body"), registerController);
     return router;
 }

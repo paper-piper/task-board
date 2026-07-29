@@ -8,6 +8,7 @@ export const sampleTasks: Task[] = [
         cost: 900,
         value: 800,
         steps: 3,
+        predecessors_ids: [],
     },
     {
         code: "T2",
@@ -16,6 +17,7 @@ export const sampleTasks: Task[] = [
         cost: 1200,
         value: 1000,
         steps: 0,
+        predecessors_ids: [],
     },
     {
         code: "T3",
@@ -42,6 +44,7 @@ export const sampleTasks: Task[] = [
         cost: 600,
         value: 300,
         steps: 2,
+        predecessors_ids: [],
     },
     {
         code: "T6",
