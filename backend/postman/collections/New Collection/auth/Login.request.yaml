@@ -1,0 +1,11 @@
+$kind: http-request
+url: http://localhost:3000/auth/register
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "email": "yoyo@gmail.com",
+        "password": "yoyo the king"
+    }
+order: 1785245590834

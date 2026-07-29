@@ -1,46 +1,22 @@
-import { Kysely } from "kysely";
-import type { DB, Json } from "@/db/schema";
-import { any } from "zod";
+import { SessionRepository } from "@/db/repositories/SessionRepository";
+import type { Json } from "@/db/schema";
 
 export class PgSessionStore {
-  constructor(private db: Kysely<DB>) {}
+    async get(sid: string) {
+        const session = await SessionRepository.getSession(sid);
 
-  async get(sid: string) {
-    const session = await this.db
-      .selectFrom("sessions")
-      .selectAll()
-      .where("session_id", "=", sid)
-      .executeTakeFirst();
-
-    if (!session || session.expires_at < new Date()) {
-      return null;
+        if (!session || session.expires_at < new Date()) {
+            return null;
+        }
+        return session.session;
     }
-    return session;
-  }
 
-  async set(sid: string, session: unknown, opts: { maxAge?: number }) {
-    const expiresAt = opts.maxAge
-      ? new Date(Date.now() + opts.maxAge)
-      : new Date(Date.now() + 24 * 60 * 60 * 1000); // default to 1 day
-    await this.db
-      .insertInto("sessions")
-      .values({
-        session_id: sid,
-        session: session as any,
-        expires_at: expiresAt,
-      })
-      .onConflict((oc) =>
-        oc
-          .column("session_id")
-          .doUpdateSet({ session: session as any, expires_at: expiresAt }),
-      )
-      .execute();
-  }
+    async set(sid: string, session: Json, maxAge: number) {
+        const expiresAt = new Date(Date.now() + maxAge);
+        await SessionRepository.setSession(sid, session, expiresAt);
+    }
 
-  async destroy(sid: string) {
-    await this.db
-      .deleteFrom("sessions")
-      .where("session_id", "=", sid)
-      .execute();
-  }
+    async destroy(sid: string) {
+        await SessionRepository.deleteSession(sid);
+    }
 }

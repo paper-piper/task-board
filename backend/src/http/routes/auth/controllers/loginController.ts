@@ -5,17 +5,17 @@ import { HTTP_STATUS } from "@/http/shared/status/httpStatus";
 import bcrypt from "bcrypt";
 
 export async function loginController(ctx: Context) {
-  const { email, password } = ctx.state.validated.body;
+    const { email, password } = ctx.state.validated.body;
 
-  const user = await UserRepository.login(email);
+    const user = await UserRepository.login(email);
 
-  if (user === null) {
-    throw new NotFoundError("User doesn't exist");
-  }
-  if (!(await bcrypt.compare(password, user.hashed_password))) {
-    throw new NotFoundError("Incorrect password");
-  }
+    if (user === null) {
+        throw new NotFoundError("User doesn't exist");
+    }
+    if (!(await bcrypt.compare(password, user.hashed_password))) {
+        throw new NotFoundError("Incorrect password");
+    }
 
-  ctx.session.user_id = user.user_id;
-  ctx.status = HTTP_STATUS.OK;
+    ctx.session!.user_id = user.user_id;
+    ctx.status = HTTP_STATUS.OK;
 }

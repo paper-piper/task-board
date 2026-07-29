@@ -45,6 +45,7 @@ export interface Tasks {
   completed: Generated<boolean>;
   cost: Numeric;
   created_at: Generated<Timestamp>;
+  position: number;
   predecessors_ids: string[] | null;
   steps: number;
   task_id: Generated<string>;
