@@ -20,7 +20,7 @@ function LeftSection() {
 
   return (
     <>
-      <span className="text-2xl font-bold">PMZone</span>
+      <span className="font-display text-2xl font-bold">PMZone</span>
       <span className="ml-5">{time.toLocaleTimeString("en-GB")}</span>
     </>
   );

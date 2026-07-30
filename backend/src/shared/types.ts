@@ -29,6 +29,5 @@ export type BoardMetadata = {
     task_count: number;
     budget: number;
     value: number;
-    created_at: Date;
 };
 // TODO: Last opened board

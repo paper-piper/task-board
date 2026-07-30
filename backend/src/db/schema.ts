@@ -25,12 +25,20 @@ export type Numeric = ColumnType<string, number | string, number | string>;
 
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
-export interface Boards {
-  board_id: Generated<string>;
+export interface BoardStates {
+  board_state_id: Generated<string>;
+  board_template_id: string;
   budget: Numeric;
   created_at: Generated<Timestamp>;
   name: string;
   user_id: string;
+  value: Numeric;
+}
+
+export interface BoardTemplates {
+  board_template_id: Generated<string>;
+  budget: Numeric;
+  name: string;
   value: Numeric;
 }
 
@@ -40,18 +48,31 @@ export interface Sessions {
   session_id: Generated<string>;
 }
 
-export interface Tasks {
-  board_id: string;
+export interface TaskStates {
+  board_state_id: string;
   code: string;
   completed: Generated<boolean>;
   cost: Numeric;
   created_at: Generated<Timestamp>;
-  position: number;
+  position: Numeric;
   predecessors_ids: string[] | null;
   steps: number;
-  task_id: Generated<string>;
+  task_state_id: Generated<string>;
+  task_template_id: string;
   title: string;
-  user_id: string;
+  value: Numeric;
+}
+
+export interface TaskTemplates {
+  board_template_id: string;
+  code: string;
+  completed: Generated<boolean>;
+  cost: Numeric;
+  position: Numeric;
+  predecessors_ids: string[] | null;
+  steps: number;
+  task_template_id: Generated<string>;
+  title: string;
   value: Numeric;
 }
 
@@ -63,8 +84,10 @@ export interface Users {
 }
 
 export interface DB {
-  boards: Boards;
+  board_states: BoardStates;
+  board_templates: BoardTemplates;
   sessions: Sessions;
-  tasks: Tasks;
+  task_states: TaskStates;
+  task_templates: TaskTemplates;
   users: Users;
 }

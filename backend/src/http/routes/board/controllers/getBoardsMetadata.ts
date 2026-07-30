@@ -5,7 +5,7 @@ import { BoardMetadata } from "@/shared/types";
 
 export async function getBoardsMetadataController(ctx: Context) {
     const boardsMetadata: BoardMetadata[] =
-        await BoardRepository.getBoardsMetadata();
+        await BoardRepository.getBoardSchemas();
 
     ctx.status = HTTP_STATUS.OK;
     ctx.body = { boardsMetadata };

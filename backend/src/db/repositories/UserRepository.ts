@@ -1,5 +1,4 @@
 import { db } from "@/db/buildDb";
-import { BoardRepository } from "@/db/repositories/BoardRepository";
 import { TABLE_NAMES } from "@/db/tableNames";
 
 export const UserRepository = {

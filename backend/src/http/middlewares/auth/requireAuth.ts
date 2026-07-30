@@ -13,7 +13,7 @@ export async function requireAuth(ctx: Context, next: Next) {
 
     if (
         !ctx.session.board_id ||
-        !(await BoardRepository.doesExist(ctx.session.board_id))
+        !(await BoardRepository.doesStateExist(ctx.session.board_id))
     ) {
         throw new UnauthorizedError("not authenticated");
     }

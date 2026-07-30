@@ -12,7 +12,7 @@ function ProjectTitle({
 }) {
   return (
     <div className="flex flex-col">
-      <span className="text-3xl font-bold">{title}</span>
+      <span className="font-display text-3xl font-bold">{title}</span>
       <span className="text-gray-500">{description}</span>
     </div>
   );

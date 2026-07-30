@@ -1,5 +1,6 @@
 import { db } from "@/db/buildDb";
 import { BoardRepository } from "@/db/repositories/BoardRepository";
+import { BoardStateRepository } from "@/db/repositories/BoardStateRepository";
 import { TaskRepository } from "@/db/repositories/TaskRepository";
 import {
     BadRequestError,
@@ -14,7 +15,7 @@ export async function reorderTaskService(
     new_pos: number,
 ): Promise<Board> {
     const newBoard = await db.transaction().execute(async (trx) => {
-        const board = await BoardRepository.getBoard(board_id, trx);
+        const board = await BoardStateRepository.getBoardState(board_id, trx);
         const task = await TaskRepository.getTask(board_id, task_id, trx);
         if (!task) {
             throw new NotFoundError("task not found");
@@ -31,7 +32,7 @@ export async function reorderTaskService(
             trx,
         );
 
-        return await BoardRepository.getBoard(board_id, trx);
+        return await BoardStateRepository.getBoardState(board_id, trx);
     });
     return newBoard;
 }

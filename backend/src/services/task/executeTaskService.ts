@@ -1,5 +1,6 @@
 import { db } from "@/db/buildDb";
 import { BoardRepository } from "@/db/repositories/BoardRepository";
+import { BoardStateRepository } from "@/db/repositories/BoardStateRepository";
 import { TaskRepository } from "@/db/repositories/TaskRepository";
 import {
     ConflictError,
@@ -28,7 +29,7 @@ export async function executeTaskService(
             task.value,
             trx,
         );
-        return BoardRepository.getBoard(board_id, trx);
+        return BoardStateRepository.getBoardState(board_id, trx);
     });
     return newBoard;
 }
@@ -41,7 +42,7 @@ async function validateExecution(
     if (task.completed) {
         throw new UnprocessableEntityError("Task already completed");
     }
-    const board = await BoardRepository.getBoard(board_id, trx, true);
+    const board = await BoardStateRepository.getBoardState(board_id, trx, true);
 
     if (board.budget < task.cost) {
         console.log(board.budget);
