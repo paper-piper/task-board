@@ -8,8 +8,8 @@ import { randomUUID } from "node:crypto";
 import { DB } from "../schema";
 
 export const TaskRepository = {
-    async getUserTask(
-        user_id: string,
+    async getTask(
+        board_id: string,
         task_id: string,
         executor: Kysely<DB> | Transaction<DB> = db,
         forUpdate = false,
@@ -17,7 +17,7 @@ export const TaskRepository = {
         const board = await executor
             .selectFrom(TABLE_NAMES.boards)
             .select("board_id")
-            .where("user_id", "=", user_id)
+            .where("board_id", "=", board_id)
             .executeTakeFirst();
 
         if (!board) return null;

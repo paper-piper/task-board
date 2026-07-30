@@ -33,7 +33,7 @@ export const UserRepository = {
             .execute();
     },
 
-    async login(email: string) {
+    async getUser(email: string) {
         const user = await db
             .selectFrom(TABLE_NAMES.users)
             .where("email", "=", email)
@@ -43,7 +43,7 @@ export const UserRepository = {
         return user ?? null;
     },
 
-    async exists(user_id: string) {
+    async doesExist(user_id: string) {
         const user = await db
             .selectFrom(TABLE_NAMES.users)
             .where("user_id", "=", user_id)

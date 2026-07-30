@@ -6,3 +6,5 @@ export const user = z.object({
 });
 
 export const task_id = z.object({ task_id: z.uuid() });
+
+export const position = z.object(z.number().positive());

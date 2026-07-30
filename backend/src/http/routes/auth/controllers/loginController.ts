@@ -5,9 +5,9 @@ import { HTTP_STATUS } from "@/http/shared/status/httpStatus";
 import bcrypt from "bcrypt";
 
 export async function loginController(ctx: Context) {
-    const { email, password } = ctx.state.validated.body;
+    const { email, password, board_id } = ctx.state.validated.body;
 
-    const user = await UserRepository.login(email);
+    const user = await UserRepository.getUser(email);
 
     if (user === null) {
         throw new NotFoundError("User doesn't exist");

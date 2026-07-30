@@ -11,44 +11,37 @@ import { Transaction } from "kysely";
 import { DB } from "@/db/schema";
 
 export async function executeTaskService(
-    user_id: string,
+    board_id: string,
     task_id: string,
-): Promise<Board | null> {
+): Promise<Board> {
     const newBoard = await db.transaction().execute(async (trx) => {
-        const task = await TaskRepository.getUserTask(
-            user_id,
-            task_id,
-            trx,
-            true,
-        );
-        await validateExecution(task, user_id, trx);
-
-        if (!task) return null; // never happens, purley for ts compiling
+        const task = await TaskRepository.getTask(board_id, task_id, trx, true);
+        if (!task) {
+            throw new NotFoundError("task not found");
+        }
+        await validateExecution(task, board_id, trx);
 
         await TaskRepository.markTaskCompleted(task.id, trx);
         await BoardRepository.applyTaskExecution(
-            user_id,
+            board_id,
             task.cost,
             task.value,
             trx,
         );
-        return BoardRepository.getBoard(user_id, trx);
+        return BoardRepository.getBoard(board_id, trx);
     });
     return newBoard;
 }
 
 async function validateExecution(
-    task: Task | null,
-    user_id: string,
+    task: Task,
+    board_id: string,
     trx: Transaction<DB>,
 ) {
-    if (!task) {
-        throw new NotFoundError("task not found");
-    }
     if (task.completed) {
         throw new UnprocessableEntityError("Task already completed");
     }
-    const board = await BoardRepository.getBoard(user_id, trx, true);
+    const board = await BoardRepository.getBoard(board_id, trx, true);
 
     if (board.budget < task.cost) {
         console.log(board.budget);

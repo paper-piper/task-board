@@ -29,6 +29,7 @@ export interface Boards {
   board_id: Generated<string>;
   budget: Numeric;
   created_at: Generated<Timestamp>;
+  name: string;
   user_id: string;
   value: Numeric;
 }

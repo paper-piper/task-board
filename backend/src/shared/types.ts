@@ -15,7 +15,20 @@ export type Task = {
 };
 
 export type Board = {
+    id: string; // TODO intigrate + entity domain
     tasks: Task[];
+    name: string;
     value: number;
     budget: number;
+    created_at: Date; // TODO Right format? + migration
 };
+
+export type BoardMetadata = {
+    id: string; // TODO: entity verses domain
+    name: string;
+    task_count: number;
+    budget: number;
+    value: number;
+    created_at: Date;
+};
+// TODO: Last opened board
