@@ -1,6 +1,6 @@
 import { HTTP_STATUS } from "@/http/shared/status/httpStatus";
 import { loginService } from "@/services/auth/loginService";
-import { ValidatedContext } from "@/http/middlewares/content_validation/validatedContext";
+import { ValidatedContext } from "@/http/shared/context/validatedContext";
 import { UserBody } from "@/http/middlewares/content_validation/schemas";
 
 export async function loginController(

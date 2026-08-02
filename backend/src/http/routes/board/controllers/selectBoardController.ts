@@ -1,6 +1,6 @@
 import { BoardStateRepository } from "@/db/repositories/BoardStateRepository";
 import { HTTP_STATUS } from "@/http/shared/status/httpStatus";
-import { ValidatedContext } from "@/http/middlewares/content_validation/validatedContext";
+import { ValidatedContext } from "@/http/shared/context/validatedContext";
 import { BoardId } from "@/http/middlewares/content_validation/schemas";
 
 export async function SelectBoardController(

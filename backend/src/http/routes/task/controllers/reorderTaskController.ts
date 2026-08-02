@@ -1,6 +1,6 @@
 import { HTTP_STATUS } from "@/http/shared/status/httpStatus";
 import { reorderTaskService } from "@/services/task/reorderTaskService";
-import { ValidatedContext } from "@/http/middlewares/content_validation/validatedContext";
+import { ValidatedContext } from "@/http/shared/context/validatedContext";
 import {
     TaskId,
     Position,

@@ -1,7 +1,7 @@
 import { Context } from "koa";
 import { HTTP_STATUS } from "@/http/shared/status/httpStatus";
 import { executeTaskService } from "@/services/task/executeTaskService";
-import { ValidatedContext } from "@/http/middlewares/content_validation/validatedContext";
+import { ValidatedContext } from "@/http/shared/context/validatedContext";
 import { TaskId } from "@/http/middlewares/content_validation/schemas";
 
 export async function executeTaskController(
