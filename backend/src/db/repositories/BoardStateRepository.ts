@@ -19,7 +19,7 @@ export const BoardStateRepository = {
             .orderBy("created_at", "desc")
             .executeTakeFirstOrThrow();
 
-        return await this.buildBoardStateTasks(board_details, executor);
+        return await buildBoardStateTasks(board_details, executor);
     },
 
     async getBoardState(
@@ -42,44 +42,7 @@ export const BoardStateRepository = {
         }
         const board_details = await board_query.executeTakeFirstOrThrow();
 
-        return await this.buildBoardStateTasks(board_details, executor);
-    },
-
-    async buildBoardStateTasks(
-        board_details: {
-            board_state_id: string;
-            name: string;
-            budget: string | number;
-            value: string | number;
-            created_at: Date;
-        },
-        executor: Kysely<DB> | Transaction<DB> = db,
-    ): Promise<Board> {
-        // TODO: build board by positions
-        const tasks = await executor
-            .selectFrom(TABLE_NAMES.task_states)
-            .where("board_state_id", "=", board_details.board_state_id)
-            .select([
-                "task_state_id as id",
-                "code",
-                "title",
-                "cost",
-                "value",
-                "steps",
-                "predecessors_ids",
-                "completed",
-            ])
-            .orderBy("position")
-            .execute();
-
-        return {
-            id: board_details.board_state_id,
-            name: board_details.name,
-            budget: Number(board_details.budget),
-            value: Number(board_details.value),
-            tasks: tasks.map(mapTaskRow), // TODO: make a funciton and not map function?
-            created_at: board_details.created_at,
-        };
+        return await buildBoardStateTasks(board_details, executor);
     },
 
     async doesStateExist(
@@ -94,6 +57,7 @@ export const BoardStateRepository = {
 
         return board !== undefined;
     },
+
     async applyTaskExecution(
         board_state_id: string,
         cost: number,
@@ -111,4 +75,72 @@ export const BoardStateRepository = {
             .where("board_state_id", "=", board_state_id)
             .execute();
     },
+
+    async reorderTask(
+        board_state_id: string,
+        task_id: string,
+        old_pos: number,
+        new_pos: number,
+        executor: Kysely<DB> | Transaction<DB> = db,
+    ) {
+        // TODO: Transaction parameter can be simplified or changed?
+        const lo = Math.min(old_pos, new_pos).toString();
+        const hi = Math.max(old_pos, new_pos).toString();
+        const direction = (old_pos < new_pos ? -1 : 1).toString();
+
+        await executor
+            .updateTable(TABLE_NAMES.task_states)
+            .set((eb) => ({
+                position: eb("position", "+", direction),
+            }))
+            .where("board_state_id", "=", board_state_id)
+            .where("task_state_id", "!=", task_id)
+            .where("position", ">=", lo)
+            .where("position", "<=", hi)
+            .execute();
+
+        await executor
+            .updateTable(TABLE_NAMES.task_states)
+            .set({ position: new_pos })
+            .where("board_state_id", "=", board_state_id)
+            .where("task_state_id", "=", task_id)
+            .execute();
+    },
 };
+
+async function buildBoardStateTasks(
+    board_details: {
+        board_state_id: string;
+        name: string;
+        budget: string | number;
+        value: string | number;
+        created_at: Date;
+    },
+    executor: Kysely<DB> | Transaction<DB> = db,
+): Promise<Board> {
+    // TODO: build board by positions
+    const tasks = await executor
+        .selectFrom(TABLE_NAMES.task_states)
+        .where("board_state_id", "=", board_details.board_state_id)
+        .select([
+            "task_state_id as id",
+            "code",
+            "title",
+            "cost",
+            "value",
+            "steps",
+            "predecessors_ids",
+            "completed",
+        ])
+        .orderBy("position")
+        .execute();
+
+    return {
+        id: board_details.board_state_id,
+        name: board_details.name,
+        budget: Number(board_details.budget),
+        value: Number(board_details.value),
+        tasks: tasks.map(mapTaskRow), // TODO: make a funciton and not map function?
+        created_at: board_details.created_at,
+    };
+}

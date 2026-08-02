@@ -16,4 +16,4 @@ export const mapTaskRow = (row: TaskRow): Task => ({
     cost: Number(row.cost),
     value: Number(row.value),
     predecessors_ids: row.predecessors_ids ?? [],
-});
+}); // TODO: fix that shit
