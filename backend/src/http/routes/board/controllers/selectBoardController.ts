@@ -1,9 +1,12 @@
-import { Context } from "koa";
 import { BoardStateRepository } from "@/db/repositories/BoardStateRepository";
 import { HTTP_STATUS } from "@/http/shared/status/httpStatus";
+import { ValidatedContext } from "@/http/middlewares/content_validation/validatedContext";
+import { BoardId } from "@/http/middlewares/content_validation/schemas";
 
-export async function SelectBoardController(ctx: Context) {
-    const board_template_id = ctx.state.validated.body.board_template_id;
+export async function SelectBoardController(
+    ctx: ValidatedContext<{ body: BoardId }>,
+) {
+    const board_template_id = ctx.state.validated.body.board_id;
     const user_id = ctx.session.user_id;
     const board_state = await BoardStateRepository.getLatestBoardState(
         board_template_id,

@@ -1,8 +1,12 @@
 import { Context } from "koa";
 import { HTTP_STATUS } from "@/http/shared/status/httpStatus";
 import { executeTaskService } from "@/services/task/executeTaskService";
+import { ValidatedContext } from "@/http/middlewares/content_validation/validatedContext";
+import { TaskId } from "@/http/middlewares/content_validation/schemas";
 
-export async function executeTaskController(ctx: Context) {
+export async function executeTaskController(
+    ctx: ValidatedContext<{ params: TaskId }>,
+) {
     const task_id = ctx.state.validated.params.task_id;
     const board_id = ctx.session.board_id;
 
