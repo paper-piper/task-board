@@ -1,5 +1,4 @@
 import { db } from "@/db/buildDb";
-import { BoardRepository } from "@/db/repositories/BoardRepository";
 import { BoardStateRepository } from "@/db/repositories/BoardStateRepository";
 import { TaskRepository } from "@/db/repositories/TaskRepository";
 import {
@@ -12,24 +11,31 @@ import { Transaction } from "kysely";
 import { DB } from "@/db/schema";
 
 export async function executeTaskService(
-    board_id: string,
+    board_state_id: string,
     task_id: string,
 ): Promise<Board> {
+    const new_board_state_id =
+        await BoardStateRepository.duplicateBoardState(board_state_id);
     const newBoard = await db.transaction().execute(async (trx) => {
-        const task = await TaskRepository.getTask(board_id, task_id, trx, true);
+        const task = await TaskRepository.getTask(
+            new_board_state_id,
+            task_id,
+            trx,
+            true,
+        );
         if (!task) {
             throw new NotFoundError("task not found");
         }
-        await validateExecution(task, board_id, trx);
+        await validateExecution(task, new_board_state_id, trx);
 
         await TaskRepository.markTaskCompleted(task.id, trx);
-        await BoardRepository.applyTaskExecution(
-            board_id,
+        await BoardStateRepository.applyTaskExecution(
+            new_board_state_id,
             task.cost,
             task.value,
             trx,
         );
-        return BoardStateRepository.getBoardState(board_id, trx);
+        return BoardStateRepository.getBoardState(new_board_state_id, trx);
     });
     return newBoard;
 }

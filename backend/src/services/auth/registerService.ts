@@ -23,7 +23,10 @@ export async function registerService(
         throw new ConflictError("User with that email already exists");
     }
 
-    await BoardTemplateRepository.createBoardFromTemplate(board_template_id, user_id);
+    await BoardTemplateRepository.createBoardFromTemplate(
+        board_template_id,
+        user_id,
+    );
     const board = await BoardStateRepository.getLatestBoardState(
         board_template_id,
         user_id,

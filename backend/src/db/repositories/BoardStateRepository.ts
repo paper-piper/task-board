@@ -58,13 +58,60 @@ export const BoardStateRepository = {
         return board !== undefined;
     },
 
+    async duplicateBoardState(
+        board_state_id: string,
+        executor: Kysely<DB> | Transaction<DB> = db,
+    ): Promise<string> {
+        const board = await executor
+            .selectFrom(TABLE_NAMES.board_states)
+            .where("board_state_id", "=", board_state_id)
+            .select(["board_template_id", "budget", "value", "name", "user_id"])
+            .executeTakeFirstOrThrow();
+
+        const newBoard = await executor
+            .insertInto(TABLE_NAMES.board_states)
+            .values(board)
+            .returning("board_state_id")
+            .executeTakeFirstOrThrow();
+
+        const tasks = await executor
+            .selectFrom(TABLE_NAMES.task_states)
+            .where("board_state_id", "=", board_state_id)
+            .select([
+                "task_template_id",
+                "code",
+                "title",
+                "cost",
+                "value",
+                "steps",
+                "predecessors_ids",
+                "completed",
+                "position",
+            ])
+            .execute();
+
+        if (tasks.length > 0) {
+            await executor
+                .insertInto(TABLE_NAMES.task_states)
+                .values(
+                    tasks.map((task) => ({
+                        ...task,
+                        board_state_id: newBoard.board_state_id,
+                    })),
+                )
+                .execute();
+        }
+
+        return newBoard.board_state_id;
+    },
+
     async applyTaskExecution(
         board_state_id: string,
         cost: number,
         value: number,
         executor: Kysely<DB> | Transaction<DB> = db,
     ) {
-        // TODO: Duplicate this on new state
+        // TODO: every update should create new state
         // TODO: make duplicating and applying a function
         await executor
             .updateTable(TABLE_NAMES.board_states)

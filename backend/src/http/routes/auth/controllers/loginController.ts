@@ -22,7 +22,7 @@ export async function loginController(ctx: Context) {
     }
     const board = await BoardStateRepository.getLatestBoardState(
         board_template_id,
-        user_id,
+        user.user_id,
     );
 
     ctx.session!.user_id = user.user_id;

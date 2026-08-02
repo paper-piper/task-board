@@ -1,5 +1,4 @@
 import { db } from "@/db/buildDb";
-import { BoardRepository } from "@/db/repositories/BoardRepository";
 import { BoardStateRepository } from "@/db/repositories/BoardStateRepository";
 import { TaskRepository } from "@/db/repositories/TaskRepository";
 import {
@@ -10,13 +9,22 @@ import {
 import { Board, Task } from "@/shared/types";
 
 export async function reorderTaskService(
-    board_id: string,
+    board_state_id: string,
     task_id: string,
     new_pos: number,
 ): Promise<Board> {
+    const new_board_state_id =
+        await BoardStateRepository.duplicateBoardState(board_state_id);
     const newBoard = await db.transaction().execute(async (trx) => {
-        const board = await BoardStateRepository.getBoardState(board_id, trx);
-        const task = await TaskRepository.getTask(board_id, task_id, trx);
+        const board = await BoardStateRepository.getBoardState(
+            new_board_state_id,
+            trx,
+        );
+        const task = await TaskRepository.getTask(
+            new_board_state_id,
+            task_id,
+            trx,
+        );
         if (!task) {
             throw new NotFoundError("task not found");
         }
@@ -24,15 +32,18 @@ export async function reorderTaskService(
 
         validateReorder(board, task, old_pos, new_pos);
 
-        await BoardRepository.reorderTask(
-            board_id,
+        await BoardStateRepository.reorderTask(
+            new_board_state_id,
             task_id,
             old_pos,
             new_pos,
             trx,
         );
 
-        return await BoardStateRepository.getBoardState(board_id, trx);
+        return await BoardStateRepository.getBoardState(
+            new_board_state_id,
+            trx,
+        );
     });
     return newBoard;
 }
@@ -48,7 +59,7 @@ function validateReorder(
             "task has the same position as target position",
         );
     }
-
+    // TODO: DELETE?
     // if new pos is bigger: needs to make sure its not a pre of other cards
     // if now pos is smaller: needs to make sure other cards aren't pre of this card
     for (
