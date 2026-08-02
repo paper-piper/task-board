@@ -1,0 +1,13 @@
+$kind: http-request
+name: Login
+url: http://localhost:3000/auth/login
+method: POST
+body:
+  type: json
+  content: |-
+    {
+        "email": "mini-master@gmail.com",
+        "password": "killing it full flow",
+        "board_template_id": "10000000-0000-4000-8000-000000000000"
+    }
+order: 1785245590834

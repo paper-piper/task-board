@@ -12,6 +12,7 @@ export type Task = {
     steps: number;
     predecessors_ids: string[];
     completed?: boolean;
+    position?: number;
 };
 
 export type Board = {
@@ -30,4 +31,3 @@ export type BoardMetadata = {
     budget: number;
     value: number;
 };
-// TODO: Last opened board

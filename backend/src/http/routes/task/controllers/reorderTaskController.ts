@@ -15,6 +15,7 @@ export async function reorderTaskController(
 
     const newBoard = await reorderTaskService(board_id, task_id, new_pos);
 
+    ctx.session.board_id = newBoard.id;
     ctx.status = HTTP_STATUS.OK;
     ctx.body = { board: newBoard };
 }

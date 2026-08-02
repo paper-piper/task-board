@@ -1,4 +1,6 @@
 DROP TABLE IF EXISTS sessions;
-DROP TABLE IF EXISTS tasks;
-DROP TABLE IF EXISTS boards;
+DROP TABLE IF EXISTS task_states;
+DROP TABLE IF EXISTS task_templates;
+DROP TABLE IF EXISTS board_states;
+DROP TABLE IF EXISTS board_templates;
 DROP TABLE IF EXISTS users;

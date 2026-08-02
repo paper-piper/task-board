@@ -6,24 +6,24 @@ import { Kysely, Transaction } from "kysely";
 import { DB } from "../schema";
 
 export const TaskRepository = {
-    async getTask(
+    async getTaskFromPrevState(
         board_state_id: string,
         task_state_id: string,
         executor: Kysely<DB> | Transaction<DB> = db,
-        forUpdate = false, // TODO: Whats this forupdate
+        forUpdate = false,
     ): Promise<Task | null> {
-        const board_state = await executor
-            .selectFrom(TABLE_NAMES.board_states)
-            .select("board_state_id")
-            .where("board_state_id", "=", board_state_id)
+        const task_template = await executor
+            .selectFrom(TABLE_NAMES.task_states)
+            .select("task_template_id")
+            .where("task_state_id", "=", task_state_id)
             .executeTakeFirst();
 
-        if (!board_state) return null;
+        if (!task_template) return null;
 
         let task_query = executor
             .selectFrom(TABLE_NAMES.task_states)
-            .where("board_state_id", "=", board_state.board_state_id)
-            .where("task_state_id", "=", task_state_id)
+            .where("board_state_id", "=", board_state_id)
+            .where("task_template_id", "=", task_template.task_template_id)
             .select([
                 "task_state_id as id",
                 "code",
@@ -33,6 +33,7 @@ export const TaskRepository = {
                 "steps",
                 "predecessors_ids",
                 "completed",
+                "position",
             ]);
         if (forUpdate) {
             task_query = task_query.forUpdate();

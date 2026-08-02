@@ -20,7 +20,7 @@ export async function reorderTaskService(
             new_board_state_id,
             trx,
         );
-        const task = await TaskRepository.getTask(
+        const task = await TaskRepository.getTaskFromPrevState(
             new_board_state_id,
             task_id,
             trx,
@@ -28,15 +28,19 @@ export async function reorderTaskService(
         if (!task) {
             throw new NotFoundError("task not found");
         }
-        const old_pos = board.tasks.findIndex((t) => t.id === task.id);
+        const old_index = board.tasks.findIndex((t) => t.id === task.id);
 
-        validateReorder(board, task, old_pos, new_pos);
+        validateReorder(board, task, old_index, new_pos);
 
+        // DB positions start at 1 and are not the same as array indices,
+        // so `new_pos` (a 0-based target index from the client) has to be
+        // converted, and the task's real stored position must be used
+        // instead of its index in the sorted array.
         await BoardStateRepository.reorderTask(
             new_board_state_id,
-            task_id,
-            old_pos,
-            new_pos,
+            task.id,
+            task.position!,
+            new_pos + 1,
             trx,
         );
 
@@ -59,9 +63,7 @@ function validateReorder(
             "task has the same position as target position",
         );
     }
-    // TODO: DELETE?
-    // if new pos is bigger: needs to make sure its not a pre of other cards
-    // if now pos is smaller: needs to make sure other cards aren't pre of this card
+
     for (
         let i = Math.min(old_pos, new_pos);
         i <= Math.max(old_pos, new_pos);

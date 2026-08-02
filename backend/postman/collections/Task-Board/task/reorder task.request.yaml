@@ -1,0 +1,13 @@
+$kind: http-request
+name: reorder task
+url: http://localhost:3000/task/reorder/:task
+method: POST
+pathVariables:
+  task: ba728484-aca9-4f77-9777-9fed8f0b9c5a
+body:
+  type: json
+  content: |-
+    {
+        "position": 2
+    }
+order: 3336468789615692

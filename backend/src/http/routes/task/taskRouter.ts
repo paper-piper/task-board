@@ -11,13 +11,13 @@ import { reorderTaskController } from "./controllers/reorderTaskController";
 export function createTaskRouter() {
     const router = new Router();
     router.post(
-        "execute/:task_id",
+        "/execute/:task_id",
         validate(task_id, "params"),
         requireAuth,
         executeTaskController,
     );
     router.post(
-        "reorder/:task_id",
+        "/reorder/:task_id",
         validate(task_id, "params"),
         validate(position, "body"),
         requireAuth,

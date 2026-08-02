@@ -78,6 +78,7 @@ export const BoardStateRepository = {
             .selectFrom(TABLE_NAMES.task_states)
             .where("board_state_id", "=", board_state_id)
             .select([
+                "task_state_id",
                 "task_template_id",
                 "code",
                 "title",
@@ -91,15 +92,59 @@ export const BoardStateRepository = {
             .execute();
 
         if (tasks.length > 0) {
-            await executor
+            const newTasks = await executor
                 .insertInto(TABLE_NAMES.task_states)
                 .values(
-                    tasks.map((task) => ({
-                        ...task,
-                        board_state_id: newBoard.board_state_id,
-                    })),
+                    tasks.map(
+                        ({ task_state_id, predecessors_ids, ...task }) => ({
+                            ...task,
+                            board_state_id: newBoard.board_state_id,
+                            predecessors_ids: null,
+                        }),
+                    ),
                 )
+                .returning(["task_state_id", "task_template_id"])
                 .execute();
+
+            const templateIdToNewTaskId = new Map(
+                newTasks.map((task) => [
+                    task.task_template_id,
+                    task.task_state_id,
+                ]),
+            );
+            const oldTaskIdToTemplateId = new Map(
+                tasks.map((task) => [
+                    task.task_state_id,
+                    task.task_template_id,
+                ]),
+            );
+
+            for (const task of tasks) {
+                if (
+                    !task.predecessors_ids ||
+                    task.predecessors_ids.length === 0
+                ) {
+                    continue;
+                }
+
+                const newPredecessorsIds = task.predecessors_ids
+                    .map((oldPredecessorId) =>
+                        templateIdToNewTaskId.get(
+                            oldTaskIdToTemplateId.get(oldPredecessorId)!,
+                        ),
+                    )
+                    .filter((id): id is string => id !== undefined);
+
+                await executor
+                    .updateTable(TABLE_NAMES.task_states)
+                    .set({ predecessors_ids: newPredecessorsIds })
+                    .where(
+                        "task_state_id",
+                        "=",
+                        templateIdToNewTaskId.get(task.task_template_id)!,
+                    )
+                    .execute();
+            }
         }
 
         return newBoard.board_state_id;
@@ -128,6 +173,7 @@ export const BoardStateRepository = {
         new_pos: number,
         executor: Kysely<DB> | Transaction<DB> = db,
     ) {
+        // TODO: ask big eli
         // TODO: Transaction parameter can be simplified or changed?
         const lo = Math.min(old_pos, new_pos).toString();
         const hi = Math.max(old_pos, new_pos).toString();
@@ -175,16 +221,21 @@ async function buildBoardStateTasks(
             "steps",
             "predecessors_ids",
             "completed",
+            "position",
         ])
         .orderBy("position")
         .execute();
+
+    const sorted_tasks = mapTaskRow(tasks).sort(
+        (a, b) => (a.position ?? 0) - (b.position ?? 0),
+    );
 
     return {
         id: board_details.board_state_id,
         name: board_details.name,
         budget: Number(board_details.budget),
         value: Number(board_details.value),
-        tasks: mapTaskRow(tasks),
+        tasks: sorted_tasks,
         created_at: board_details.created_at,
     };
 }

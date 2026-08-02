@@ -9,6 +9,7 @@ type TaskRow = {
     steps: number;
     predecessors_ids: string[] | null;
     completed: boolean;
+    position?: string | number;
 };
 
 export const mapTaskRow = (rows: TaskRow[]): Task[] =>
@@ -17,4 +18,5 @@ export const mapTaskRow = (rows: TaskRow[]): Task[] =>
         cost: Number(row.cost),
         value: Number(row.value),
         predecessors_ids: row.predecessors_ids ?? [],
+        position: row.position === undefined ? undefined : Number(row.position),
     }));

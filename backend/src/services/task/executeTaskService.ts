@@ -17,7 +17,7 @@ export async function executeTaskService(
     const new_board_state_id =
         await BoardStateRepository.duplicateBoardState(board_state_id);
     const newBoard = await db.transaction().execute(async (trx) => {
-        const task = await TaskRepository.getTask(
+        const task = await TaskRepository.getTaskFromPrevState(
             new_board_state_id,
             task_id,
             trx,
@@ -51,8 +51,6 @@ async function validateExecution(
     const board = await BoardStateRepository.getBoardState(board_id, trx, true);
 
     if (board.budget < task.cost) {
-        console.log(board.budget);
-        console.log(task.cost);
         throw new UnprocessableEntityError("Insufficient budget for task");
     }
 

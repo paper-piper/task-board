@@ -12,6 +12,7 @@ export async function executeTaskController(
 
     const newBoard = await executeTaskService(board_id, task_id);
 
+    ctx.session.board_id = newBoard.id;
     ctx.status = HTTP_STATUS.OK;
     ctx.body = { board: newBoard };
 }
