@@ -13,7 +13,7 @@ export async function SelectBoardController(
         user_id,
     );
 
-    ctx.session.board_state_id = board_state.id;
+    ctx.session.board_id = board_state.id;
     ctx.status = HTTP_STATUS.OK;
     ctx.body = { board: board_state };
 }
