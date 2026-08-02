@@ -3,7 +3,7 @@ import { HTTP_STATUS } from "@/http/shared/status/httpStatus";
 import { reorderTaskService } from "@/services/task/reorderTaskService";
 
 export async function reorderTaskController(ctx: Context) {
-    const board_id = ctx.session!.board_id;
+    const board_id = ctx.session.board_id;
     const task_id = ctx.state.validated.params.task_id;
     const new_pos = ctx.state.validated.body.new_pos;
 

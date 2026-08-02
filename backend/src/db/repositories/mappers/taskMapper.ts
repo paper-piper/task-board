@@ -11,9 +11,10 @@ type TaskRow = {
     completed: boolean;
 };
 
-export const mapTaskRow = (row: TaskRow): Task => ({
-    ...row,
-    cost: Number(row.cost),
-    value: Number(row.value),
-    predecessors_ids: row.predecessors_ids ?? [],
-}); // TODO: fix that shit
+export const mapTaskRow = (rows: TaskRow[]): Task[] =>
+    rows.map((row) => ({
+        ...row,
+        cost: Number(row.cost),
+        value: Number(row.value),
+        predecessors_ids: row.predecessors_ids ?? [],
+    }));

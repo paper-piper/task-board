@@ -41,7 +41,7 @@ export const TaskRepository = {
 
         if (!task_row) return null;
 
-        return mapTaskRow(task_row);
+        return mapTaskRow([task_row])[0];
     },
     async markTaskCompleted(
         task_state_id: string,

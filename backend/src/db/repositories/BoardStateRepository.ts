@@ -111,8 +111,6 @@ export const BoardStateRepository = {
         value: number,
         executor: Kysely<DB> | Transaction<DB> = db,
     ) {
-        // TODO: every update should create new state
-        // TODO: make duplicating and applying a function
         await executor
             .updateTable(TABLE_NAMES.board_states)
             .set((eb) => ({
@@ -165,7 +163,6 @@ async function buildBoardStateTasks(
     },
     executor: Kysely<DB> | Transaction<DB> = db,
 ): Promise<Board> {
-    // TODO: build board by positions
     const tasks = await executor
         .selectFrom(TABLE_NAMES.task_states)
         .where("board_state_id", "=", board_details.board_state_id)
@@ -187,7 +184,7 @@ async function buildBoardStateTasks(
         name: board_details.name,
         budget: Number(board_details.budget),
         value: Number(board_details.value),
-        tasks: tasks.map(mapTaskRow), // TODO: make a funciton and not map function?
+        tasks: mapTaskRow(tasks),
         created_at: board_details.created_at,
     };
 }

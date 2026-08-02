@@ -1,6 +1,6 @@
 import { UserRepository } from "@/db/repositories/UserRepository";
-import { BoardRepository } from "@/db/repositories/BoardRepository";
 import { UnauthorizedError } from "@/http/shared/error/http_error";
+import { BoardStateRepository } from "@/db/repositories/BoardStateRepository";
 import { Context, Next } from "koa";
 
 export async function requireAuth(ctx: Context, next: Next) {
@@ -13,7 +13,7 @@ export async function requireAuth(ctx: Context, next: Next) {
 
     if (
         !ctx.session.board_id ||
-        !(await BoardRepository.doesStateExist(ctx.session.board_id))
+        !(await BoardStateRepository.doesStateExist(ctx.session.board_id))
     ) {
         throw new UnauthorizedError("not authenticated");
     }

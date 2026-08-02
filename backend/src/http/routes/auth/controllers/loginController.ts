@@ -4,6 +4,7 @@ import { NotFoundError } from "@/http/shared/error/http_error";
 import { HTTP_STATUS } from "@/http/shared/status/httpStatus";
 import bcrypt from "bcrypt";
 import { BoardStateRepository } from "@/db/repositories/BoardStateRepository";
+import { loginService } from "@/services/auth/loginService";
 
 export async function loginController(ctx: Context) {
     const {
@@ -11,7 +12,7 @@ export async function loginController(ctx: Context) {
         password,
         board_id: board_template_id,
     } = ctx.state.validated.body;
-
+    const board = await loginService(email, password, board_template_id);
     const user = await UserRepository.getUser(email);
 
     if (user === null) {
@@ -25,8 +26,8 @@ export async function loginController(ctx: Context) {
         user.user_id,
     );
 
-    ctx.session!.user_id = user.user_id;
-    ctx.session!.board_id = board_template_id;
+    ctx.session.user_id = user.user_id;
+    ctx.session.board_id = board_template_id;
     ctx.status = HTTP_STATUS.OK;
     ctx.body = { board };
 }

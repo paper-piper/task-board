@@ -11,8 +11,8 @@ export async function registerController(ctx: Context) {
         board_template_id,
     );
 
-    ctx.session!.user_id = user_id;
-    ctx.session!.board_id = board_template_id;
+    ctx.session.user_id = user_id;
+    ctx.session.board_id = board_template_id;
     ctx.status = HTTP_STATUS.OK;
     ctx.body = { board: board };
 }
