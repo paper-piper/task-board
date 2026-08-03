@@ -8,6 +8,6 @@ export default {
                 body: ['"Inter"', "system-ui", "sans-serif"],
             },
         },
-    }, // TODO: insert this cool ass thing
+    },
     plugins: [],
 };

@@ -1,5 +1,6 @@
+import { apiFetch, NetworkError } from "@/shared/api";
 import { ErrorStatuses } from "@/shared/types/error";
-import { useBoardStore } from "@/store/boardStore";
+import { useBoardStore } from "@/boardStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { API_ROUTE } from "@/config";
 
@@ -9,17 +10,15 @@ export function useExecuteTask() {
 
     return useMutation({
         mutationFn: (taskId: string) =>
-            fetch(`${API_ROUTE}/task/execute/${taskId}`, {
+            apiFetch(`${API_ROUTE}/task/execute/${taskId}`, {
                 method: "POST",
                 credentials: "include",
-            }).then((res) => {
-                if (!res.ok) throw new Error(res.status.toString());
-                return res.json();
             }),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["board"] });
         },
-        onError: () => {
+        onError: (error) => {
+            if (error instanceof NetworkError) return;
             setError(ErrorStatuses.ExecutionError); // or map status codes to specific ones
         },
     });

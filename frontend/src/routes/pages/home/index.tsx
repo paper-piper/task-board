@@ -1,6 +1,5 @@
 import { Header } from "@/components/layout/Header";
 import { TaskBoard } from "./components/board";
-import { ErrorModal } from "@/components/ErrorModal";
 import { useOutlet } from "react-router-dom";
 
 export function TasksBoard() {
@@ -16,7 +15,6 @@ export function TasksBoard() {
           </div>
         )}
       </div>
-      <ErrorModal />
     </>
   );
 }

@@ -19,4 +19,14 @@ export const ERROR_MESSAGES = {
     details:
       "Check your email and password — password must be at least 6 characters — and try again.",
   },
+  [ErrorStatuses.RegisterError]: {
+    header: "Registration failed",
+    details:
+      "Check your email and password — password must be at least 6 characters and match the confirmation — and try again.",
+  },
+  [ErrorStatuses.ServerError]: {
+    header: "Can't reach the server",
+    details:
+      "We couldn't connect to PMZone. Check your connection and try again shortly.",
+  },
 };

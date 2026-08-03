@@ -1,6 +1,7 @@
 import { API_ROUTE } from "@/config";
+import { apiFetch, NetworkError } from "@/shared/api";
 import { ErrorStatuses } from "@/shared/types/error";
-import { useBoardStore } from "@/store/boardStore";
+import { useBoardStore } from "@/boardStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export function useReorderTask() {
@@ -15,19 +16,17 @@ export function useReorderTask() {
             taskId: string;
             position: number;
         }) =>
-            fetch(`${API_ROUTE}/task/reorder/${taskId}`, {
+            apiFetch(`${API_ROUTE}/task/reorder/${taskId}`, {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ position }),
-            }).then((res) => {
-                if (!res.ok) throw new Error(res.status.toString());
-                return res.json();
             }),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["board"] });
         },
-        onError: () => {
+        onError: (error) => {
+            if (error instanceof NetworkError) return;
             setError(ErrorStatuses.OrderError);
         },
     });

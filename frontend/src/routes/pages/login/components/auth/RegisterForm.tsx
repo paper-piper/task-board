@@ -3,7 +3,7 @@ import { Field } from "../shared/Field";
 import { PasswordInput } from "../shared/PasswordInput";
 import { BoardField } from "./BoardField";
 import { useRegister } from "@/hooks/auth/useRegister";
-import { useBoardStore } from "@/store/boardStore";
+import { useBoardStore } from "@/boardStore";
 import { ErrorStatuses } from "@/shared/types/error";
 
 export function RegisterForm({ onSwitch }: { onSwitch: () => void }) {
@@ -18,7 +18,7 @@ export function RegisterForm({ onSwitch }: { onSwitch: () => void }) {
         e.preventDefault();
         if (!selectedBoard) return;
         if (password.length < 6 || confirmedPassword != password) {
-            setError(ErrorStatuses.AuthError);
+            setError(ErrorStatuses.RegisterError);
             return;
         }
         register({ email, password, board_template_id: selectedBoard });

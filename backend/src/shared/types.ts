@@ -14,18 +14,18 @@ export type Task = {
     completed?: boolean;
     position?: number;
 };
-
+// bonus: entity vs domain
 export type Board = {
-    id: string; // TODO intigrate + entity domain
+    id: string;
     tasks: Task[];
     name: string;
     value: number;
     budget: number;
-    created_at: Date; // TODO Right format? + migration
+    created_at: Date;
 };
 
 export type BoardMetadata = {
-    id: string; // TODO: entity verses domain
+    id: string;
     name: string;
     task_count: number;
     budget: number;

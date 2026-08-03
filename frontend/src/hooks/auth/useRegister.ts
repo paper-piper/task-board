@@ -1,6 +1,7 @@
 import { API_ROUTE } from "@/config";
+import { apiFetch, NetworkError } from "@/shared/api";
 import { ErrorStatuses } from "@/shared/types/error";
-import { useBoardStore } from "@/store/boardStore";
+import { useBoardStore } from "@/boardStore";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
@@ -15,21 +16,19 @@ export function useRegister() {
             password: string;
             board_template_id: string;
         }) =>
-            fetch(`${API_ROUTE}/auth/register`, {
+            apiFetch(`${API_ROUTE}/auth/register`, {
                 method: "POST",
                 credentials: "include",
-                headers: { "Content-Type": "application/json" }, // todo: neccery?
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(credentials),
-            }).then((res) => {
-                if (!res.ok) throw new Error(res.status.toString());
-                return res.json();
             }),
         onSuccess: (data) => {
             queryClient.setQueryData(["board"], data.board);
             navigate("/TasksBoard");
         },
-        onError: () => {
-            setError(ErrorStatuses.AuthError);
+        onError: (error) => {
+            if (error instanceof NetworkError) return;
+            setError(ErrorStatuses.RegisterError);
         },
     });
 }

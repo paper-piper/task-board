@@ -1,4 +1,4 @@
-import { CompanyLogo } from "../../../assets/icons/logo";
+import { CompanyLogo } from "../../../../assets/icons/logo";
 
 export function TopBar() {
     return (

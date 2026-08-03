@@ -24,7 +24,7 @@ export const BoardStateRepository = {
 
     async getBoardState(
         board_state_id: string,
-        executor: Kysely<DB> | Transaction<DB> = db, // TODO: take a look at options to improve this pattern or not use db completely
+        executor: Kysely<DB> | Transaction<DB> = db,
         forUpdate = false,
     ): Promise<Board> {
         let board_query = executor
@@ -173,8 +173,7 @@ export const BoardStateRepository = {
         new_pos: number,
         executor: Kysely<DB> | Transaction<DB> = db,
     ) {
-        // TODO: ask big eli
-        // TODO: Transaction parameter can be simplified or changed?
+        // bonus: Transaction parameter can be simplified or changed? need to ask eli
         const lo = Math.min(old_pos, new_pos).toString();
         const hi = Math.max(old_pos, new_pos).toString();
         const direction = (old_pos < new_pos ? -1 : 1).toString();

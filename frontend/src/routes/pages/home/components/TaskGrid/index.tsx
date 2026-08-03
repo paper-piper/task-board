@@ -7,8 +7,9 @@ import { useReorderTask } from "@/hooks/board/useReorderTask";
 
 export function TaskGrid() {
     const { data: board } = useBoard();
-    const { mutate: reorderTask } = useReorderTask();
+    const { mutate: reorderTask } = useReorderTask(); // TODO: Reorder works weird
     // TODO: INVALID login shows corret errors
+    // TODO: handle backend down
     if (!board) return <></>;
     return (
         <DndContext
