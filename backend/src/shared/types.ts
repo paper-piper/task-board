@@ -1,6 +1,9 @@
+export type Email = string;
+export type Password = string;
+
 export type User = {
-    email: string;
-    password: string;
+    email: Email;
+    password: Password;
 };
 
 export type Task = {
