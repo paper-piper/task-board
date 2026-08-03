@@ -8,4 +8,9 @@ export const envSchema = z.object({
     DB_PASSWORD: z.string().min(1),
     SERVER_HOST: z.string().min(1),
     SERVER_PORT: z.coerce.number().int().positive(),
+    SESSION_SECRET: z.string().min(32),
+    CLIENT_ORIGIN: z.url(),
+    NODE_ENV: z
+        .enum(["development", "test", "production"])
+        .default("development"),
 });

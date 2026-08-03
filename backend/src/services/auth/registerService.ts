@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import { db } from "@/db/buildDb";
 import { UserRepository } from "@/db/repositories/UserRepository";
 import { BoardStateRepository } from "@/db/repositories/BoardStateRepository";
 import { BoardTemplateRepository } from "@/db/repositories/BoardTemplateRepository";
@@ -13,20 +14,32 @@ export async function registerService(
     board_template_id: string,
 ): Promise<{ user_id: string; board: Board }> {
     const hashed_password = await bcrypt.hash(password, SALT_ROUNDS);
-    const { user_id } = await UserRepository.create(email, hashed_password);
 
-    if (user_id === null) {
-        throw new ConflictError("User with that email already exists");
-    }
+    // Creating the user and seeding their board share a transaction, so a
+    // failure while building the board cannot leave a user behind that can
+    // neither register again nor log in.
+    return db.transaction().execute(async (trx) => {
+        const { user_id } = await UserRepository.create(
+            email,
+            hashed_password,
+            trx,
+        );
 
-    await BoardTemplateRepository.createBoardFromTemplate(
-        board_template_id,
-        user_id,
-    );
-    const board = await BoardStateRepository.getLatestBoardState(
-        board_template_id,
-        user_id,
-    );
+        if (user_id === null) {
+            throw new ConflictError("User with that email already exists");
+        }
 
-    return { user_id, board };
+        await BoardTemplateRepository.createBoardFromTemplate(
+            board_template_id,
+            user_id,
+            trx,
+        );
+        const board = await BoardStateRepository.getLatestBoardState(
+            board_template_id,
+            user_id,
+            trx,
+        );
+
+        return { user_id, board };
+    });
 }

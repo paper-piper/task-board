@@ -14,4 +14,9 @@ export const ERROR_MESSAGES = {
     header: "Insufficient balance",
     details: "You don't have enough budget to aquire this task",
   },
+  [ErrorStatuses.AuthError]: {
+    header: "Sign in failed",
+    details:
+      "Check your email and password — password must be at least 6 characters — and try again.",
+  },
 };
