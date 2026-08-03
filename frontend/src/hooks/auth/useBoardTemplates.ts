@@ -10,5 +10,6 @@ export function useBoardTemplate() {
             const { boardsMetadata } = await apiFetch(`${API_ROUTE}/board`);
             return boardsMetadata;
         },
+        meta: { silent: true },
     });
 }

@@ -10,23 +10,47 @@ export function BoardField({
     onSelect: (tag: string) => void;
     hint?: string;
 }) {
-    const { data: boards } = useBoardTemplate();
-    if (!boards) return <></>;
+    const { data: boards, isLoading, isError, refetch } = useBoardTemplate();
+
     return (
         <div className="mt-0.5 border-t border-[#e3e2de] pt-4">
             <label className="mb-2.5 block text-[13px] text-[#82877f]">
-                Board
+                Boards
             </label>
-            <div className="flex max-h-[186px] flex-col gap-2 overflow-y-auto pr-0.5">
-                {boards.map((board) => (
-                    <BoardRow
-                        key={board.id}
-                        board={board}
-                        selected={selectedBoard === board.id}
-                        onClick={() => onSelect(board.id)}
-                    />
-                ))}
-            </div>
+            {isLoading && (
+                <p className="text-[13px] text-[#82877f]">Loading boards…</p>
+            )}
+            {isError && (
+                <div className="flex items-center justify-between rounded-lg border border-[#e3a3a3] bg-[#fbeeee] px-3 py-2.5">
+                    <p className="text-[13px] text-[#a34242]">
+                        Couldn't load boards.
+                    </p>
+                    <button
+                        type="button"
+                        onClick={() => refetch()}
+                        className="text-[12.5px] font-bold text-[#587876] hover:underline"
+                    >
+                        Retry
+                    </button>
+                </div>
+            )}
+            {!isLoading && !isError && boards && boards.length === 0 && (
+                <p className="text-[13px] text-[#82877f]">
+                    No boards available.
+                </p>
+            )}
+            {!isLoading && !isError && boards && boards.length > 0 && (
+                <div className="flex max-h-[186px] flex-col gap-2 overflow-y-auto pr-0.5">
+                    {boards.map((board) => (
+                        <BoardRow
+                            key={board.id}
+                            board={board}
+                            selected={selectedBoard === board.id}
+                            onClick={() => onSelect(board.id)}
+                        />
+                    ))}
+                </div>
+            )}
             {hint && (
                 <p className="mt-2 text-[11.5px] text-[#aeb2ac]">{hint}</p>
             )}

@@ -11,15 +11,20 @@ import { NetworkError } from "@/shared/api";
 import { useBoardStore } from "@/boardStore";
 import { ErrorStatuses } from "@/shared/types/error";
 
-function onQueryError(error: unknown) {
+function showConnectionError(error: unknown) {
     if (error instanceof NetworkError) {
         useBoardStore.getState().setError(ErrorStatuses.ServerError);
     }
 }
 
 const queryClient = new QueryClient({
-    queryCache: new QueryCache({ onError: onQueryError }),
-    mutationCache: new MutationCache({ onError: onQueryError }),
+    queryCache: new QueryCache({
+        onError: (error, query) => {
+            if (query.meta?.silent) return;
+            showConnectionError(error);
+        },
+    }),
+    mutationCache: new MutationCache({ onError: showConnectionError }),
 });
 
 export function App() {
