@@ -9,13 +9,13 @@ import {
 export async function reorderTaskController(
     ctx: ValidatedContext<{ params: TaskId; body: Position }>,
 ) {
-    const board_id = ctx.session.board_id;
+    const board_id = ctx.session!.board_id;
     const task_id = ctx.state.validated.params.task_id;
     const new_pos = ctx.state.validated.body.position;
 
     const newBoard = await reorderTaskService(board_id, task_id, new_pos);
 
-    ctx.session.board_id = newBoard.id;
+    ctx.session!.board_id = newBoard.id;
     ctx.status = HTTP_STATUS.OK;
     ctx.body = { board: newBoard };
 }

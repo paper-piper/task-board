@@ -13,8 +13,8 @@ export async function loginController(
         board_template_id,
     );
 
-    ctx.session.user_id = user_id;
-    ctx.session.board_id = board.id;
+    ctx.session!.user_id = user_id;
+    ctx.session!.board_id = board.id;
     ctx.status = HTTP_STATUS.OK;
     ctx.body = { board };
 }
