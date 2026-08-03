@@ -39,6 +39,7 @@ export function TaskCard({
       }`}
     >
       <CardHeader
+        id={task.id}
         code={task.code}
         title={task.title}
         status={status}

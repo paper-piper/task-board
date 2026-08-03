@@ -3,13 +3,11 @@ import { handleDragEnd } from "./handleDragEnd";
 import { getPredecessorsLabel } from "./predecessors_parse";
 import { CardCell } from "./CardCell";
 import { useBoard } from "@/hooks/board/useBoard";
-import { useReorderTask } from "@/hooks/board/useReorderTask";
+import { useReorderTask } from "@/hooks/task/useReorderTask";
 
 export function TaskGrid() {
     const { data: board } = useBoard();
     const { mutate: reorderTask } = useReorderTask(); // TODO: Reorder works weird
-    // TODO: INVALID login shows corret errors
-    // TODO: handle backend down
     if (!board) return <></>;
     return (
         <DndContext
