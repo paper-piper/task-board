@@ -1,9 +1,10 @@
 import { db } from "@/db/buildDb";
 import { Json } from "@/db/schema";
 import { TABLE_NAMES } from "@/db/tableNames";
+import { SessionId } from "@/shared/types";
 
 export async function setSession(
-    sessionId: string,
+    sessionId: SessionId,
     session: Json,
     expiresAt: Date,
 ) {

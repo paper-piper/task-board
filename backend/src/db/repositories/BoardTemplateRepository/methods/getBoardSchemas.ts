@@ -2,7 +2,7 @@ import { db } from "@/db/buildDb";
 import { TABLE_NAMES } from "@/db/tableNames";
 import { Kysely, Transaction } from "kysely";
 import { DB } from "@/db/schema";
-import { BoardMetadata } from "@/shared/types";
+import { BoardMetadata, BoardTemplateId } from "@/shared/types";
 
 export async function getBoardSchemas(
     executor: Kysely<DB> | Transaction<DB> = db,
@@ -12,7 +12,7 @@ export async function getBoardSchemas(
         .select(["board_template_id as id", "name", "budget", "value"])
         .execute();
 
-    const board_ids = boards.map((b) => b.id);
+    const board_ids = boards.map((b) => b.id as BoardTemplateId);
     const task_counts = await executor
         .selectFrom(TABLE_NAMES.task_templates)
         .where("board_template_id", "in", board_ids)
@@ -25,11 +25,12 @@ export async function getBoardSchemas(
 
     return boards.map((b): BoardMetadata => ({
         ...b,
+        id: b.id as BoardTemplateId,
         budget: Number(b.budget),
         value: Number(b.value),
         task_count: Number(
-            task_counts.find((t) => t.board_template_id === b.id)
-                ?.task_count ?? 0,
+            task_counts.find((t) => t.board_template_id === b.id)?.task_count ??
+                0,
         ),
     }));
 }

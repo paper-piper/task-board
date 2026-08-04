@@ -1,13 +1,13 @@
 import { db } from "@/db/buildDb";
 import { TABLE_NAMES } from "@/db/tableNames";
 import { mapTaskRow } from "@/db/repositories/mappers/taskMapper";
-import { Task } from "@/shared/types";
+import { Task, BoardStateId, TaskStateId } from "@/shared/types";
 import { Kysely, Transaction } from "kysely";
 import { DB } from "@/db/schema";
 
 export async function getTaskFromPrevState(
-    board_state_id: string,
-    task_state_id: string,
+    board_state_id: BoardStateId,
+    task_state_id: TaskStateId,
     executor: Kysely<DB> | Transaction<DB> = db,
     forUpdate = false,
 ): Promise<Task | null> {

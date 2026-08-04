@@ -1,9 +1,11 @@
 import { SessionRepository } from "@/db/repositories/SessionRepository";
 import type { Json } from "@/db/schema";
+import type { SessionId } from "@/shared/types";
 
+// koa-session's store interface hands us plain strings; brand them at this boundary.
 export class PgSessionStore {
     async get(sid: string) {
-        const session = await SessionRepository.getSession(sid);
+        const session = await SessionRepository.getSession(sid as SessionId);
 
         if (!session || session.expires_at < new Date()) {
             return null;
@@ -13,10 +15,14 @@ export class PgSessionStore {
 
     async set(sid: string, session: Json, maxAge: number) {
         const expiresAt = new Date(Date.now() + maxAge);
-        await SessionRepository.setSession(sid, session, expiresAt);
+        await SessionRepository.setSession(
+            sid as SessionId,
+            session,
+            expiresAt,
+        );
     }
 
     async destroy(sid: string) {
-        await SessionRepository.deleteSession(sid);
+        await SessionRepository.deleteSession(sid as SessionId);
     }
 }

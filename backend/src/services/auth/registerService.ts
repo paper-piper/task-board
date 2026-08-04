@@ -4,15 +4,15 @@ import { UserRepository } from "@/db/repositories/UserRepository";
 import { BoardStateRepository } from "@/db/repositories/BoardStateRepository";
 import { BoardTemplateRepository } from "@/db/repositories/BoardTemplateRepository";
 import { ConflictError } from "@/http/shared/error/http_error";
-import { Board } from "@/shared/types";
+import { Board, BoardTemplateId, UserId } from "@/shared/types";
 
 const SALT_ROUNDS = 12;
 
 export async function registerService(
     email: string,
     password: string,
-    board_template_id: string,
-): Promise<{ user_id: string; board: Board }> {
+    board_template_id: BoardTemplateId,
+): Promise<{ user_id: UserId; board: Board }> {
     const hashed_password = await bcrypt.hash(password, SALT_ROUNDS);
 
     // Creating the user and seeding their board share a transaction, so a

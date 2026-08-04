@@ -2,10 +2,11 @@ import { db } from "@/db/buildDb";
 import { TABLE_NAMES } from "@/db/tableNames";
 import { Kysely, Transaction } from "kysely";
 import { DB } from "@/db/schema";
+import { BoardStateId, TaskStateId } from "@/shared/types";
 
 export async function reorderTask(
-    board_state_id: string,
-    task_id: string,
+    board_state_id: BoardStateId,
+    task_id: TaskStateId,
     old_pos: number,
     new_pos: number,
     executor: Kysely<DB> | Transaction<DB> = db,

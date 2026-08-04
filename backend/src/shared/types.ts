@@ -1,3 +1,14 @@
+declare const brand: unique symbol;
+/** Nominal-typing helper: makes structurally identical ids incompatible with each other. */
+export type Brand<T, B extends string> = T & { readonly [brand]: B };
+
+export type UserId = Brand<string, "UserId">;
+export type BoardTemplateId = Brand<string, "BoardTemplateId">;
+export type BoardStateId = Brand<string, "BoardStateId">;
+export type TaskTemplateId = Brand<string, "TaskTemplateId">;
+export type TaskStateId = Brand<string, "TaskStateId">;
+export type SessionId = Brand<string, "SessionId">;
+
 export type Email = string;
 export type Password = string;
 
@@ -8,18 +19,18 @@ export type User = {
 
 export type Task = {
     code: string;
-    id: string;
+    id: TaskStateId;
     title: string;
     cost: number;
     value: number;
     steps: number;
-    predecessors_ids: string[];
+    predecessors_ids: TaskStateId[];
     completed?: boolean;
     position?: number;
 };
 // bonus: entity vs domain
 export type Board = {
-    id: string;
+    id: BoardStateId;
     tasks: Task[];
     name: string;
     value: number;
@@ -28,7 +39,7 @@ export type Board = {
 };
 
 export type BoardMetadata = {
-    id: string;
+    id: BoardTemplateId;
     name: string;
     task_count: number;
     budget: number;

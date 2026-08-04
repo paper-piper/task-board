@@ -2,6 +2,7 @@ import { db } from "@/db/buildDb";
 import { TABLE_NAMES } from "@/db/tableNames";
 import { Kysely, Transaction } from "kysely";
 import { DB } from "@/db/schema";
+import { UserId } from "@/shared/types";
 
 export async function create(
     email: string,
@@ -18,7 +19,7 @@ export async function create(
         return { user_id: null };
     }
 
-    const user_id = await executor
+    const { user_id } = await executor
         .insertInto(TABLE_NAMES.users)
         .values({
             email,
@@ -27,5 +28,5 @@ export async function create(
         .returning("user_id")
         .executeTakeFirstOrThrow();
 
-    return user_id;
+    return { user_id: user_id as UserId };
 }

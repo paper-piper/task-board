@@ -6,11 +6,11 @@ import {
     ConflictError,
     NotFoundError,
 } from "@/http/shared/error/http_error";
-import { Board, Task } from "@/shared/types";
+import { Board, BoardStateId, Task, TaskStateId } from "@/shared/types";
 
 export async function reorderTaskService(
-    board_state_id: string,
-    task_id: string,
+    board_state_id: BoardStateId,
+    task_id: TaskStateId,
     new_pos: number,
 ): Promise<Board> {
     const newBoard = await db.transaction().execute(async (trx) => {

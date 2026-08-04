@@ -6,13 +6,13 @@ import {
     NotFoundError,
     UnprocessableEntityError,
 } from "@/http/shared/error/http_error";
-import { Board, Task } from "@/shared/types";
+import { Board, BoardStateId, Task, TaskStateId } from "@/shared/types";
 import { Transaction } from "kysely";
 import { DB } from "@/db/schema";
 
 export async function executeTaskService(
-    board_state_id: string,
-    task_id: string,
+    board_state_id: BoardStateId,
+    task_id: TaskStateId,
 ): Promise<Board> {
     // The duplicate is created inside the transaction so a failed validation
     // rolls it back instead of leaving an orphaned board state behind.
@@ -45,7 +45,7 @@ export async function executeTaskService(
 
 async function validateExecution(
     task: Task,
-    board_id: string,
+    board_id: BoardStateId,
     trx: Transaction<DB>,
 ) {
     if (task.completed) {

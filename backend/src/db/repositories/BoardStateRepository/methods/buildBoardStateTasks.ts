@@ -1,13 +1,13 @@
 import { db } from "@/db/buildDb";
 import { TABLE_NAMES } from "@/db/tableNames";
-import { Board } from "@/shared/types";
+import { Board, BoardStateId } from "@/shared/types";
 import { mapTaskRow } from "@/db/repositories/mappers/taskMapper";
 import { Kysely, Transaction } from "kysely";
 import { DB } from "@/db/schema";
 
 export async function buildBoardStateTasks(
     board_details: {
-        board_state_id: string;
+        board_state_id: BoardStateId;
         name: string;
         budget: string | number;
         value: string | number;

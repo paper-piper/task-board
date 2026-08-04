@@ -1,5 +1,6 @@
 import { db } from "@/db/buildDb";
 import { TABLE_NAMES } from "@/db/tableNames";
+import { UserId } from "@/shared/types";
 
 export async function getUser(email: string) {
     const user = await db
@@ -8,5 +9,7 @@ export async function getUser(email: string) {
         .select(["user_id", "hashed_password"])
         .executeTakeFirst();
 
-    return user ?? null;
+    if (!user) return null;
+
+    return { ...user, user_id: user.user_id as UserId };
 }

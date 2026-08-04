@@ -2,11 +2,12 @@ import { db } from "@/db/buildDb";
 import { TABLE_NAMES } from "@/db/tableNames";
 import { Kysely, Transaction } from "kysely";
 import { DB } from "@/db/schema";
+import { BoardStateId, TaskStateId, TaskTemplateId } from "@/shared/types";
 
 export async function duplicateBoardState(
-    board_state_id: string,
+    board_state_id: BoardStateId,
     executor: Kysely<DB> | Transaction<DB> = db,
-): Promise<string> {
+): Promise<BoardStateId> {
     const board = await executor
         .selectFrom(TABLE_NAMES.board_states)
         .where("board_state_id", "=", board_state_id)
@@ -40,45 +41,42 @@ export async function duplicateBoardState(
         const newTasks = await executor
             .insertInto(TABLE_NAMES.task_states)
             .values(
-                tasks.map(
-                    ({ task_state_id, predecessors_ids, ...task }) => ({
-                        ...task,
-                        board_state_id: newBoard.board_state_id,
-                        predecessors_ids: null,
-                    }),
-                ),
+                tasks.map(({ task_state_id, predecessors_ids, ...task }) => ({
+                    ...task,
+                    board_state_id: newBoard.board_state_id,
+                    predecessors_ids: null,
+                })),
             )
             .returning(["task_state_id", "task_template_id"])
             .execute();
 
-        const templateIdToNewTaskId = new Map(
+        const templateIdToNewTaskId = new Map<TaskTemplateId, TaskStateId>(
             newTasks.map((task) => [
-                task.task_template_id,
-                task.task_state_id,
+                task.task_template_id as TaskTemplateId,
+                task.task_state_id as TaskStateId,
             ]),
         );
-        const oldTaskIdToTemplateId = new Map(
+        const oldTaskIdToTemplateId = new Map<TaskStateId, TaskTemplateId>(
             tasks.map((task) => [
-                task.task_state_id,
-                task.task_template_id,
+                task.task_state_id as TaskStateId,
+                task.task_template_id as TaskTemplateId,
             ]),
         );
 
         for (const task of tasks) {
-            if (
-                !task.predecessors_ids ||
-                task.predecessors_ids.length === 0
-            ) {
+            if (!task.predecessors_ids || task.predecessors_ids.length === 0) {
                 continue;
             }
 
             const newPredecessorsIds = task.predecessors_ids
                 .map((oldPredecessorId) =>
                     templateIdToNewTaskId.get(
-                        oldTaskIdToTemplateId.get(oldPredecessorId)!,
+                        oldTaskIdToTemplateId.get(
+                            oldPredecessorId as TaskStateId,
+                        )!,
                     ),
                 )
-                .filter((id): id is string => id !== undefined);
+                .filter((id): id is TaskStateId => id !== undefined);
 
             await executor
                 .updateTable(TABLE_NAMES.task_states)
@@ -86,11 +84,13 @@ export async function duplicateBoardState(
                 .where(
                     "task_state_id",
                     "=",
-                    templateIdToNewTaskId.get(task.task_template_id)!,
+                    templateIdToNewTaskId.get(
+                        task.task_template_id as TaskTemplateId,
+                    )!,
                 )
                 .execute();
         }
     }
 
-    return newBoard.board_state_id;
+    return newBoard.board_state_id as BoardStateId;
 }
