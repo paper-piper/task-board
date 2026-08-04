@@ -20,7 +20,7 @@ export default function setupApp() {
     app.use(
         cors({
             origin: env.CLIENT_ORIGIN,
-            credentials: true, // TODO: are all the things here in env?
+            credentials: true,
         }),
     );
     app.use(
@@ -29,7 +29,6 @@ export default function setupApp() {
                 key: "sid",
                 maxAge: 24 * 60 * 60 * 1000, // 24h
                 httpOnly: true,
-                sameSite: "lax", // understand ts
                 secure: env.NODE_ENV === "production",
                 store: new PgSessionStore(),
             },
@@ -49,4 +48,3 @@ export default function setupApp() {
     app.use(root_router.allowedMethods());
     return app;
 }
-// TODO: DOCKER AND GG
