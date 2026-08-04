@@ -9,7 +9,6 @@ export async function errorHandler(ctx: Context, next: Next): Promise<void> {
         if (err instanceof HttpError) {
             ctx.status = err.status;
             let errorBody: unknown;
-            // Try and get body from json in case of zod error, else http error
             try {
                 errorBody = JSON.parse(err.message);
             } catch {

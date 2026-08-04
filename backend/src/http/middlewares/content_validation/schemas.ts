@@ -13,11 +13,10 @@ export const task_id = z.object({
 });
 export type TaskId = z.infer<typeof task_id>;
 
-// Selects a board *template* to switch the session's active board to.
-export const board_id = z.object({
+export const board_template_id = z.object({
     board_id: z.uuid().transform((id) => id as BoardTemplateId),
 });
-export type BoardId = z.infer<typeof board_id>;
+export type ZBoardTemplateId = z.infer<typeof board_template_id>;
 
 export const position = z.object({ position: z.number().int().nonnegative() });
 export type Position = z.infer<typeof position>;

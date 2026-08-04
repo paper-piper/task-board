@@ -1,10 +1,10 @@
 import { BoardStateRepository } from "@/db/repositories/BoardStateRepository";
 import { HTTP_STATUS } from "@/http/shared/status/httpStatus";
 import { ValidatedContext } from "@/http/shared/context/validatedContext";
-import { BoardId } from "@/http/middlewares/content_validation/schemas";
+import { ZBoardTemplateId } from "@/http/middlewares/content_validation/schemas";
 
 export async function SelectBoardController(
-    ctx: ValidatedContext<{ body: BoardId }>,
+    ctx: ValidatedContext<{ body: ZBoardTemplateId }>,
 ) {
     const board_template_id = ctx.state.validated.body.board_id;
     const user_id = ctx.session!.user_id;

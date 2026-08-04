@@ -28,7 +28,7 @@ export type Task = {
     completed?: boolean;
     position?: number;
 };
-// bonus: entity vs domain
+
 export type Board = {
     id: BoardStateId;
     tasks: Task[];

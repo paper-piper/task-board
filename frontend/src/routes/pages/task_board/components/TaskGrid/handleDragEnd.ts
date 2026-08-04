@@ -18,10 +18,5 @@ export function handleDragEnd(
     const currentPos = tasks.findIndex((t) => t.id === taskId);
     if (currentPos === newPos) return;
 
-    if (!ValidateOrder(taskId, newPos, tasks)) {
-        useBoardStore.getState().setError(ErrorStatuses.OrderError); // still fine — Zustand, not a hook
-        return;
-    }
-
     reorderTask({ taskId, position: newPos });
 }

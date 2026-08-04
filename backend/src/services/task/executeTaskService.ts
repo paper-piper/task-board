@@ -14,8 +14,6 @@ export async function executeTaskService(
     board_state_id: BoardStateId,
     task_id: TaskStateId,
 ): Promise<Board> {
-    // The duplicate is created inside the transaction so a failed validation
-    // rolls it back instead of leaving an orphaned board state behind.
     const newBoard = await db.transaction().execute(async (trx) => {
         const new_board_state_id =
             await BoardStateRepository.duplicateBoardState(board_state_id, trx);

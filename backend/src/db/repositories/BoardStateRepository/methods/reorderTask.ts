@@ -10,7 +10,6 @@ export async function reorderTask(
     new_pos: number,
     executor: Executor = db,
 ) {
-    // bonus: Transaction parameter can be simplified or changed? need to ask eli
     const lo = Math.min(old_pos, new_pos).toString();
     const hi = Math.max(old_pos, new_pos).toString();
     const direction = (old_pos < new_pos ? -1 : 1).toString();

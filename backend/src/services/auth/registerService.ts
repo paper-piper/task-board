@@ -15,9 +15,6 @@ export async function registerService(
 ): Promise<{ user_id: UserId; board: Board }> {
     const hashed_password = await bcrypt.hash(password, SALT_ROUNDS);
 
-    // Creating the user and seeding their board share a transaction, so a
-    // failure while building the board cannot leave a user behind that can
-    // neither register again nor log in.
     return db.transaction().execute(async (trx) => {
         const { user_id } = await UserRepository.create(
             email,

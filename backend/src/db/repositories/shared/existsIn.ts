@@ -11,10 +11,6 @@ export async function existsIn<
     value: string,
     executor: Executor = db,
 ): Promise<boolean> {
-    // Table/Column are generic here, so Kysely can't specialize its usual
-    // per-table where/select overloads the way a literal table name gets for
-    // free — the `any` below is the deliberate escape hatch for that.
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const query = executor.selectFrom(table as any).select(column as any);
     const row = await query.where(column as any, "=", value).executeTakeFirst();
 

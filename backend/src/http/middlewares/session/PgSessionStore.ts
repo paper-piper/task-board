@@ -2,7 +2,6 @@ import { SessionRepository } from "@/db/repositories/SessionRepository";
 import type { Json } from "@/db/schema";
 import type { SessionId } from "@/shared/types";
 
-// koa-session's store interface hands us plain strings; brand them at this boundary.
 export class PgSessionStore {
     async get(sid: string) {
         const session = await SessionRepository.getSession(sid as SessionId);
