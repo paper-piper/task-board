@@ -1,18 +1,17 @@
 import { db } from "@/db/buildDb";
 import { TABLE_NAMES } from "@/db/tableNames";
-import { Kysely, Transaction } from "kysely";
-import { DB } from "@/db/schema";
 import { BoardTemplateId } from "@/shared/types";
+import { Executor } from "@/db/repositories/shared/executor";
+import { existsIn } from "@/db/repositories/shared/existsIn";
 
 export async function doesUserHaveBoardStateForTemplate(
     board_template_id: BoardTemplateId,
-    executor: Kysely<DB> | Transaction<DB> = db,
+    executor: Executor = db,
 ) {
-    const board = await executor
-        .selectFrom(TABLE_NAMES.board_states)
-        .where("board_template_id", "=", board_template_id)
-        .select("board_template_id")
-        .executeTakeFirst();
-
-    return board !== undefined;
+    return existsIn(
+        TABLE_NAMES.board_states,
+        "board_template_id",
+        board_template_id,
+        executor,
+    );
 }
