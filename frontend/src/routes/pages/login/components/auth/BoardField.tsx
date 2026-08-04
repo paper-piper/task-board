@@ -1,5 +1,5 @@
 import { BoardMetadata } from "@/shared/types/Board";
-import { useBoardTemplate } from "@/hooks/auth/useBoardTemplates";
+import { useBoardTemplate } from "@/hooks/board/useBoardTemplates";
 
 export function BoardField({
     selectedBoard,

@@ -1,4 +1,4 @@
-import { useBoardTemplate } from "@/hooks/auth/useBoardTemplates";
+import { useBoardTemplate } from "@/hooks/board/useBoardTemplates";
 
 export function BrandPanel() {
     const { data: boards } = useBoardTemplate();
@@ -16,7 +16,7 @@ export function BrandPanel() {
                 <p className="mb-3.5 text-xs font-semibold uppercase tracking-[0.08em] text-white/70">
                     Project workspace
                 </p>
-                <h1 className="font-display mb-3 max-w-[270px] text-[27px] font-semibold leading-[1.25]">
+                <h1 className="mb-3 max-w-[270px] font-display text-[27px] font-semibold leading-[1.25]">
                     One shared set of boards for the whole team.
                 </h1>
                 <p className="max-w-[260px] text-sm leading-[1.6] text-white/80">
