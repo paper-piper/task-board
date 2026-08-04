@@ -1,6 +1,7 @@
 import setupApp from "./app";
+import { env } from "./env/load_env";
 
 const app = setupApp();
-app.listen(Number(process.env.SERVER_PORT), () =>
-    console.log("listening on ", process.env.SERVER_PORT),
+app.listen(env.SERVER_PORT, () =>
+    console.log("listening on ", env.SERVER_PORT),
 );

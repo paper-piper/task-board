@@ -2,7 +2,7 @@ import Koa from "koa";
 import Router from "@koa/router";
 import { createBoardRouter } from "./http/routes/board/boardRouter";
 import { createAuthRouter } from "./http/routes/auth/authRouter";
-import { loadEnv } from "./env/load_env";
+import { env, loadEnv } from "./env/load_env";
 import { buildDb } from "./db/buildDb";
 import { errorHandler } from "./http/middlewares/error/errorHandler";
 import bodyParser from "@koa/bodyparser";
@@ -16,10 +16,10 @@ export default function setupApp() {
     buildDb();
 
     const app = new Koa();
-    app.keys = [process.env.SESSION_SECRET!];
+    app.keys = [env.SESSION_SECRET];
     app.use(
         cors({
-            origin: process.env.CLIENT_ORIGIN,
+            origin: env.CLIENT_ORIGIN,
             credentials: true, // TODO: are all the things here in env?
         }),
     );
@@ -30,7 +30,7 @@ export default function setupApp() {
                 maxAge: 24 * 60 * 60 * 1000, // 24h
                 httpOnly: true,
                 sameSite: "lax", // understand ts
-                secure: process.env.NODE_ENV === "production",
+                secure: env.NODE_ENV === "production",
                 store: new PgSessionStore(),
             },
             app,
