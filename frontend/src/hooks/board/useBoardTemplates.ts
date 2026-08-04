@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { API_ROUTE } from "@/config";
+import { API_BASE_URL } from "@/config";
 import { apiFetch } from "@/shared/api";
-import { API_ROUTES } from "@/shared/routes";
+import { API_ENDPOINTS } from "@/shared/routes";
 import { BoardMetadata } from "@/shared/types/Board";
 
 export function useBoardTemplate() {
@@ -9,7 +9,7 @@ export function useBoardTemplate() {
         queryKey: ["boardsMetadata"],
         queryFn: async (): Promise<BoardMetadata[]> => {
             const { boardsMetadata } = await apiFetch(
-                `${API_ROUTE}${API_ROUTES.BOARD.LIST}`,
+                `${API_BASE_URL}${API_ENDPOINTS.BOARD.LIST}`,
             );
             return boardsMetadata;
         },

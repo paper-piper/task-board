@@ -1,4 +1,4 @@
-import { API_ROUTE } from "@/config";
+import { API_BASE_URL } from "@/config";
 import { apiFetch, HttpError, NetworkError } from "@/shared/api";
 import { ErrorStatus } from "@/shared/types/error";
 import { AuthCredentials } from "@/shared/types/auth";
@@ -13,7 +13,7 @@ export function useAuthMutation(route: string, errorStatus: ErrorStatus) {
 
     return useMutation({
         mutationFn: (credentials: AuthCredentials) =>
-            apiFetch(`${API_ROUTE}${route}`, {
+            apiFetch(`${API_BASE_URL}${route}`, {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },

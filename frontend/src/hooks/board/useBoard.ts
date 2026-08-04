@@ -1,14 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
-import { API_ROUTE } from "@/config";
+import { API_BASE_URL } from "@/config";
 import { apiFetch } from "@/shared/api";
-import { API_ROUTES } from "@/shared/routes";
+import { API_ENDPOINTS } from "@/shared/routes";
 import { Board } from "@/shared/types/Board";
 
 export function useBoard() {
     return useQuery({
         queryKey: ["board"],
         queryFn: async (): Promise<Board> => {
-            const data = await apiFetch(`${API_ROUTE}${API_ROUTES.BOARD.CURRENT}`, {
+            const data = await apiFetch(`${API_BASE_URL}${API_ENDPOINTS.BOARD.CURRENT}`, {
                 credentials: "include",
             });
             return data.board;

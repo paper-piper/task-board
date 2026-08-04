@@ -9,7 +9,6 @@ dist/
 *.tsbuildinfo
 
 .prettierrc
-src/assets
 
 .vscode/*
 !.vscode/extensions.json

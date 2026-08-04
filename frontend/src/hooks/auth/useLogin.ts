@@ -1,7 +1,7 @@
-import { API_ROUTES } from "@/shared/routes";
+import { API_ENDPOINTS } from "@/shared/routes";
 import { ErrorStatuses } from "@/shared/types/error";
 import { useAuthMutation } from "./useAuthMutation";
 
 export function useLogin() {
-    return useAuthMutation(API_ROUTES.AUTH.LOGIN, ErrorStatuses.LoginError);
+    return useAuthMutation(API_ENDPOINTS.AUTH.LOGIN, ErrorStatuses.LoginError);
 }
