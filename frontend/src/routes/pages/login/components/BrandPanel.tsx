@@ -1,4 +1,4 @@
-import { useBoardTemplate } from "@/hooks/auth/useBoardTemplates";
+import { useBoardTemplate } from "@/hooks/board/useBoardTemplates";
 
 export function BrandPanel() {
     const { data: boards } = useBoardTemplate();
