@@ -1,0 +1,16 @@
+node_modules
+dist
+npm-debug.log
+
+.env
+.env.*
+
+.git
+.gitignore
+
+.claude
+.vscode
+.DS_Store
+
+.prettierrc
+README.md
