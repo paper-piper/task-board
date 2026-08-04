@@ -17,6 +17,8 @@ export async function loginService(
     if (!(await bcrypt.compare(password, user.hashed_password))) {
         throw new NotFoundError("Incorrect password");
     }
+    console.log(board_template_id);
+    console.log(user.user_id);
     const board = await BoardStateRepository.getLatestBoardState(
         board_template_id,
         user.user_id,

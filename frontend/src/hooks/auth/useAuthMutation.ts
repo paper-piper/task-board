@@ -1,5 +1,5 @@
 import { API_ROUTE } from "@/config";
-import { apiFetch, NetworkError } from "@/shared/api";
+import { apiFetch, HttpError, NetworkError } from "@/shared/api";
 import { ErrorStatus } from "@/shared/types/error";
 import { AuthCredentials } from "@/shared/types/auth";
 import { useBoardStore } from "@/boardStore";
@@ -25,7 +25,9 @@ export function useAuthMutation(route: string, errorStatus: ErrorStatus) {
         },
         onError: (error) => {
             if (error instanceof NetworkError) return;
-            setError(errorStatus);
+            const details =
+                error instanceof HttpError ? error.message : undefined;
+            setError(errorStatus, details);
         },
     });
 }

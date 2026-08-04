@@ -1,7 +1,7 @@
 export class HttpError extends Error {
     status: number;
-    constructor(status: number) {
-        super(`HTTP ${status}`);
+    constructor(status: number, message?: string) {
+        super(message || `HTTP ${status}`);
         this.status = status;
     }
 }
@@ -14,6 +14,16 @@ export class NetworkError extends Error {
     }
 }
 
+async function readErrorMessage(res: Response): Promise<string | undefined> {
+    try {
+        const body = await res.json();
+        const error = body?.error;
+        return typeof error === "string" ? error : undefined;
+    } catch {
+        return undefined;
+    }
+}
+
 export async function apiFetch(input: string, init?: RequestInit) {
     let res: Response;
     try {
@@ -21,6 +31,6 @@ export async function apiFetch(input: string, init?: RequestInit) {
     } catch (err) {
         throw new NetworkError(err);
     }
-    if (!res.ok) throw new HttpError(res.status);
+    if (!res.ok) throw new HttpError(res.status, await readErrorMessage(res));
     return res.json();
 }

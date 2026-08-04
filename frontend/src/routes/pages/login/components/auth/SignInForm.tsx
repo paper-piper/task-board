@@ -16,10 +16,6 @@ export function SignInForm({ onSwitch }: { onSwitch: () => void }) {
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
         if (!selectedBoard) return;
-        if (password.length < 6) {
-            setError(ErrorStatuses.AuthError);
-            return;
-        }
         login({ email, password, board_template_id: selectedBoard });
     }
     return (

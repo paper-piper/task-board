@@ -1,4 +1,4 @@
-import { NetworkError } from "@/shared/api";
+import { HttpError, NetworkError } from "@/shared/api";
 import { ErrorStatus } from "@/shared/types/error";
 import { useBoardStore } from "@/boardStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -17,7 +17,9 @@ export function useTaskMutation<TVariables>(
         },
         onError: (error) => {
             if (error instanceof NetworkError) return;
-            setError(errorStatus);
+            const details =
+                error instanceof HttpError ? error.message : undefined;
+            setError(errorStatus, details);
         },
     });
 }

@@ -5,6 +5,7 @@ import { ERROR_MESSAGES } from "./error_messages";
 export function ErrorModal() {
     const setError = useBoardStore((state) => state.setError);
     const error = useBoardStore((state) => state.error);
+    const errorDetails = useBoardStore((state) => state.errorDetails);
 
     if (error === ErrorStatuses.NoError) return <></>;
 
@@ -19,7 +20,9 @@ export function ErrorModal() {
                 <span className="font-display text-3xl font-semibold">
                     {header}
                 </span>
-                <span className="mb-8 mt-4 text-center">{details}</span>
+                <span className="mb-8 mt-4 text-center">
+                    {errorDetails || details}
+                </span>
                 <button
                     onClick={() => setError(ErrorStatuses.NoError)}
                     className="h-12 w-44 rounded-md bg-[#005857] font-semibold text-white"
