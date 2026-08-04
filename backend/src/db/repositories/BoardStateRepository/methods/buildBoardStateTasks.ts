@@ -2,8 +2,7 @@ import { db } from "@/db/buildDb";
 import { TABLE_NAMES } from "@/db/tableNames";
 import { Board, BoardStateId } from "@/shared/types";
 import { mapTaskRow } from "@/db/repositories/mappers/taskMapper";
-import { Kysely, Transaction } from "kysely";
-import { DB } from "@/db/schema";
+import { Executor } from "@/db/repositories/shared/executor";
 
 export async function buildBoardStateTasks(
     board_details: {
@@ -13,7 +12,7 @@ export async function buildBoardStateTasks(
         value: string | number;
         created_at: Date;
     },
-    executor: Kysely<DB> | Transaction<DB> = db,
+    executor: Executor = db,
 ): Promise<Board> {
     const tasks = await executor
         .selectFrom(TABLE_NAMES.task_states)

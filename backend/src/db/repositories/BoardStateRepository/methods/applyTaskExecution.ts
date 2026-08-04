@@ -1,14 +1,13 @@
 import { db } from "@/db/buildDb";
 import { TABLE_NAMES } from "@/db/tableNames";
-import { Kysely, Transaction } from "kysely";
-import { DB } from "@/db/schema";
 import { BoardStateId } from "@/shared/types";
+import { Executor } from "@/db/repositories/shared/executor";
 
 export async function applyTaskExecution(
     board_state_id: BoardStateId,
     cost: number,
     value: number,
-    executor: Kysely<DB> | Transaction<DB> = db,
+    executor: Executor = db,
 ) {
     await executor
         .updateTable(TABLE_NAMES.board_states)

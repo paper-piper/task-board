@@ -1,15 +1,14 @@
 import { db } from "@/db/buildDb";
 import { TABLE_NAMES } from "@/db/tableNames";
-import { Kysely, Transaction } from "kysely";
-import { DB } from "@/db/schema";
 import { BoardStateId, TaskStateId } from "@/shared/types";
+import { Executor } from "@/db/repositories/shared/executor";
 
 export async function reorderTask(
     board_state_id: BoardStateId,
     task_id: TaskStateId,
     old_pos: number,
     new_pos: number,
-    executor: Kysely<DB> | Transaction<DB> = db,
+    executor: Executor = db,
 ) {
     // bonus: Transaction parameter can be simplified or changed? need to ask eli
     const lo = Math.min(old_pos, new_pos).toString();

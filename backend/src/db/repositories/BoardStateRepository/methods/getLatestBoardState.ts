@@ -1,14 +1,13 @@
 import { db } from "@/db/buildDb";
 import { TABLE_NAMES } from "@/db/tableNames";
-import { Kysely, Transaction } from "kysely";
-import { DB } from "@/db/schema";
 import { BoardStateId, BoardTemplateId, UserId } from "@/shared/types";
+import { Executor } from "@/db/repositories/shared/executor";
 import { buildBoardStateTasks } from "./buildBoardStateTasks";
 
 export async function getLatestBoardState(
     board_template_id: BoardTemplateId,
     user_id: UserId,
-    executor: Kysely<DB> | Transaction<DB> = db,
+    executor: Executor = db,
 ) {
     const board_details = await executor
         .selectFrom(TABLE_NAMES.board_states)

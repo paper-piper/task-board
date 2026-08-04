@@ -1,7 +1,6 @@
 import { db } from "@/db/buildDb";
 import { TABLE_NAMES } from "@/db/tableNames";
-import { Kysely, Transaction } from "kysely";
-import { DB } from "@/db/schema";
+import { Executor } from "@/db/repositories/shared/executor";
 import {
     Board,
     BoardStateId,
@@ -14,7 +13,7 @@ import { getBoardState } from "@/db/repositories/BoardStateRepository/methods/ge
 
 async function getTemplateBoard(
     board_template_id: BoardTemplateId,
-    executor: Kysely<DB> | Transaction<DB>,
+    executor: Executor,
 ) {
     return executor
         .selectFrom(TABLE_NAMES.board_templates)
@@ -27,7 +26,7 @@ async function insertBoardState(
     template_board: Awaited<ReturnType<typeof getTemplateBoard>>,
     board_state_id: BoardStateId,
     user_id: UserId,
-    executor: Kysely<DB> | Transaction<DB>,
+    executor: Executor,
 ) {
     await executor
         .insertInto(TABLE_NAMES.board_states)
@@ -44,7 +43,7 @@ async function insertBoardState(
 
 async function getTemplateTasks(
     board_template_id: BoardTemplateId,
-    executor: Kysely<DB> | Transaction<DB>,
+    executor: Executor,
 ) {
     return executor
         .selectFrom(TABLE_NAMES.task_templates)
@@ -66,7 +65,7 @@ async function getTemplateTasks(
 async function insertTaskStates(
     template_tasks: Awaited<ReturnType<typeof getTemplateTasks>>,
     board_state_id: BoardStateId,
-    executor: Kysely<DB> | Transaction<DB>,
+    executor: Executor,
 ) {
     const new_tasks = await executor
         .insertInto(TABLE_NAMES.task_states)
@@ -91,7 +90,7 @@ async function insertTaskStates(
 async function linkTaskPredecessors(
     template_tasks: Awaited<ReturnType<typeof getTemplateTasks>>,
     templateIdToNewTaskId: Map<TaskTemplateId, TaskStateId>,
-    executor: Kysely<DB> | Transaction<DB>,
+    executor: Executor,
 ) {
     for (const task of template_tasks) {
         if (!task.predecessors_ids || task.predecessors_ids.length === 0) {
@@ -121,7 +120,7 @@ async function linkTaskPredecessors(
 export async function createBoardFromTemplate(
     board_template_id: BoardTemplateId,
     user_id: UserId,
-    executor: Kysely<DB> | Transaction<DB> = db,
+    executor: Executor = db,
 ): Promise<Board> {
     const template_board = await getTemplateBoard(board_template_id, executor);
 

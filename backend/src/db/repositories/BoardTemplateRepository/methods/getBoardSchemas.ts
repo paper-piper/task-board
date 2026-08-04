@@ -1,11 +1,10 @@
 import { db } from "@/db/buildDb";
 import { TABLE_NAMES } from "@/db/tableNames";
-import { Kysely, Transaction } from "kysely";
-import { DB } from "@/db/schema";
 import { BoardMetadata, BoardTemplateId } from "@/shared/types";
+import { Executor } from "@/db/repositories/shared/executor";
 
 export async function getBoardSchemas(
-    executor: Kysely<DB> | Transaction<DB> = db,
+    executor: Executor = db,
 ): Promise<BoardMetadata[]> {
     const boards = await executor
         .selectFrom(TABLE_NAMES.board_templates)

@@ -1,13 +1,12 @@
 import { db } from "@/db/buildDb";
 import { TABLE_NAMES } from "@/db/tableNames";
 import { Board, BoardStateId } from "@/shared/types";
-import { Kysely, Transaction } from "kysely";
-import { DB } from "@/db/schema";
+import { Executor } from "@/db/repositories/shared/executor";
 import { buildBoardStateTasks } from "./buildBoardStateTasks";
 
 export async function getBoardState(
     board_state_id: BoardStateId,
-    executor: Kysely<DB> | Transaction<DB> = db,
+    executor: Executor = db,
     forUpdate = false,
 ): Promise<Board> {
     let board_query = executor

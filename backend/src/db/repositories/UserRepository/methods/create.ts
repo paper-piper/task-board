@@ -1,13 +1,12 @@
 import { db } from "@/db/buildDb";
 import { TABLE_NAMES } from "@/db/tableNames";
-import { Kysely, Transaction } from "kysely";
-import { DB } from "@/db/schema";
 import { UserId } from "@/shared/types";
+import { Executor } from "@/db/repositories/shared/executor";
 
 export async function create(
     email: string,
     hashedPassword: string,
-    executor: Kysely<DB> | Transaction<DB> = db,
+    executor: Executor = db,
 ) {
     const existing = await executor
         .selectFrom(TABLE_NAMES.users)

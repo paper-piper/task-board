@@ -1,12 +1,11 @@
 import { db } from "@/db/buildDb";
 import { TABLE_NAMES } from "@/db/tableNames";
-import { Kysely, Transaction } from "kysely";
-import { DB } from "@/db/schema";
 import { BoardStateId, TaskStateId, TaskTemplateId } from "@/shared/types";
+import { Executor } from "@/db/repositories/shared/executor";
 
 export async function duplicateBoardState(
     board_state_id: BoardStateId,
-    executor: Kysely<DB> | Transaction<DB> = db,
+    executor: Executor = db,
 ): Promise<BoardStateId> {
     const board = await executor
         .selectFrom(TABLE_NAMES.board_states)

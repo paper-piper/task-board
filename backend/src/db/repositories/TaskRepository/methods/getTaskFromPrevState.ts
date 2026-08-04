@@ -2,13 +2,12 @@ import { db } from "@/db/buildDb";
 import { TABLE_NAMES } from "@/db/tableNames";
 import { mapTaskRow } from "@/db/repositories/mappers/taskMapper";
 import { Task, BoardStateId, TaskStateId } from "@/shared/types";
-import { Kysely, Transaction } from "kysely";
-import { DB } from "@/db/schema";
+import { Executor } from "@/db/repositories/shared/executor";
 
 export async function getTaskFromPrevState(
     board_state_id: BoardStateId,
     task_state_id: TaskStateId,
-    executor: Kysely<DB> | Transaction<DB> = db,
+    executor: Executor = db,
     forUpdate = false,
 ): Promise<Task | null> {
     const task_template = await executor
