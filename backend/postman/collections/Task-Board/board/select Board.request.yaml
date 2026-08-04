@@ -1,4 +1,0 @@
-$kind: http-request
-url: http://localhost:3000/board/select
-method: POST
-order: 855700819442284

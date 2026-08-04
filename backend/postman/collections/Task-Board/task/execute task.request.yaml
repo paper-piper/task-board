@@ -1,5 +1,0 @@
-$kind: http-request
-name: execute task
-url: http://localhost:3000/task/execute/93900a5e-1c2b-4517-97ac-fbd9a23d1eb4
-method: POST
-order: 1785332507791
