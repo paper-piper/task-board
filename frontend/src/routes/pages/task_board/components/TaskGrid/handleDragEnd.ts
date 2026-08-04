@@ -15,7 +15,7 @@ export function handleDragEnd(
     const taskId = active.id as string;
     const newPos = over.id as number;
 
-    const currentPos = 1 + tasks.findIndex((t) => t.id === taskId);
+    const currentPos = tasks.findIndex((t) => t.id === taskId);
     if (currentPos === newPos) return;
 
     if (!ValidateOrder(taskId, newPos, tasks)) {

@@ -7,7 +7,7 @@ import { useReorderTask } from "@/hooks/task/useReorderTask";
 
 export function TaskGrid() {
     const { data: board } = useBoard();
-    const { mutate: reorderTask } = useReorderTask(); // TODO: Reorder works weird
+    const { mutate: reorderTask } = useReorderTask();
     if (!board) return <></>;
     return (
         <DndContext
@@ -18,7 +18,7 @@ export function TaskGrid() {
                     <CardCell
                         key={task.id}
                         task={task}
-                        index={index + 1}
+                        index={index}
                         predecessorsLabel={
                             getPredecessorsLabel(
                                 task.predecessors_ids,

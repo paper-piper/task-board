@@ -13,6 +13,5 @@ export type TaskId = z.infer<typeof task_id>;
 export const board_id = z.object({ board_id: z.uuid() });
 export type BoardId = z.infer<typeof board_id>;
 
-// Positions are 1-based, matching how they are stored in the DB.
-export const position = z.object({ position: z.number().int().positive() });
+export const position = z.object({ position: z.number().int().nonnegative() });
 export type Position = z.infer<typeof position>;

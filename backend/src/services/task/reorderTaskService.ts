@@ -13,8 +13,6 @@ export async function reorderTaskService(
     task_id: string,
     new_pos: number,
 ): Promise<Board> {
-    // The duplicate is created inside the transaction so a failed validation
-    // rolls it back instead of leaving an orphaned board state behind.
     const newBoard = await db.transaction().execute(async (trx) => {
         const new_board_state_id =
             await BoardStateRepository.duplicateBoardState(board_state_id, trx);
@@ -36,9 +34,8 @@ export async function reorderTaskService(
         if (old_index === -1) {
             throw new NotFoundError("task not found on board");
         }
-        // Positions are 1-based, both in the DB and in what the client sends,
-        // so a target position maps to `board.tasks[new_pos - 1]`.
-        const new_index = new_pos - 1;
+
+        const new_index = new_pos;
 
         validateReorder(board, task, old_index, new_index);
 
@@ -58,8 +55,6 @@ export async function reorderTaskService(
     return newBoard;
 }
 
-// `old_index` and `new_index` are 0-based indices into `board.tasks`,
-// which is ordered by position.
 function validateReorder(
     board: Board,
     task: Task,
@@ -75,9 +70,7 @@ function validateReorder(
         );
     }
 
-    // Moving earlier can only jump over predecessors of the task itself;
-    // moving later can only jump over tasks that depend on it.
-    const moving_earlier = old_index > new_index;
+    const going_backwards = new_index < old_index;
 
     for (
         let i = Math.min(old_index, new_index);
@@ -89,7 +82,7 @@ function validateReorder(
             continue;
         }
 
-        const overrides_predecessor = moving_earlier
+        const overrides_predecessor = going_backwards
             ? task.predecessors_ids.includes(other.id)
             : other.predecessors_ids.includes(task.id);
 
