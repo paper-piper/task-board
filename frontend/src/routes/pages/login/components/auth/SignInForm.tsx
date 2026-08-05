@@ -11,7 +11,6 @@ export function SignInForm({ onSwitch }: { onSwitch: () => void }) {
     const [password, setPassword] = useState("");
     const [selectedBoard, setSelectedBoard] = useState<string | null>(null);
     const { mutate: login, isPending } = useLogin();
-    const setError = useBoardStore((state) => state.setError);
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
