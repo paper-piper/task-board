@@ -5,6 +5,7 @@ import { AuthCredentials } from "@/shared/types/auth";
 import { useBoardStore } from "@/boardStore";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import { boardKeys } from "@/hooks/board/queryKeys";
 
 export function useAuthMutation(route: string, errorStatus: ErrorStatus) {
     const queryClient = useQueryClient();
@@ -20,7 +21,7 @@ export function useAuthMutation(route: string, errorStatus: ErrorStatus) {
                 body: JSON.stringify(credentials),
             }),
         onSuccess: (data) => {
-            queryClient.setQueryData(["board"], data.board);
+            queryClient.setQueryData(boardKeys.all, data.board);
             navigate("/TasksBoard");
         },
         onError: (error) => {
