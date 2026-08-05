@@ -1,6 +1,6 @@
 import { DragEndEvent } from "@dnd-kit/core";
 import { useBoardStore } from "@/board_store/boardStore";
-import { ErrorStatuses } from "@/shared/types/error";
+import { ErrorStatuses } from "@/shared/error/types";
 import { Task } from "@/shared/types/Task";
 
 export function handleDragEnd(

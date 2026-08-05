@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { ErrorStatus, ErrorStatuses } from "@/shared/types/error";
+import { ErrorStatus, ErrorStatuses } from "@/shared/error/types";
 
 type Board = {
     selectedTaskId: string;

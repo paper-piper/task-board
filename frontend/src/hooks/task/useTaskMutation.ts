@@ -1,5 +1,5 @@
-import { HttpError, NetworkError } from "@/shared/http/api";
-import { ErrorStatus } from "@/shared/types/error";
+import { createMutationErrorHandler } from "@/shared/error/resolveStatus";
+import { ErrorStatus } from "@/shared/error/types";
 import { useBoardStore } from "@/board_store/boardStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "@/shared/http/queryKeys";
@@ -17,11 +17,6 @@ export function useTaskMutation<TVariables>(
         onSuccess: (data) => {
             queryClient.setQueryData(QUERY_KEYS.BOARD.all, data.board);
         },
-        onError: (error) => {
-            if (error instanceof NetworkError) return;
-            const details =
-                error instanceof HttpError ? error.message : undefined;
-            setError(errorStatus, details);
-        },
+        onError: createMutationErrorHandler(setError, errorStatus),
     });
 }

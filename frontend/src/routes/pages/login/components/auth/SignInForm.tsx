@@ -4,7 +4,7 @@ import { PasswordInput } from "../shared/PasswordInput";
 import { BoardField } from "./BoardField";
 import { useLogin } from "@/hooks/auth/useLogin";
 import { useBoardStore } from "@/board_store/boardStore";
-import { ErrorStatuses } from "@/shared/types/error";
+import { ErrorStatuses } from "@/shared/error/types";
 
 export function SignInForm({ onSwitch }: { onSwitch: () => void }) {
     const [email, setEmail] = useState("");

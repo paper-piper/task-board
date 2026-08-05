@@ -4,7 +4,7 @@ import { PasswordInput } from "../shared/PasswordInput";
 import { BoardField } from "./BoardField";
 import { useRegister } from "@/hooks/auth/useRegister";
 import { useBoardStore } from "@/board_store/boardStore";
-import { ErrorStatuses } from "@/shared/types/error";
+import { ErrorStatuses } from "@/shared/error/types";
 
 export function RegisterForm({ onSwitch }: { onSwitch: () => void }) {
     const [email, setEmail] = useState("");

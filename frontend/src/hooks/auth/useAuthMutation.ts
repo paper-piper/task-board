@@ -1,5 +1,10 @@
-import { apiFetch, HttpError, NetworkError } from "@/shared/http/api";
-import { ErrorStatus } from "@/shared/types/error";
+import { apiFetch } from "@/shared/http/api";
+import { HTTP_STATUS } from "@/shared/http/httpStatus";
+import {
+    createMutationErrorHandler,
+    resolveErrorStatus,
+} from "@/shared/error/resolveStatus";
+import { ErrorStatus } from "@/shared/error/types";
 import { AuthCredentials } from "@/shared/types/auth";
 import { useBoardStore } from "@/board_store/boardStore";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
@@ -23,11 +28,13 @@ export function useAuthMutation(route: string, errorStatus: ErrorStatus) {
             queryClient.setQueryData(QUERY_KEYS.BOARD.all, data.board);
             navigate("/TasksBoard");
         },
-        onError: (error) => {
-            if (error instanceof NetworkError) return;
-            const details =
-                error instanceof HttpError ? error.message : undefined;
-            setError(errorStatus, details);
-        },
+        onError: createMutationErrorHandler(
+            setError,
+            errorStatus,
+            (fallback, status) =>
+                resolveErrorStatus(fallback, status, {
+                    [HTTP_STATUS.UNAUTHORIZED]: errorStatus,
+                }),
+        ),
     });
 }

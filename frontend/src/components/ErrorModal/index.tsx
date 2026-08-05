@@ -1,6 +1,6 @@
 import { useBoardStore } from "@/board_store/boardStore";
-import { ErrorStatuses } from "@/shared/types/error";
-import { ERROR_MESSAGES } from "./error_messages";
+import { ErrorStatuses } from "@/shared/error/types";
+import { ERROR_MESSAGES } from "@/shared/error/messages";
 
 export function ErrorModal() {
     const setError = useBoardStore((state) => state.setError);

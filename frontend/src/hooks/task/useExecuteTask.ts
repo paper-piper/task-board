@@ -1,6 +1,6 @@
 import { apiFetch } from "@/shared/http/api";
 import { API_ENDPOINTS } from "@/shared/http/routes";
-import { ErrorStatuses } from "@/shared/types/error";
+import { ErrorStatuses } from "@/shared/error/types";
 import { useTaskMutation } from "./useTaskMutation";
 
 export function useExecuteTask() {

@@ -1,4 +1,4 @@
-import { ErrorStatuses } from "@/shared/types/error";
+import { ErrorStatuses } from "@/shared/error/types";
 
 const errorMessage = (header: string, details: string) => ({ header, details });
 
@@ -26,5 +26,13 @@ export const ERROR_MESSAGES = {
     [ErrorStatuses.ServerError]: errorMessage(
         "Can't reach the server",
         "We couldn't connect to PMZone. Check your connection and try again shortly.",
+    ),
+    [ErrorStatuses.UnauthorizedError]: errorMessage(
+        "Sign in required",
+        "Your session has expired or you're not signed in. Please sign in and try again.",
+    ),
+    [ErrorStatuses.NotFoundError]: errorMessage(
+        "Not found",
+        "We couldn't find what you were looking for. It may have been moved or deleted.",
     ),
 };
