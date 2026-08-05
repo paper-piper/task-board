@@ -1,4 +1,4 @@
-import { createMutationErrorHandler } from "@/shared/error/resolveStatus";
+import { createMutationErrorHandler } from "@/shared/error/mutationErrorHandler";
 import { ErrorStatus } from "@/shared/error/types";
 import { useBoardStore } from "@/board_store/boardStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";

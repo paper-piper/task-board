@@ -1,5 +1,5 @@
 import { HttpError, NetworkError } from "@/shared/http/api";
-import { resolveErrorStatus } from "@/shared/error/resolveStatus";
+import { resolveErrorStatus } from "@/shared/error/resolveErrorStatus";
 import { useBoardStore } from "@/board_store/boardStore";
 import { ErrorStatuses } from "@/shared/error/types";
 

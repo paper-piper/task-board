@@ -1,9 +1,6 @@
 import { apiFetch } from "@/shared/http/api";
 import { HTTP_STATUS } from "@/shared/http/httpStatus";
-import {
-    createMutationErrorHandler,
-    resolveErrorStatus,
-} from "@/shared/error/resolveStatus";
+import { createMutationErrorHandler } from "@/shared/error/mutationErrorHandler";
 import { ErrorStatus } from "@/shared/error/types";
 import { AuthCredentials } from "@/shared/types/auth";
 import { useBoardStore } from "@/board_store/boardStore";
@@ -28,13 +25,8 @@ export function useAuthMutation(route: string, errorStatus: ErrorStatus) {
             queryClient.setQueryData(QUERY_KEYS.BOARD.all, data.board);
             navigate("/TasksBoard");
         },
-        onError: createMutationErrorHandler(
-            setError,
-            errorStatus,
-            (fallback, status) =>
-                resolveErrorStatus(fallback, status, {
-                    [HTTP_STATUS.UNAUTHORIZED]: errorStatus,
-                }),
-        ),
+        onError: createMutationErrorHandler(setError, errorStatus, {
+            [HTTP_STATUS.UNAUTHORIZED]: errorStatus,
+        }),
     });
 }
