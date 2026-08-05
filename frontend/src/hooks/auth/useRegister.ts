@@ -1,4 +1,4 @@
-import { API_ENDPOINTS } from "@/shared/routes";
+import { API_ENDPOINTS } from "@/shared/http/routes";
 import { ErrorStatuses } from "@/shared/types/error";
 import { useAuthMutation } from "./useAuthMutation";
 

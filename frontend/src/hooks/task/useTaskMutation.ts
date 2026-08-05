@@ -1,8 +1,8 @@
-import { HttpError, NetworkError } from "@/shared/api";
+import { HttpError, NetworkError } from "@/shared/http/api";
 import { ErrorStatus } from "@/shared/types/error";
 import { useBoardStore } from "@/boardStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { boardKeys } from "@/hooks/board/queryKeys";
+import { QUERY_KEYS } from "@/shared/http/queryKeys";
 import { Board } from "@/shared/types/Board";
 
 export function useTaskMutation<TVariables>(
@@ -15,7 +15,7 @@ export function useTaskMutation<TVariables>(
     return useMutation({
         mutationFn,
         onSuccess: (data) => {
-            queryClient.setQueryData(boardKeys.all, data.board);
+            queryClient.setQueryData(QUERY_KEYS.BOARD.all, data.board);
         },
         onError: (error) => {
             if (error instanceof NetworkError) return;

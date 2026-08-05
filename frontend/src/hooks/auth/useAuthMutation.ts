@@ -1,10 +1,10 @@
-import { apiFetch, HttpError, NetworkError } from "@/shared/api";
+import { apiFetch, HttpError, NetworkError } from "@/shared/http/api";
 import { ErrorStatus } from "@/shared/types/error";
 import { AuthCredentials } from "@/shared/types/auth";
 import { useBoardStore } from "@/boardStore";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { boardKeys } from "@/hooks/board/queryKeys";
+import { QUERY_KEYS } from "@/shared/http/queryKeys";
 
 export function useAuthMutation(route: string, errorStatus: ErrorStatus) {
     const queryClient = useQueryClient();
@@ -20,7 +20,7 @@ export function useAuthMutation(route: string, errorStatus: ErrorStatus) {
                 body: JSON.stringify(credentials),
             }),
         onSuccess: (data) => {
-            queryClient.setQueryData(boardKeys.all, data.board);
+            queryClient.setQueryData(QUERY_KEYS.BOARD.all, data.board);
             navigate("/TasksBoard");
         },
         onError: (error) => {

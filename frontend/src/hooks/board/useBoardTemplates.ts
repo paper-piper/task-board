@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { apiFetch } from "@/shared/api";
-import { API_ENDPOINTS } from "@/shared/routes";
-import { BoardMetadata } from "@shared/types/Board";
+import { apiFetch } from "@/shared/http/api";
+import { API_ENDPOINTS } from "@/shared/http/routes";
+import { BoardMetadata } from "@/shared/types/Board";
 
 export function useBoardTemplate() {
     return useQuery({

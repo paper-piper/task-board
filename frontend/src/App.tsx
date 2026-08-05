@@ -7,7 +7,7 @@ import {
 } from "@tanstack/react-query";
 import { router } from "./routes/router";
 import { ErrorModal } from "@/components/ErrorModal";
-import { NetworkError } from "@/shared/api";
+import { NetworkError } from "@/shared/http/api";
 import { useBoardStore } from "@/boardStore";
 import { ErrorStatuses } from "@/shared/types/error";
 
