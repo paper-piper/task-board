@@ -3,9 +3,10 @@ import { ErrorStatus } from "@/shared/types/error";
 import { useBoardStore } from "@/boardStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { boardKeys } from "@/hooks/board/queryKeys";
+import { Board } from "@/shared/types/Board";
 
 export function useTaskMutation<TVariables>(
-    mutationFn: (variables: TVariables) => Promise<unknown>,
+    mutationFn: (variables: TVariables) => Promise<{ board: Board }>,
     errorStatus: ErrorStatus,
 ) {
     const queryClient = useQueryClient();
@@ -13,8 +14,8 @@ export function useTaskMutation<TVariables>(
 
     return useMutation({
         mutationFn,
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: boardKeys.all });
+        onSuccess: (data) => {
+            queryClient.setQueryData(boardKeys.all, data.board);
         },
         onError: (error) => {
             if (error instanceof NetworkError) return;
