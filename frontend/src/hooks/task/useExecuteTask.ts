@@ -10,6 +10,6 @@ export function useExecuteTask() {
                 method: "POST",
                 credentials: "include",
             }),
-        ErrorStatuses.ExecutionError, // or map status codes to specific ones
+        ErrorStatuses.ExecutionError,
     );
 }

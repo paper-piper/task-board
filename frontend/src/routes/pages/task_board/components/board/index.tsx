@@ -1,5 +1,5 @@
 import { TaskGrid } from "@/routes/pages/task_board/components/TaskGrid";
-import { useBoardStore } from "@/boardStore";
+import { useBoardStore } from "@/board_store/boardStore";
 import { ProjectDetails } from "./ProjectDetails";
 import { motion } from "framer-motion";
 import { useExecuteTask } from "@/hooks/task/useExecuteTask";

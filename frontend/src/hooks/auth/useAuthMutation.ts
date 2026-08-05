@@ -1,7 +1,7 @@
 import { apiFetch, HttpError, NetworkError } from "@/shared/http/api";
 import { ErrorStatus } from "@/shared/types/error";
 import { AuthCredentials } from "@/shared/types/auth";
-import { useBoardStore } from "@/boardStore";
+import { useBoardStore } from "@/board_store/boardStore";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { QUERY_KEYS } from "@/shared/http/queryKeys";

@@ -3,7 +3,7 @@ import { Field } from "../shared/Field";
 import { PasswordInput } from "../shared/PasswordInput";
 import { BoardField } from "./BoardField";
 import { useLogin } from "@/hooks/auth/useLogin";
-import { useBoardStore } from "@/boardStore";
+import { useBoardStore } from "@/board_store/boardStore";
 import { ErrorStatuses } from "@/shared/types/error";
 
 export function SignInForm({ onSwitch }: { onSwitch: () => void }) {

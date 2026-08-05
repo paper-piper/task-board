@@ -3,7 +3,7 @@ import { Field } from "../shared/Field";
 import { PasswordInput } from "../shared/PasswordInput";
 import { BoardField } from "./BoardField";
 import { useRegister } from "@/hooks/auth/useRegister";
-import { useBoardStore } from "@/boardStore";
+import { useBoardStore } from "@/board_store/boardStore";
 import { ErrorStatuses } from "@/shared/types/error";
 
 export function RegisterForm({ onSwitch }: { onSwitch: () => void }) {

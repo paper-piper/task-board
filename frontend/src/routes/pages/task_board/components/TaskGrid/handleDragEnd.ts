@@ -1,6 +1,5 @@
 import { DragEndEvent } from "@dnd-kit/core";
-import { useBoardStore } from "@/boardStore";
-import { ValidateOrder } from "@/shared/validation/order";
+import { useBoardStore } from "@/board_store/boardStore";
 import { ErrorStatuses } from "@/shared/types/error";
 import { Task } from "@/shared/types/Task";
 

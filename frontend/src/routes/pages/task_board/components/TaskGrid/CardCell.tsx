@@ -1,6 +1,6 @@
 import { Task } from "@/shared/types/Task";
 import { TaskCard } from "./TaskCard";
-import { useBoardStore } from "@/boardStore";
+import { useBoardStore } from "@/board_store/boardStore";
 import { useDroppable } from "@dnd-kit/core";
 
 export function CardCell({

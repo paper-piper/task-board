@@ -1,6 +1,6 @@
 import { HttpError, NetworkError } from "@/shared/http/api";
 import { ErrorStatus } from "@/shared/types/error";
-import { useBoardStore } from "@/boardStore";
+import { useBoardStore } from "@/board_store/boardStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "@/shared/http/queryKeys";
 import { Board } from "@/shared/types/Board";

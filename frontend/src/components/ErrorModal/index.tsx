@@ -1,4 +1,4 @@
-import { useBoardStore } from "@/boardStore";
+import { useBoardStore } from "@/board_store/boardStore";
 import { ErrorStatuses } from "@/shared/types/error";
 import { ERROR_MESSAGES } from "./error_messages";
 
