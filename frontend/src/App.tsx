@@ -8,7 +8,7 @@ import {
 import { router } from "./routes/router";
 import { ErrorModal } from "@/components/ErrorModal";
 import { NetworkError } from "@/shared/http/api";
-import { useBoardStore } from "@/boardStore";
+import { useBoardStore } from "@/board_store/boardStore";
 import { ErrorStatuses } from "@/shared/types/error";
 
 function showConnectionError(error: unknown) {
