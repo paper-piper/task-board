@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Tab } from "./types";
+import { Tab } from "@/shared/types/tab";
 import { Header } from "@/components/layout/Header";
 import { BrandPanel } from "./components/BrandPanel";
 import { AuthPanel } from "./components/auth/AuthPanel";

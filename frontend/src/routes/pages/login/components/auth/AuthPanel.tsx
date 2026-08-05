@@ -1,4 +1,4 @@
-import { Tab } from "../../types";
+import { Tab } from "@/shared/types/tab";
 import { SignInForm } from "./SignInForm";
 import { RegisterForm } from "./RegisterForm";
 
