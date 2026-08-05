@@ -1,3 +1,5 @@
+import { API_BASE_URL } from "@/config";
+
 export class HttpError extends Error {
     status: number;
     constructor(status: number, message?: string) {
@@ -24,10 +26,10 @@ async function readErrorMessage(res: Response): Promise<string | undefined> {
     }
 }
 
-export async function apiFetch(input: string, init?: RequestInit) {
+export async function apiFetch(path: string, init?: RequestInit) {
     let res: Response;
     try {
-        res = await fetch(input, init);
+        res = await fetch(`${API_BASE_URL}${path}`, init);
     } catch (err) {
         throw new NetworkError(err);
     }
