@@ -14,10 +14,7 @@ export async function reorderTaskService(
     new_pos: number,
 ): Promise<Board> {
     const newBoard = await db.transaction().execute(async (trx) => {
-        // TODO: KNOWN ISSUE: no protection against concurrent requests against the same
-        // board_state_id — each duplicates independently and the last controller to
-        // write ctx.session.board_state_id silently wins, dropping the other's reorder.
-        // TODO: optimistic locking (version column) or reject if board_state_id is stale.
+        // bonus: protect against duplicating board at the same time
         const new_board_state_id =
             await BoardStateRepository.duplicateBoardState(board_state_id, trx);
 

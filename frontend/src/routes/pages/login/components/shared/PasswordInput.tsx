@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { inputFieldStyle } from "@/shared/styles/input";
 
 export function PasswordInput({
     value,
@@ -20,7 +21,7 @@ export function PasswordInput({
                 onChange={(e) => onChange(e.target.value)}
                 placeholder={placeholder}
                 autoComplete={autoComplete}
-                className="input-field pr-14"
+                className={`${inputFieldStyle} pr-14`}
             />
             <button
                 type="button"

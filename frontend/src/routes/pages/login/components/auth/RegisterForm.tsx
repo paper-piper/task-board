@@ -5,6 +5,7 @@ import { BoardField } from "./BoardField";
 import { useRegister } from "@/hooks/auth/useRegister";
 import { useBoardStore } from "@/board_store/boardStore";
 import { ErrorStatuses } from "@/shared/error/types";
+import { inputFieldStyle } from "@/shared/styles/input";
 
 export function RegisterForm({ onSwitch }: { onSwitch: () => void }) {
     const [email, setEmail] = useState("");
@@ -31,7 +32,7 @@ export function RegisterForm({ onSwitch }: { onSwitch: () => void }) {
                     value={email}
                     placeholder="you@company.com"
                     autoComplete="email"
-                    className="input-field"
+                    className={inputFieldStyle}
                     onChange={(e) => setEmail(e.target.value)}
                 />
             </Field>

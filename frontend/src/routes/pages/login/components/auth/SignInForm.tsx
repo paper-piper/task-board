@@ -5,6 +5,7 @@ import { BoardField } from "./BoardField";
 import { useLogin } from "@/hooks/auth/useLogin";
 import { useBoardStore } from "@/board_store/boardStore";
 import { ErrorStatuses } from "@/shared/error/types";
+import { inputFieldStyle } from "@/shared/styles/input";
 
 export function SignInForm({ onSwitch }: { onSwitch: () => void }) {
     const [email, setEmail] = useState("");
@@ -26,7 +27,7 @@ export function SignInForm({ onSwitch }: { onSwitch: () => void }) {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@company.com"
                     autoComplete="email"
-                    className="input-field"
+                    className={inputFieldStyle}
                 />
             </Field>
             <Field label="Password">
