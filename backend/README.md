@@ -19,9 +19,9 @@ Create a `.env` file at the project root:
 ```env
 DB_HOST=localhost
 DB_PORT=5432
-DATABASE=graphify
-DB_USER=postgres
-DB_PASSWORD=yourpassword
+POSTGRES_DB=graphify
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=yourpassword
 SERVER_HOST=localhost
 SERVER_PORT=3000
 ```

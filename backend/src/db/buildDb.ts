@@ -11,9 +11,9 @@ export function buildDb() {
             pool: new Pool({
                 host: env.DB_HOST,
                 port: env.DB_PORT,
-                database: env.DATABASE,
-                user: env.DB_USER,
-                password: env.DB_PASSWORD,
+                database: env.POSTGRES_DB,
+                user: env.POSTGRES_USER,
+                password: env.POSTGRES_PASSWORD,
             }),
         }),
     });
