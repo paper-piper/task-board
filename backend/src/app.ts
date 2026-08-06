@@ -29,7 +29,7 @@ export default function setupApp() {
                 key: "sid",
                 maxAge: 24 * 60 * 60 * 1000, // 24h
                 httpOnly: true,
-                secure: env.NODE_ENV === "production",
+                secure: false,
                 store: new PgSessionStore(),
             },
             app,
